@@ -8,7 +8,9 @@ Welcome to Bet With Friends, a fun and interactive platform where you can predic
 
 🚧 **Currently Under Development** 🚧
 
-## Team: Coding Raccoons
+## Team Coding Raccons
+
+![Coding Raccons Logo](http://130.162.44.103/static/media/footer-logo.6497cca4ebcee039e471.webp)
 
 - Front-End Developer: [Bogusz Borysewicz](https://github.com/KathidB)
 - Back-End Developer: [Michal Motyka](https://github.com/MichalMotyka)
