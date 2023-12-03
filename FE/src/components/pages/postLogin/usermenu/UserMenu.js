@@ -17,10 +17,14 @@ function UserMenu () {
   const handleUserMenu = () => {
     setUserMenu(!showUserMenu)
   }
+  console.log("Here:" ,userProfile);
 
   return (
     <div className='user-menu-box'>
-      <p className='user-menu-name' style={{ padding: '0 10px 0 0', fontWeight: 'bold' }}>
+      <p
+        className='user-menu-name'
+        style={{ padding: '0 10px 0 0', fontWeight: 'bold' }}
+      >
         {userProfile.name}
       </p>
       <img

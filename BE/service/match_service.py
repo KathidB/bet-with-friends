@@ -21,7 +21,6 @@ def insert_competetition():
                 session.add(comp)
                 session.commit()
 
-
 def get_new_matches():
     with session_factory() as session:
        for competetition in session.query(Competition).all():
@@ -31,10 +30,26 @@ def get_new_matches():
                 if not matchdb:
                     home_team = insert_team(match=match['homeTeam'])
                     away_team = insert_team(match=match['awayTeam'])
-                    score_id = inser_score()
-                    new_match = Match(public_id=match['id'],utc_date=match['utcDate'],status=match['status'],stage=match['stage'],group=match['group'].replace('GROUP_',''),last_updated=match['lastUpdated'],score=score_id,competetition=competetition.id,home_team=home_team,away_team=away_team)
+                    score_id = insert_score()
+                    new_match = Match(public_id=match['id'],utc_date=match['utcDate'],status=match['status'],stage=match['stage'],group=match['group'].replace('GROUP_',''),last_updated=match['lastUpdated'],score_id=score_id,competetition_id=competetition.id,home_team_id=home_team,away_team_id=away_team)
                     session.add(new_match)
                     session.commit()
+
+def get_matches_list(competetition,page:int,limit:int):
+    with session_factory() as session:
+       return (session
+               .query(Match)
+               .join(Competition)
+               .filter(Competition.public_id == competetition)
+               .order_by(Match.utc_date)
+               .offset((page-1)*limit)
+               .limit(limit)
+               .all())
+    
+def get_competetition_list():
+    with session_factory() as session:
+        return session.query(Competition).all()
+
 
 def insert_team(match):
     with session_factory() as session:
@@ -47,7 +62,7 @@ def insert_team(match):
             return team.id
         return team.id
 
-def inser_score():
+def insert_score():
     with session_factory() as session:
         score = Score(public_id=uuid.uuid4())
         session.add(score)

@@ -1,4 +1,8 @@
-import { FcComboChart } from 'react-icons/fc'
+import { FcGlobe } from 'react-icons/fc'
+import { FcRating } from 'react-icons/fc'
+import { FcInspection } from 'react-icons/fc'
+import { FcSalesPerformance } from 'react-icons/fc'
+import { FcBullish } from 'react-icons/fc'
 
 import './mystats.css'
 function MyStats (props) {
@@ -8,13 +12,22 @@ function MyStats (props) {
     <>
       <div className='tab-stats'>
         <p className='stats-item'>
-          Statystyki <FcComboChart />
+          <FcGlobe /> Miejsce <br /> <span>{userStats.ranking.place} </span>{' '}
         </p>
-        <p className='stats-item'>Miejsce: {userStats.ranking.place}</p>
-        <p className='stats-item'>Punkty: {userStats.points}</p>
-        <p className='stats-item'>Bety: {userStats.rating.bets}</p>
-        <p className='stats-item'>Trafienia: {userStats.rating.wins}</p>
-        <p className='stats-item'>Rating: {userStats.rating.rating} %</p>
+        <p className='stats-item'>
+          <FcBullish /> Punkty <br /> <span>{userStats.points}</span>
+        </p>
+        <p className='stats-item'>
+          <FcSalesPerformance /> Bety <br />{' '}
+          <span> {userStats.rating.bets}</span>
+        </p>
+        <p className='stats-item'>
+          <FcInspection /> Trafienia <br /> <span>{userStats.rating.wins}</span>
+        </p>
+        <p className='stats-item'>
+          <FcRating /> Rating <br />
+          <span> {userStats.rating.rating}</span> %
+        </p>
       </div>
     </>
   )

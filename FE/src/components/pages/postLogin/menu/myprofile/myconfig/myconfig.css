@@ -1,0 +1,66 @@
+.config-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+}
+
+.config-form-item{
+    padding: 20px 0px ;
+    margin: 10px 0;
+    /* width: 100%; */
+    width: 280px;
+}
+
+
+
+.config-form label {
+    font-size: 1.2rem;
+    padding: 5px 0;   
+  
+}
+
+.config-form input {
+    padding: 12px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s;
+    
+}
+
+.config-btn {
+    align-self: center;
+    margin: 12px 0;
+    padding: 10px 30px;
+    font-size: 18px;   
+    font-weight: bold;
+    color: var(--white-color);
+    border-radius: 6px;
+    border: 1px solid var(--brand-alt-color);
+    background: var(--brand-alt-color);
+    transition: color 0.3s;
+    cursor: pointer;
+    width: 100%;
+}
+
+.config-btn:disabled {
+    color: rgb(128, 127, 127);
+    border: rgb(0, 0, 0);
+    background: silver;
+    transition: color 0.3s;
+    cursor: auto;
+}
+
+.avatar-list{
+    display: flex;
+    /* width: 400px; */
+    max-width: 310px;   
+    overflow-x: scroll;
+}
+
+.avatar-item{
+    cursor: pointer;
+}

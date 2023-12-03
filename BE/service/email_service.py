@@ -10,7 +10,7 @@ configuration = ConfigurationManager.get_instance()
 password = configuration.get_config_by_key('smtp.password')
 email = configuration.get_config_by_key('smtp.email')
 
-async def send_activation_mail(reciver:str):
+def send_activation_mail(reciver:str):
     directory = os.path.dirname(__file__)
     directory = os.path.abspath(os.path.join(directory, os.pardir))
     file_path = os.path.join(directory, 'resources', 'templates', 'activation', 'index.html')

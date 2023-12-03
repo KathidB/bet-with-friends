@@ -38,20 +38,18 @@ function MyProfile () {
     setActiveTab(tab)
   }
 
+  console.log('Tutaj kurła:', userProfile)
+
   return Object.keys(avatar).length && Object.keys(userProfile).length > 0 ? (
     <section style={{ marginBottom: '30px' }} className='app-wrap'>
-      <div className='login'>
+      <div>
         <h2 className='section-title'>
           Mój <span className='span-brand'>profil</span>{' '}
         </h2>
       </div>
       <div className='my-profile'>
         <div className='my-header'>
-          <img
-            src={`http://130.162.44.103:5000/api/v1/avatar/${avatar[1].avatar}`}
-            alt=''
-            className='avatar'
-          />
+          <img src={userProfile.avatar} alt='' className='avatar' />
           <p className='your-name'>Witaj, {userProfile.name}</p>
         </div>
         <div className='tabs'>
@@ -93,7 +91,7 @@ function MyProfile () {
           {activeTab === 'Statystyki' && <MyStats props={userProfile} />}
           {activeTab === 'Osiągnięcia' && <MyAchiv props={userProfile} />}
           {activeTab === 'Aktywność' && <MyHistory props={userProfile} />}
-          {activeTab === 'Ustawienia' && <MyConfig props={userProfile} />}
+          {activeTab === 'Ustawienia' && <MyConfig />}
         </div>
       </div>
     </section>

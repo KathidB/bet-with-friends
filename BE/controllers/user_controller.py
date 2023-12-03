@@ -63,7 +63,7 @@ def login():
 @user_blueprint.route('/logout', methods=['GET'])
 def logout():
     response = make_response(Response(message='The user has been successfully logout.',code='OK').__dict__)
-    response.set_cookie('Authorization','',1,httponly=False)
-    response.set_cookie('Refresh','',expires=1,httponly=False)
+    response.set_cookie('Authorization','',expires=0,httponly=False,path='/')
+    response.set_cookie('Refresh','',expires=0,httponly=False)
     return response
 

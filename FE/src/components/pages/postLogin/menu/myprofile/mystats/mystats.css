@@ -1,12 +1,119 @@
+
 .tab-stats{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    max-width: 567px;
+    min-width: 100%;
     font-weight: bold;
-
 }
-
 .stats-item{
-    margin: 23px 0;
+    text-align: center;
+    /* background-color: rgba(202, 202, 202, 0.445); */
+    border-radius: 12px;
+    margin: 20px 20px;
+    padding: 10px 20px;            
+    width: 25%;    
+    min-width: 120px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 }
+.tab-stats p{
+   line-height: 35px;
+}
+
+
+
+    @media (max-width: 575.98px) {
+        .tab-stats{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+        .stats-item{
+            text-align: center;
+            /* background-color: rgba(202, 202, 202, 0.445); */
+          
+            margin: 25px 15px;
+            padding: 10px 20px;            
+            width: 25%;    
+            font-size: 1.1rem;
+           
+        }
+        .tab-stats p{
+           line-height: 35px;
+        }
+       
+   
+  }
+  
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .tab-stats{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    .stats-item{
+        text-align: center;
+        /* background-color: rgba(202, 202, 202, 0.445); */
+       
+        margin: 25px 20px;
+        padding: 10px 20px;            
+        width: 25%;   
+           font-size: 1.2rem;
+     
+    }
+    .tab-stats p{
+       line-height: 35px;
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .tab-stats{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    .stats-item{
+        text-align: center;
+        /* background-color: rgba(202, 202, 202, 0.445); */
+       
+        margin: 25px 20px;
+        padding: 10px 20px;            
+        width: 25%;    
+        font-size: 1.2rem;
+    }
+    .tab-stats p{
+       line-height: 35px;
+    }
+  }
+  
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    .tab-stats{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    .stats-item{
+        text-align: center;
+        /* background-color: rgba(202, 202, 202, 0.445); */
+     
+        margin: 25px 20px;
+        padding: 10px 20px;            
+        width: 20%;    
+        min-width: 200px;
+        font-size: 1.2rem;
+    }
+    .tab-stats p{
+       line-height: 35px;
+    }
+  }
