@@ -43,8 +43,7 @@
 
 .leader-name {
   max-width: 280px;
-  /* Zwiększ maksymalną szerokość */
-  min-width: 70px;
+    min-width: 70px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -16,5 +16,7 @@ def ranking_list(response:Response):
         page = request.args.get('page')
     if request.args.get('limit'):
         limit = request.args.get('limit')
-    response.set_data(json.dumps([obj.to_json() for obj in get_ranking(page=int(page),limit=int(limit))],indent=4))
+    (ranking,count) = get_ranking(page=int(page),limit=int(limit))
+    response.set_data(json.dumps([obj.to_json() for obj in ranking],indent=4))
+    response.headers['X-Total-Count'] = count
     return response,200

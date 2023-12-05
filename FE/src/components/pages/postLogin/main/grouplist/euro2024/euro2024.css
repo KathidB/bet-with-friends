@@ -1,0 +1,29 @@
+/* grouplist.css */
+
+.group-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .group-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .group-select {
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .group-list {
+    list-style: none;
+    padding: 15px 0;
+    margin: 0;
+    text-align: center;
+  }
+  .group-item {
+    padding: 25px 0;
+    font-weight: bold;
+  }
+  

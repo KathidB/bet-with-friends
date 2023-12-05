@@ -4,22 +4,17 @@ from entity.competition import Competition
 from entity.match import Match
 from entity.team import Team
 from entity.score import Score
+from entity.bets import Bets
+from entity.profile import Profile
+from exceptions.already_bet_exception import AlreadyBetException
+from exceptions.match_dont_exist_exception import MatchDontExistException
 from shared.base import session_factory
 from apscheduler.schedulers.background import BackgroundScheduler
+from datetime import datetime
 import atexit
 import uuid
 
 config  = ConfigurationManager.get_instance()
-
-def insert_competetition():
-    for competetition in config.get_config_by_key('football_data.competitions'):
-        comp = get_competetition(competetition)
-        comp = Competition(public_id=comp['id'],name=comp['name'],code=comp['code'],type=comp['type'],emblem=comp['emblem'])
-        with session_factory() as session:
-            existing_competetition = session.query(Competition).filter_by(public_id=comp.public_id).first()
-            if not existing_competetition:
-                session.add(comp)
-                session.commit()
 
 def get_new_matches():
     with session_factory() as session:
@@ -37,7 +32,7 @@ def get_new_matches():
 
 def get_matches_list(competetition,page:int,limit:int):
     with session_factory() as session:
-       return (session
+        matches = (session
                .query(Match)
                .join(Competition)
                .filter(Competition.public_id == competetition)
@@ -45,11 +40,43 @@ def get_matches_list(competetition,page:int,limit:int):
                .offset((page-1)*limit)
                .limit(limit)
                .all())
+        count = (session
+               .query(Match)
+               .join(Competition)
+               .filter(Competition.public_id == competetition)
+               .count())
+        return (matches, count)
     
 def get_competetition_list():
     with session_factory() as session:
         return session.query(Competition).all()
 
+def get_posible_bets(competetition,page:int,limit:int) -> [Match]:
+    with session_factory() as session:
+       posible_best =  (session
+               .query(Match)
+               .join(Competition)
+               .filter(Competition.public_id == competetition, Match.utc_date > datetime.utcnow())
+               .order_by(Match.utc_date)
+               .offset((page-1)*limit)
+               .limit(limit)
+               .all())
+       count = (session
+               .query(Match)
+               .join(Competition)
+               .filter(Competition.public_id == competetition, Match.utc_date > datetime.utcnow())
+               .count())
+    return (posible_best, count)
+
+def insert_competetition():
+    for competetition in config.get_config_by_key('football_data.competitions'):
+        comp = get_competetition(competetition)
+        comp = Competition(public_id=comp['id'],name=comp['name'],code=comp['code'],type=comp['type'],emblem=comp['emblem'])
+        with session_factory() as session:
+            existing_competetition = session.query(Competition).filter_by(public_id=comp.public_id).first()
+            if not existing_competetition:
+                session.add(comp)
+                session.commit()
 
 def insert_team(match):
     with session_factory() as session:
@@ -70,6 +97,19 @@ def insert_score():
         session.refresh(score)
         return score.id
 
+def create_bet(match:int,user_id:int,bets:Bets):
+    with session_factory() as session:
+        existing_bet = session.query(Bets).join(Match).join(Profile).filter(Match.public_id == match, Profile.user_id == user_id).first()
+        if not existing_bet:
+            match_db = session.query(Match).filter_by(public_id=match).first()
+            profile =  session.query(Profile).filter_by(user_id=user_id).first()
+            if not match_db:
+                raise MatchDontExistException()
+            bet = Bets(public_id=uuid.uuid4(),match_id=match_db.id,profile_id = profile.id, away_team=bets.away_team,home_team=bets.home_team,who_win=bets.who_win)
+            session.add(bet)
+            session.commit()
+            return
+        raise AlreadyBetException()
 
 def create_jobs():
     sheduler = BackgroundScheduler()

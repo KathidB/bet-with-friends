@@ -1,5 +1,11 @@
 function Prediction () {
-  return <h2>Typowanie wyników meczów</h2>
+  return (
+    <section className='app-wrap'>
+      <h2 className='section-title panel-header'>
+        Typowanie wyników <span className='span-brand'> meczów</span>
+      </h2>
+    </section>
+  )
 }
 
 export default Prediction

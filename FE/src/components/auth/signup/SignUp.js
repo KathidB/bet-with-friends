@@ -28,6 +28,7 @@ function SignUp () {
         'http://130.162.44.103:5000/api/v1/register',
         {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json'
           },

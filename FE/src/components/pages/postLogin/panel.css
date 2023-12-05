@@ -4,7 +4,7 @@
   flex-direction: column;
   height: 100vh;
   background-color: var(--panel-comp-bg);
-
+  font-size: 0.9rem;
 }
 
 .panel-box {
@@ -117,7 +117,6 @@
   .center-panel {
     order: -1;
     /* Ustaw centralny panel na samej górze */
-
   }
 
   .panel-side-box {

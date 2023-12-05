@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useUser } from '../../context/UserContext'
 import MyStats from './mystats/MyStats'
 import MyAchiv from './myachiv/MyAchiv'
@@ -7,49 +7,23 @@ import MyConfig from './myconfig/MyConfig'
 import './myprofile.css'
 
 function MyProfile () {
-  const [avatar, setAvatar] = useState([])
-  const [activeTab, setActiveTab] = useState('Statystyki')
   const { userProfile } = useUser()
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          'http://130.162.44.103:5000/api/v1/avatar',
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-
-        const jsonData = await response.json()
-        setAvatar(jsonData)
-      } catch (error) {
-        console.error('Błąd pobierania danych:', error)
-      }
-    }
-
-    fetchData()
-  }, [])
+  const [activeTab, setActiveTab] = useState('Statystyki')
 
   const handleTabClick = tab => {
     setActiveTab(tab)
   }
 
-  console.log('Tutaj kurła:', userProfile)
-
-  return Object.keys(avatar).length && Object.keys(userProfile).length > 0 ? (
+  return Object.keys(userProfile).length > 0 ? (
     <section style={{ marginBottom: '30px' }} className='app-wrap'>
       <div>
-        <h2 className='section-title'>
+        <h2 className='section-title panel-header'>
           Mój <span className='span-brand'>profil</span>{' '}
         </h2>
       </div>
       <div className='my-profile'>
         <div className='my-header'>
-          <img src={userProfile.avatar} alt='' className='avatar' />
+          <img src={userProfile.avatar} alt='' className='avatar' width={130} />
           <p className='your-name'>Witaj, {userProfile.name}</p>
         </div>
         <div className='tabs'>
@@ -88,6 +62,7 @@ function MyProfile () {
         </div>
 
         <div className='tab-content'>
+          <hr className='hr-panel' />
           {activeTab === 'Statystyki' && <MyStats props={userProfile} />}
           {activeTab === 'Osiągnięcia' && <MyAchiv props={userProfile} />}
           {activeTab === 'Aktywność' && <MyHistory props={userProfile} />}

@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
+import { BsArrowRight } from 'react-icons/bs'
+import { BsArrowLeft } from 'react-icons/bs'
+import './panelleaderboard.css'
 
 function PanelLeaderboard () {
   const [leadersData, setLeadersData] = useState([])
   const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(10)
+  const [totalLeaders, setTotalLeaders] = useState(null)
+  const [limit] = useState(10)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,7 +19,8 @@ function PanelLeaderboard () {
           credentials: 'include',
           headers: {
             Accept: 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'X-Total-Count': 'true'
           }
         })
 
@@ -23,6 +28,7 @@ function PanelLeaderboard () {
         if (response.ok) {
           const jsonData = await response.json()
           setLeadersData(jsonData)
+          setTotalLeaders(response.headers.get('X-Total-Count'))
         } else {
           // Odczytaj treść odpowiedzi jako tekst, jeśli nie jest to JSON
           const errorText = await response.text()
@@ -40,49 +46,61 @@ function PanelLeaderboard () {
     leadersData &&
     leadersData.length > 0 && (
       <section className='app-wrap'>
-        <h2 className='section-title'>
+        <h2 className='section-title panel-header'>
           <span className='span-brand'> Leader</span>board
         </h2>
-        <p className='table-caption'>
-          W sekcji Top Typerów prezentujemy najskuteczniejszych graczy w naszej
-          społeczności.
+
+        <p className='schedule-btns'>
+          <button
+            className='schedule-list-btn span-brand'
+            disabled={page === 1 ? true : false}
+            onClick={() => setPage(prevValue => prevValue - 1)}
+          >
+            <BsArrowLeft />
+          </button>
+          <span className='schedule-btn-span'>
+            Przeglądaj listę {page} / {Math.ceil(totalLeaders / limit)}
+          </span>
+          <button
+            className='schedule-list-btn span-brand'
+            onClick={() => setPage(prevValue => prevValue + 1)}
+            // total matches np. 16 przez 10 daje 1.6 i Ceil robi 2.
+            disabled={page === Math.ceil(totalLeaders / limit)}
+          >
+            <BsArrowRight />
+          </button>
         </p>
-        <table>
+        <table className='panel-leader-table'>
           <thead>
             <tr>
-              <th>Miejsce</th>
+              <th className='th-place'>Miejsce</th>
               <th>Nick</th>
-              <th>Avatar</th>
+              <th className='th-hide'>Avatar</th>
               <th>Punkty</th>
               <th>Bety</th>
               <th>Winy</th>
-              <th>Rating</th>
+              <th className='th-hide'>Rating</th>
             </tr>
           </thead>
           <tbody>
             {leadersData.map(leader => (
               <tr key={leader.public_id}>
-                <td>{leader.ranking.place}</td>
-                <td>{leader.name}</td>
-                <td>
+                <td className='th-place'>{leader.ranking.place}</td>
+                <td className='leader-name'>{leader.name}</td>
+                <td className='th-hide'>
                   <img
                     src={`http://130.162.44.103:5000/api/v1/avatar/${leader.avatar}`}
                     alt=''
-                    width={40}
                   />
                 </td>
                 <td>{leader.points}</td>
                 <td>{leader.rating.bets}</td>
                 <td>{leader.rating.wins}</td>
-                <td>{leader.rating.rating}</td>
+                <td className='th-hide'>{leader.rating.rating} %</td>
               </tr>
             ))}
           </tbody>
         </table>
-        <select value={page} onChange={e => setPage(e.target.value)}>
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-        </select>
       </section>
     )
   )

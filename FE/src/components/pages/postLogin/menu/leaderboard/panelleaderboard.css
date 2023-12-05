@@ -1,13 +1,5 @@
 
-
-/* 
-.table-caption {
-  text-align: center;
-  padding: 20px 0;
-}
-
-.leaderboard-table {
-
+.panel-leader-table{
   width: 100%;
   text-align: center;
   border-collapse: collapse;
@@ -15,30 +7,32 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.473);
-  margin-bottom: 40px;
+ 
+  font-size: 0.8rem;
+ 
 }
 
-.leaderboard-table th,
-.leaderboard-table td {
+.panel-leader-table th,
+.panel-leader-table td {
   padding: 8px;
   width: 100px;
   font-weight: bold;
 }
 
-.leaderboard-table td {
+.panel-leader-table td {
   margin: 10px 5px;
   border: 1px solid rgba(192, 192, 192, 0.452);
+  padding: 2px;
 }
 
-.leaderboard-table th {
+.panel-leader-table th {
   border: 1px solid rgba(192, 192, 192, 0.452);
-  background-color: rgba(192, 192, 192, 0.37);
-
+  padding: 8px;
 }
 
-.leaderboard-table img {
-  max-width: 65px;
-  max-height: 65px;
+.panel-leader-table img {
+  max-width: 48px;
+  max-height: 48px;
 }
 
 
@@ -49,32 +43,29 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
-
-
 }
 
-.leaderboard-table tbody tr:nth-child(-n+3){
+.panel-leader-table tbody tr:nth-child(-n+3){
   font-weight: bold;
   background-color: #2c2d5b13;
 }
 
-
-.leaderboard-table tbody tr:nth-child(1) {
+.panel-leader-table tbody tr:nth-child(1) {
   font-size: 1.2rem;
 }
 
-.leaderboard-table tbody tr:nth-child(2) {
+.panel-leader-table tbody tr:nth-child(2) {
   font-size: 1.15rem;
 }
 
 
-.leaderboard-table tbody tr:nth-child(3) {
+.panel-leader-table tbody tr:nth-child(3) {
   font-size: 1.1rem;
 }
 
 
 
-.leaderboard-table tbody tr:nth-child(-n+3) img {
+.panel-leader-table tbody tr:nth-child(-n+3) img {
   border: 2px solid rgba(205, 127, 50, 0.8);
   border-radius: 50%;
   box-shadow: 0 0 8px rgba(205, 127, 50, 0.8);
@@ -95,4 +86,4 @@
   .th-hide {
     display: none;
   }
-} */
+} 

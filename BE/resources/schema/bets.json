@@ -1,0 +1,26 @@
+{
+    "type": "object",
+    "properties": {
+        "away_team": {
+            "type": "string",
+            "description": "away_team"
+        },
+        "home_team": {
+            "type": "string",
+            "home_team": "home_team"
+        },
+        "who_win": {
+            "type": "string",
+            "home_team": "who_win",
+            "enum": ["draw", "home", "away"]
+        }
+    },
+    "anyOf":[
+        {
+            "required": ["away_team", "home_team"]
+        },
+        {
+            "required":["who_win"]
+        }
+    ]
+}

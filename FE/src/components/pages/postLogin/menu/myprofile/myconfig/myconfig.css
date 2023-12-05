@@ -1,3 +1,7 @@
+.tab-config{
+   width: 100%;
+}
+
 .config-form{
     display: flex;
     flex-direction: column;
@@ -14,12 +18,9 @@
     width: 280px;
 }
 
-
-
 .config-form label {
     font-size: 1.2rem;
-    padding: 5px 0;   
-  
+    padding: 5px 0;     
 }
 
 .config-form input {
@@ -27,8 +28,7 @@
     margin-bottom: 5px;
     border: 1px solid #ddd;
     border-radius: 6px;
-    transition: border-color 0.3s;
-    
+    transition: border-color 0.3s;    
 }
 
 .config-btn {
@@ -42,8 +42,8 @@
     border: 1px solid var(--brand-alt-color);
     background: var(--brand-alt-color);
     transition: color 0.3s;
-    cursor: pointer;
-    width: 100%;
+    width: 306px;
+    cursor: pointer;   
 }
 
 .config-btn:disabled {
@@ -56,11 +56,55 @@
 
 .avatar-list{
     display: flex;
-    /* width: 400px; */
-    max-width: 310px;   
-    overflow-x: scroll;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 550px;
+    max-height: 225px;   
+    overflow-y: scroll;
 }
 
 .avatar-item{
     cursor: pointer;
 }
+
+.config-avatar-box{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+  @media (max-width: 575.98px) {
+    .avatar-list{
+        display: flex;
+        width: 80%;   
+        overflow-x: scroll;
+    }
+  }
+  
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .avatar-list{
+        display: flex;
+        width: 85%;   
+        overflow-x: scroll;
+    }
+  
+  
+  }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+  
+  
+  
+  }
+  
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    
+  }
+  
+  
+  @media (min-width: 1200px) and (max-width: 1399.98px) {
+   
+  }

@@ -10,7 +10,7 @@ from flask_cors import CORS
 from service.match_service import get_new_matches,insert_competetition
 
 app = Flask(__name__)
-cors = CORS(app=app,resources={r'/api/v1/*':{'origins':'*', 'supports_credentials': True}})
+cors = CORS(app=app,resources={r'/api/v1/*':{'origins':'*', 'supports_credentials': True}},expose_headers='X-Total-Count')
 config = ConfigurationManager.get_instance()
 init_db()
 

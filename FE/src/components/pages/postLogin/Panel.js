@@ -5,11 +5,10 @@ import PanelRounting from './common/routing/PanelRouting'
 import Ads from './main/ads/Ads'
 import PanelFooter from './common/footer/PanelFooter'
 import TopParent from './main/topParent/TopParent'
-import './panel.css'
-
 import UserProvider from './context/UserContext'
 import { useAuth } from '../../auth/authcontext/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import './panel.css'
 
 function Panel () {
   const { loggedIn } = useAuth()
