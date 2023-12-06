@@ -32,7 +32,7 @@ function UserMenu () {
         className='user-menu-avatar'
         onClick={handleUserMenu}
       />
-      <ul className={`user-menu ${showUserMenu ? 'open' : 'closed'}`}>
+      <ul className={`user-menu ${showUserMenu ? 'open' : 'closed'}`}    onClick={handleUserMenu}>
         <li className='panel-item'>
           <Link to='/panel/'>Panel</Link>
         </li>

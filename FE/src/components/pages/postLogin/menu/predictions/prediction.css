@@ -1,0 +1,18 @@
+.pred {
+
+width: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 8px;
+}
+
+.pred-box-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.pred-info-text{
+    display: flex;
+    flex-direction: column;
+}

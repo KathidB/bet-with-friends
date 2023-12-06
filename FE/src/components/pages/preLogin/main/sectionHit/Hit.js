@@ -61,6 +61,7 @@ function Hit () {
 
         <div className='hit-item'>
           <img
+            className='hit-image-mid'
             srcSet={`
     ${getPointsSmall} 350w,  
     ${getPoints} 500w
@@ -86,6 +87,22 @@ function Hit () {
               trafności Twoich przewidywań.
             </p>
           </div>
+
+          <img
+            className='hit-image-mid-bot'
+            srcSet={`
+    ${getPointsSmall} 350w,  
+    ${getPoints} 500w
+  `}
+            sizes='
+            (max-width: 576px) 200px,
+    (max-width: 767px) 290px,
+    (min-width: 768px) and (max-width: 991.98px) 290px,
+    500px
+  '
+            src={createAccount}
+            alt='Description'
+          />
         </div>
 
         <img className='arrow-two' src={arrowTwo} alt='' />

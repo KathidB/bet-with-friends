@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import groupsData from '../groupData/groupsData'
-import "./euro2024.css"
+import './euro2024.css'
 
 function Euro2024 () {
-  console.log(groupsData)
   const [selectedGroup, setSelectedGroup] = useState('Grupa A')
 
   const handleChange = e => {

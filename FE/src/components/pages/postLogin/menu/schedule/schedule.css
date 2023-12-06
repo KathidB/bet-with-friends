@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 10px;
+  margin: 0 55px;
 }
 
 .schedule-table {
@@ -25,7 +25,7 @@
 
 .schedule-table td {
   margin: 10px 5px;
-  border: 1px solid rgba(192, 192, 192, 0.452);
+  border: 1px solid       rgba(192, 192, 192, 0.452);
   background-color: rgba(192, 192, 192, 0.103);
   padding: 2px;
 }
@@ -40,27 +40,53 @@
   margin: 0;
 }
 
-.schedule-list-btn{
+.schedule-list-btn {
   background: transparent;
   border: transparent;
   font-size: 2rem;
   padding: 0;
   cursor: pointer;
 }
-.schedule-list-btn:disabled{
+
+.schedule-list-btn:disabled {
   color: silver;
 }
-.schedule-btns{
+
+.schedule-btns {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 0;
 }
-.schedule-btn-span{
+
+.schedule-btn-span {
   padding: 0 15px;
-  padding-bottom: 8px;  
+  padding-bottom: 8px;
 }
 
+/* // ZAWODY */
+.competition-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.competition-btn {
+  color: var(--white-color);
+  border: transparent;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin: 0 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  background-color: var(--brand-alt-color);
+  cursor: pointer;
+}
+
+.active-schedule {
+  color: var(--brand-color);
+}
 
 @media (max-width: 575.98px) {
   .crest {
@@ -71,6 +97,10 @@
     margin: 10px 5px;
     padding: 8px;
   }
+
+  .schedule {
+    margin: 0 0px;
+  }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
@@ -80,10 +110,28 @@
 
   .schedule-table td {
     margin: 10px 5px;
-    padding: 9px;
+    padding: 20px 0;
+  }
+
+  .schedule {
+    margin: 0 0px;
   }
 }
 
-@media (min-width: 768px) and (max-width: 991.98px) {}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .schedule {
+    margin: 0 0px;
+  }
+}
 
-@media (min-width: 992px) and (max-width: 1199.98px) {}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .schedule {
+    margin: 0 0px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1670.98px) {
+  .schedule {
+    margin: 0 0px;
+  }
+}

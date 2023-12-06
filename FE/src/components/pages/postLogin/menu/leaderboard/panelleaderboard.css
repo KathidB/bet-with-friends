@@ -1,22 +1,19 @@
 
 .panel-leader-table{
-  width: 100%;
-  text-align: center;
+    margin-top: 20px;
+  margin-bottom: 10px;
   border-collapse: collapse;
-  margin-top: 20px;
   border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.473);
- 
-  font-size: 0.8rem;
- 
+  box-shadow: 0 0 3px rgba(0,0,0,.473);
+  text-align: center;
+  overflow-x: auto; 
+  min-width: 100%;
 }
 
 .panel-leader-table th,
 .panel-leader-table td {
   padding: 8px;
   width: 100px;
-  font-weight: bold;
 }
 
 .panel-leader-table td {
@@ -45,25 +42,11 @@
   width: 100%;
 }
 
-.panel-leader-table tbody tr:nth-child(-n+3){
-  font-weight: bold;
-  background-color: #2c2d5b13;
+.top-players{  
+    font-weight: bold;
+    background-color: #2c2d5b13;
+    font-size: 1.1rem;
 }
-
-.panel-leader-table tbody tr:nth-child(1) {
-  font-size: 1.2rem;
-}
-
-.panel-leader-table tbody tr:nth-child(2) {
-  font-size: 1.15rem;
-}
-
-
-.panel-leader-table tbody tr:nth-child(3) {
-  font-size: 1.1rem;
-}
-
-
 
 .panel-leader-table tbody tr:nth-child(-n+3) img {
   border: 2px solid rgba(205, 127, 50, 0.8);
@@ -85,5 +68,10 @@
 
   .th-hide {
     display: none;
+  }
+  .panel-leader-table td{
+    font-size: 0.8rem;
+
+    padding: 20px 0;
   }
 } 

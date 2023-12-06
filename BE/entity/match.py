@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer,DateTime,ForeignKey
+from sqlalchemy import Column, String, Integer,Boolean,DateTime,ForeignKey
 from sqlalchemy.orm import relationship
 from shared.base import Base
 from dataclasses import dataclass
@@ -22,6 +22,7 @@ class Match(Base):
     competetition_id = Column(Integer,ForeignKey('competition.id'))
     home_team_id = Column(Integer,ForeignKey('team.id'))
     away_team_id = Column(Integer,ForeignKey('team.id'))
+    proces = Column(Boolean,default=False)
 
     score = relationship(Score,foreign_keys=[score_id],lazy='joined')
     competetition = relationship(Competition,foreign_keys=[competetition_id],lazy='joined')

@@ -1,3 +1,4 @@
+from sqlalchemy import update
 from service.footaball_data_service import get_matches,get_competetition
 from configuration.configuration_manager import ConfigurationManager
 from entity.competition import Competition
@@ -56,7 +57,8 @@ def get_posible_bets(competetition,page:int,limit:int) -> [Match]:
        posible_best =  (session
                .query(Match)
                .join(Competition)
-               .filter(Competition.public_id == competetition, Match.utc_date > datetime.utcnow())
+               .outerjoin(Bets, Match.id == Bets.match_id)
+               .filter(Competition.public_id == competetition, Match.utc_date > datetime.utcnow(),Bets.match_id == None)
                .order_by(Match.utc_date)
                .offset((page-1)*limit)
                .limit(limit)
@@ -64,9 +66,37 @@ def get_posible_bets(competetition,page:int,limit:int) -> [Match]:
        count = (session
                .query(Match)
                .join(Competition)
-               .filter(Competition.public_id == competetition, Match.utc_date > datetime.utcnow())
+               .outerjoin(Bets, Match.id == Bets.match_id)
+               .filter(Competition.public_id == competetition, Match.utc_date > datetime.utcnow(),Bets.match_id == None)
                .count())
     return (posible_best, count)
+
+def proces_bets():
+    with session_factory() as session:
+        match_to_process = session.query(Match).filter(Match.status=="FINISHED",Match.proces == False).all()
+        for match in match_to_process:
+            away_team_winner = match.score.winner == match.away_team.id
+            home_team_winner = match.score.winner == match.home_team.id
+            draw = match.score.winner == None
+            home_team_score = match.score.full_time.split('-')[0]
+            away_team_score = match.score.full_time.split('-')[1]
+            bets_to_preces = session.query(Bets).filter(Bets.match_id == match.id)
+            for bet in bets_to_preces:
+                price = 0
+                if bet.away_team and bet.home_team:
+                    if bet.away_team == int(away_team_score): price += 0.50
+                    if bet.home_team == int(home_team_score): price += 0.50
+                elif bet.who_win:
+                    if away_team_winner and bet.who_win == "away": price += 0.15
+                    if home_team_winner and bet.who_win == "home": price += 0.15
+                    if draw and bet.who_win == "draw": price += 0.15
+                price = price * 100
+                stmt = update(Profile).where(Profile.id == bet.profile_id).values(points=(Profile.points + price))
+                session.execute(stmt)
+                session.commit()
+            stmt = update(Match).where(Match.id == match.id).values(proces = True)
+            session.execute(stmt)
+            session.commit()
 
 def insert_competetition():
     for competetition in config.get_config_by_key('football_data.competitions'):
@@ -114,6 +144,7 @@ def create_bet(match:int,user_id:int,bets:Bets):
 def create_jobs():
     sheduler = BackgroundScheduler()
     sheduler.add_job(func=get_new_matches, trigger="interval", seconds=config.get_config_by_key('jobs.getMatches'))
+    sheduler.add_job(func=proces_bets,trigger="interval", seconds=config.get_config_by_key('jobs.procesBets'))
     sheduler.start()
     atexit.register(lambda: sheduler.shutdown())
 

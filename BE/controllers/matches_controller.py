@@ -43,9 +43,9 @@ def get_bets(current_user,response:Response):
     page = 1 
     limit = 5
     if request.args.get('page'):
-        page = request.args.get('page')
+        page = int(request.args.get('page'))
     if request.args.get('limit'):
-        limit = request.args.get('limit')
+        limit = int(request.args.get('limit'))
     if request.args.get('competetition'):
         competetition = request.args.get('competetition')
         (posible_best, count) = get_posible_bets(page=page,limit=limit,competetition=competetition)

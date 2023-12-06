@@ -49,7 +49,9 @@ function PanelLeaderboard () {
         <h2 className='section-title panel-header'>
           <span className='span-brand'> Leader</span>board
         </h2>
-
+        <p style={{ textAlign: 'center' }}>
+          Najlepsi typerzy Bet With <span className='span-brand'>Friends</span>
+        </p>
         <p className='schedule-btns'>
           <button
             className='schedule-list-btn span-brand'
@@ -84,8 +86,12 @@ function PanelLeaderboard () {
           </thead>
           <tbody>
             {leadersData.map(leader => (
-              <tr key={leader.public_id}>
-                <td className='th-place'>{leader.ranking.place}</td>
+              <tr
+                key={leader.public_id}
+                className={`${leader.ranking.place <= 3 ? 'top-players' : ''}`}
+              >
+                <td className={`th-place`}>{leader.ranking.place}</td>
+
                 <td className='leader-name'>{leader.name}</td>
                 <td className='th-hide'>
                   <img

@@ -2,6 +2,17 @@
     width: 100%;
     height: 50%;
     display: inline-block;
-    border-radius: 20px;
-   background-color: rgb(204, 173, 167);
+    border-radius: 20px; 
+    background-color: rgb(204, 173, 167);
+}
+
+.ad-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   margin-bottom: 15px;
+}
+
+.patopoker{
+    cursor: pointer;
 }
