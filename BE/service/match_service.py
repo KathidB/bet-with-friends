@@ -27,7 +27,7 @@ def get_new_matches():
                     home_team = insert_team(match=match['homeTeam'])
                     away_team = insert_team(match=match['awayTeam'])
                     score_id = insert_score()
-                    new_match = Match(public_id=match['id'],utc_date=match['utcDate'],status=match['status'],stage=match['stage'],group=match['group'].replace('GROUP_',''),last_updated=match['lastUpdated'],score_id=score_id,competetition_id=competetition.id,home_team_id=home_team,away_team_id=away_team)
+                    new_match = Match(public_id=match['id'],utc_date=match['utcDate'],status=match['status'],stage=match['stage'],group=match['group'],last_updated=match['lastUpdated'],score_id=score_id,competetition_id=competetition.id,home_team_id=home_team,away_team_id=away_team)
                     session.add(new_match)
                     session.commit()
 

@@ -13,7 +13,6 @@ def get_matches(competetition):
     response = requests.get(url=uri,params=params,headers=headers)
     if 'matches' in response.json():
         return response.json()['matches']
-    print(response.json())
     return []
 
 def get_competetition(competetition):
