@@ -70,29 +70,35 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .competition-btn {
-  color: var(--white-color);
-  border: transparent;
-  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 10px 10px 10px ;
+  padding: 5px 10px;
   border-radius: 8px;
-  margin: 0 10px;
-  margin-bottom: 10px;
+  border: transparent;
   font-weight: bold;
-  background-color: var(--brand-alt-color);
+  /* background-color: var(--brand-alt-color); */
+  /* color: var(--white-color); 
+  */
+  width: 203px;
   cursor: pointer;
+
 }
 
 .active-schedule {
-  color: var(--brand-color);
+  box-shadow: 1px 1px 3px var(--brand-alt-color);
 }
 
 @media (max-width: 575.98px) {
   .crest {
     display: none;
   }
-
   .schedule-table td {
     margin: 10px 5px;
     padding: 8px;
@@ -107,12 +113,10 @@
   .crest {
     display: none;
   }
-
   .schedule-table td {
     margin: 10px 5px;
     padding: 20px 0;
   }
-
   .schedule {
     margin: 0 0px;
   }

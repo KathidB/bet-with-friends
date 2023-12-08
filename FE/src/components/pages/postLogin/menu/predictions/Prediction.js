@@ -1,7 +1,6 @@
 import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
-import CLBet from './betting/championsleague/CLBet'
-import Euro2024Bet from './betting/euro2024/Euro2024Bet'
+import CLBet from './betting/MatchBet'
 
 import { PredictionLogic } from './data/PredictionLogic'
 import TypingRacoon from './images/raccoon-header3.webp'
@@ -18,6 +17,20 @@ function Prediction () {
     limit,
     handleCompetitionChange
   } = PredictionLogic()
+
+  const handleCompetitionNames = competitionName => {
+    const translateCompetition = {
+      'European Championship': 'Euro 2024',
+      'UEFA Champions League': 'Champions League',
+      'Premier League': 'Premier League',
+      Championship: 'Championship',
+      Bundesliga: 'Bundesliga',
+      'Serie A': 'Serie A',
+      'Campeonato Brasileiro Série A': 'Brasileiro Série A'
+    }
+
+    return translateCompetition[competitionName] || competitionName
+  }
 
   return (
     <section className='app-wrap'>
@@ -53,9 +66,8 @@ function Prediction () {
                 }`}
                 onClick={() => handleCompetitionChange(competition.public_id)}
               >
-                {competition.name === 'UEFA Champions League'
-                  ? 'Champions League'
-                  : 'Euro 2024'}
+                <img width={50} height={50} src={competition.emblem} alt='' />
+                {handleCompetitionNames(competition.name)}
               </button>
             ))}
           </div>
@@ -82,13 +94,9 @@ function Prediction () {
             </button>
           </p>
 
-          {/* // W przysszłosci będzie wiecej zawodów do wyboru- do zmiany */}
+          {/* // W przysszłosci będzie wiecej zawodów do wyboru- do zmiany  2023*/}
 
-          {selectedCompetition === 2001 ? (
-            <CLBet matchList={matchList} />
-          ) : (
-            <Euro2024Bet matchList={matchList} />
-          )}
+          <CLBet matchList={matchList} />
         </div>
       </div>
     </section>

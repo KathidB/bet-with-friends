@@ -5,7 +5,7 @@ import './grouplist.css'
 
 function YourComponent () {
   const [activeTab, setActiveTab] = useState('Euro2024')
-  const [compe, setCompe] = useState([])
+  // const [compe, setCompe] = useState([])
 
   const handleTabClick = tab => {
     setActiveTab(tab)
@@ -17,7 +17,7 @@ function YourComponent () {
 
       // Wysyłanie żądania GET do backendu
       const response = await fetch(
-        `http://localhost:5000/api/v1/competetition`,
+        `http://130.162.44.103:5000/api/v1/competetition`,
         {
           method: 'GET',
           credentials: 'include', // Dodanie tego, jeśli istnieje konieczność uwierzytelnienia

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
-import CLSchedule from './competitions/championsleague/CLSchedule'
-import Euro2024Schedule from './competitions/euro2024/Euro2024Schedule'
+import Euro2024Schedule from './competitions/euro2024/MatchesSchedule'
 import './schedule.css'
 
 function Schedule () {
@@ -82,6 +81,19 @@ function Schedule () {
     setCurrentPage(1) // Resetowanie strony przy zmianie turnieju
   }
 
+  const handleCompetitionNames = competitionName => {
+    const translateCompetition = {
+      'European Championship': 'Euro 2024',
+      'UEFA Champions League': 'Champions League',
+      'Premier League': 'Premier League',
+      Championship: 'Championship',
+      Bundesliga: 'Bundesliga',
+      'Serie A': 'Serie A'
+    }
+
+    return translateCompetition[competitionName] || competitionName
+  }
+
   return (
     <section>
       <div className='schedule'>
@@ -100,15 +112,17 @@ function Schedule () {
               }`}
               onClick={() => handleCompetitionChange(competition.public_id)}
             >
-              {competition.name}
+              <img width={50} height={50} src={competition.emblem} alt='' />
+              {handleCompetitionNames(competition.name)}
             </button>
           ))}
         </div>
 
         {/* //  Lista buttonów z zawodami */}
-        <p className='competition-name'>{matchList[0]?.competition.name}</p>
+
         <p className='schedule-btns'>
           <button
+            aria-label='Previous page'
             className='schedule-list-btn span-brand'
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(prevValue => prevValue - 1)}
@@ -119,6 +133,7 @@ function Schedule () {
             Przeglądaj listę {currentPage} / {Math.ceil(totalMatches / limit)}
           </span>
           <button
+            aria-label='Next page'
             className='schedule-list-btn span-brand'
             onClick={() => setCurrentPage(prevValue => prevValue + 1)}
             disabled={currentPage === Math.ceil(totalMatches / limit)}
@@ -127,11 +142,7 @@ function Schedule () {
           </button>
         </p>
 
-        {selectedCompetition === 2001 ? (
-          <CLSchedule matchList={matchList} />
-        ) : (
-          <Euro2024Schedule matchList={matchList} />
-        )}
+        <Euro2024Schedule matchList={matchList} />
       </div>
     </section>
   )

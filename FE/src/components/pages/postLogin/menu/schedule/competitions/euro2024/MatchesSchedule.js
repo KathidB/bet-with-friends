@@ -16,14 +16,24 @@ function Euro2024Schedule ({ matchList }) {
           {matchList.map(match => (
             <tr key={match.score.public_id}>
               <td className='crest'>
-                <img width={45} src={match.home_team.crest} alt='' />
+                <img
+                  width={25}
+                  height={25}
+                  src={match.home_team.crest}
+                  alt=''
+                />
               </td>
               <td>{match.home_team.short_name}</td>
               <td>{match.score.full_time ?? 'TBD'}</td>
 
               <td>{match.away_team.short_name}</td>
               <td className='crest'>
-                <img width={45} src={match.away_team.crest} alt='' />
+                <img
+                  width={25}
+                  height={25}
+                  src={match.away_team.crest}
+                  alt=''
+                />
               </td>
               <td>{match.utc_date.replace('T', ' ').slice(0, -3)}</td>
             </tr>
@@ -32,7 +42,7 @@ function Euro2024Schedule ({ matchList }) {
       </table>
     </>
   ) : (
-    'Oczekiwanie na rozgrywki..'
+    'Oczekiwanie na rozgrywki...'
   )
 }
 
