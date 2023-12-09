@@ -1,50 +1,41 @@
 import { useState } from 'react'
-import { FaSpinner } from 'react-icons/fa'
+import { BsArrowRight } from 'react-icons/bs'
+import { BsArrowLeft } from 'react-icons/bs'
 
 import './matchbet.css'
 
-function CLBet ({ matchList }) {
-  const [betResults, setBetResults] = useState({})
-  const [loading, setLoading] = useState(false)
+function MatchBet ({
+  matchList,
+  currentPage,
+  totalMatches,
+  limit,
+  setCurrentPage
+}) {
+  const [submittedBets, setSubmittedBets] = useState([])
+  const [betResults, setBetResult] = useState({
+    matchId: '',
+    away_team_bet: '',
+    home_team_bet: ''
+  })
 
-  const handleInputChange = (matchId, team, value) => {
-    // Schowaj komunikat o błędzie, gdy użytkownik wypełni pola
-
-    setBetResults(prevResults => ({
-      ...prevResults,
-      [matchId]: { ...prevResults[matchId], [team]: value }
-    }))
-  }
-
-  // ...
-
-  const handleBetSubmit = async (matchId, e) => {
-    if (e) e.preventDefault()
-
-    const currentBetResults = betResults[matchId]
+  const handleBetSubmit = async e => {
+    e.preventDefault()
+    const { matchId, away_team_bet, home_team_bet } = betResults
 
     try {
-      setLoading(true)
       const betEndpoint = `http://130.162.44.103:5000/api/v1/bet/${matchId}`
       const response = await fetch(betEndpoint, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(currentBetResults)
+        body: JSON.stringify({
+          away_team: away_team_bet,
+          home_team: home_team_bet
+        })
       })
-      setLoading(false)
 
       if (response.ok) {
-        setBetResults(prevResults => {
-          const updatedResults = { ...prevResults }
-          updatedResults[matchId] = {
-            ...currentBetResults,
-            submitted: true
-          }
-          return updatedResults
-        })
-        console.log(currentBetResults)
-        console.log('Zakład wysłany pomyślnie')
+        setSubmittedBets([...submittedBets, matchId])
       } else {
         console.error('Błąd podczas wysyłania zakładu')
       }
@@ -54,99 +45,127 @@ function CLBet ({ matchList }) {
   }
 
   return matchList.length > 0 ? (
-    <table className='bet-table'>
-      <thead>
-        <tr>
-          <th className='crest'></th>
-          <th>Gospodarze</th>
-          <th>Goście</th>
-          <th className='crest'></th>
-          <th className='crest'>Termin</th>
-          <th>Zakład</th>
-        </tr>
-      </thead>
-      <tbody>
-        {matchList.map(match => (
-          <tr key={match.score.public_id}>
-            <td className='crest'>
-              <img width={25} height={25} src={match.home_team.crest} alt='' />
-            </td>
-            <td>{match.home_team.short_name}</td>
+    <>
+      {/* //  Lista buttonów z zawodami */}
+      {console.log(matchList)}
+      <p className='competition-name'>{matchList[0]?.competition.name}</p>
 
-            <td>{match.away_team.short_name}</td>
-            <td className='crest'>
-              <img width={25} height={25} src={match.away_team.crest} alt='' />
-            </td>
-            <td className='crest'>
-              {new Date(match.utc_date).toLocaleDateString('en-GB')} (
-              {match.utc_date.replace('T', ' ').slice(11, -3)})
-            </td>
+      <p className='schedule-btns'>
+        <button
+          className='schedule-list-btn span-brand'
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(prevValue => prevValue - 1)}
+        >
+          <BsArrowLeft />
+        </button>
+        <span className='schedule-btn-span'>
+          Przeglądaj listę {currentPage} / {Math.ceil(totalMatches / limit)}
+        </span>
+        <button
+          className='schedule-list-btn span-brand'
+          onClick={() => setCurrentPage(prevValue => prevValue + 1)}
+          disabled={currentPage === Math.ceil(totalMatches / limit)}
+        >
+          <BsArrowRight />
+        </button>
+      </p>
 
-            <td className='td-bet'>
-              <form
-                className='bet-form'
-                onSubmit={e => handleBetSubmit(match.public_id, e)}
-              >
-                <input
-                  min={0}
-                  max={20}
-                  required
-                  className='bet-input'
-                  type='number'
-                  disabled={betResults[match.public_id]?.submitted}
-                  placeholder={match.home_team.short_name}
-                  value={betResults[match.public_id]?.home_team || ''}
-                  onChange={e =>
-                    handleInputChange(
-                      match.public_id,
-                      'home_team',
-                      e.target.value
-                    )
-                  }
-                />
-                <span> : </span>
-                <input
-                  min={0}
-                  max={20}
-                  required
-                  className='bet-input'
-                  type='number'
-                  disabled={betResults[match.public_id]?.submitted}
-                  placeholder={match.away_team.short_name}
-                  value={betResults[match.public_id]?.away_team || ''}
-                  onChange={e =>
-                    handleInputChange(
-                      match.public_id,
-                      'away_team',
-                      e.target.value
-                    )
-                  }
-                />
-
-                <button
-                  type='submit'
-                  className='bet-button'
-                  disabled={betResults[match.public_id]?.submitted}
-                >
-                  {loading ? (
-                    <>
-                      <FaSpinner className='spinner-icon' />
-                    </>
-                  ) : null}
-
-                  {betResults[match.public_id]?.submitted
-                    ? 'Wysłane'
-                    : 'WYŚLIJ'}
-                </button>
-              </form>
-            </td>
+      <table className='bet-table'>
+        <thead>
+          <tr>
+            <th className='crest'></th>
+            <th>Gospodarze</th>
+            <th>Goście</th>
+            <th className='crest'></th>
+            <th className='crest'>Termin</th>
+            <th>Typuj</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {matchList.map(match => {
+            const isBetSubmitted = submittedBets.includes(match.public_id)
+            return (
+              <tr
+                key={`${match.home_team.short_name}-${match.away_team.short_name}`}
+              >
+                <td className='crest'>
+                  <img
+                    width={25}
+                    height={25}
+                    src={match.home_team.crest}
+                    alt=''
+                  />
+                </td>
+                <td>{match.home_team.short_name}</td>
+                <td>{match.away_team.short_name}</td>
+                <td className='crest'>
+                  <img
+                    width={25}
+                    height={25}
+                    src={match.away_team.crest}
+                    alt=''
+                  />
+                </td>
+                <td className='crest'>
+                  {new Date(match.utc_date).toLocaleDateString('en-GB')} (
+                  {match.utc_date.replace('T', ' ').slice(11, -3)})
+                </td>
+                <td className='td-bet'>
+                  <form onSubmit={handleBetSubmit} className='bet-form'>
+                    <input
+                      min={0}
+                      max={20}
+                      required
+                      className='bet-input'
+                      type='number'
+                      disabled={isBetSubmitted}
+                      value={betResults[match.public_id]}
+                      onChange={e =>
+                        setBetResult({
+                          ...betResults,
+                          matchId: match.public_id,
+                          home_team_bet: e.target.value
+                        })
+                      }
+                      placeholder={match.home_team.short_name}
+                    />
+                    <span> : </span>
+                    <input
+                      min={0}
+                      max={20}
+                      required
+                      className='bet-input'
+                      type='number'
+                      disabled={isBetSubmitted}
+                      placeholder={match.away_team.short_name}
+                      value={betResults[match.public_id]}
+                      onChange={e =>
+                        setBetResult({
+                          ...betResults,
+                          matchId: match.public_id,
+                          away_team_bet: e.target.value
+                        })
+                      }
+                    />
+
+                    <button
+                      type='submit'
+                      className='bet-button'
+                      disabled={isBetSubmitted}
+                    >
+                      Wyślij
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </>
   ) : (
-    'Oczekiwanie na następne rozgrywki...'
+    <p>Oczekiwanie na nadchodzące rozgrywki...</p>
   )
 }
 
-export default CLBet
+export default MatchBet

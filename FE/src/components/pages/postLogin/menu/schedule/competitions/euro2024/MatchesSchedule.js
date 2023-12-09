@@ -35,7 +35,11 @@ function Euro2024Schedule ({ matchList }) {
                   alt=''
                 />
               </td>
-              <td>{match.utc_date.replace('T', ' ').slice(0, -3)}</td>
+              <td>
+                {' '}
+                {new Date(match.utc_date).toLocaleDateString('en-GB')} (
+                {match.utc_date.replace('T', ' ').slice(11, -3)})
+              </td>
             </tr>
           ))}
         </tbody>

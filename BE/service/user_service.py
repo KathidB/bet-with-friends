@@ -1,11 +1,12 @@
 import jwt
 from entity.users import Users
+from entity.password_reset import PasswordReset
 from shared.base import session_factory
 import bcrypt
 import uuid
 from sqlalchemy import update
 from sqlalchemy.exc import IntegrityError
-from service.email_service import send_activation_mail
+from service.email_service import send_activation_mail,send_reset_mail
 from service.activation_service import create_activation,activate
 from configuration.configuration_manager import ConfigurationManager
 from datetime import datetime, timedelta
@@ -32,8 +33,8 @@ def create_user(user:Users):
             session.add(user)
             session.commit()
             session.refresh(user)
-            create_activation(user_id=user.id)
-            send_activation_mail(user.email)
+            code = create_activation(user_id=user.id)
+            send_activation_mail(user.email,code=code)
             create_profile(user=user)
         except IntegrityError as e:
             if 'already exists.' in str(e.orig):
@@ -77,5 +78,13 @@ def find_user_by_uid(uuid):
             raise UserNotActivatedException()
         return user
 
-
-
+def create_password_reset(email:str):
+    with session_factory() as session:
+       user = session.query(Users).filter(Users.email == email,Users.isActive == True).first()
+       if user:
+           password_reset = PasswordReset(code=uuid.uuid4(),user_id=user.id,expires=datetime.now() + timedelta(seconds=3600))
+           session.add(password_reset)
+           session.commit()
+           send_reset_mail(reciver=user.email,code=password_reset.code)
+           return password_reset.code
+       raise UserDontExistException()

@@ -4,7 +4,8 @@
     "email":"testerapi715@gmail.com"
   },
   "external":{
-    "url":"http://130.162.44.103:5000"
+    "url":"http://130.162.44.103:5000",
+    "frontend_login":"http://130.162.44.103/login"
   },
   "SECRET_KEY":"Th1s1ss3cr3t"
   ,
@@ -30,6 +31,6 @@
     "token":"2e5640899c95458992402923bfb45b69",
     "token2":"cc3268d25c7b4a90b02ff15d526802ed",
     "uri":"https://api.football-data.org/v4",
-    "competitions":[2018,2001,2021,2016,2002,2019]
+    "competitions":[2018,2001,2021,2016,2002,2019,2014,2013,2015]
   }
 }

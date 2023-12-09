@@ -30,11 +30,12 @@
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
   border-radius: 4px;
   margin: 0 5px; 
-  border: 1px solid var(--border-hover, rgba(0, 0, 0, 0.87));
 }
 
-.bet-input:disabled { 
-  box-shadow: 1px 1px 3px rgba(50, 205, 50, 0.466);
+.bet-input:disabled::after { 
+ content: "";
+  border: 1px solid rgba(0, 255, 0, 0.932);
+  box-shadow: 1px 1px 3px rgba(121, 122, 121, 0.466);
 }
 .bet-form{
   border: none;
@@ -49,13 +50,13 @@
   font-weight: bold;
   color: var(--white-color);
   cursor: pointer;
+  margin-left: 10px;
 }
 
 .bet-button:disabled{ 
-background-color: silver;
+background-color: rgb(192, 192, 192);
 cursor: auto;
 }
-
 
 @media (max-width: 575.98px) {
  
@@ -66,18 +67,20 @@ cursor: auto;
     align-items: center;
     justify-content: center;
    }
-   .bet-input {
-   width: 140px;
+   .bet-input { 
+  width: 60%;
+
     border: transparent;
     padding: 5px 20px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
     border-radius: 4px;
     margin: 5px 5px; 
-    border: 1px solid var(--border-hover, rgba(0, 0, 0, 0.87));
+  
   }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
+
  
   .bet-form{
     width: 100%;
@@ -93,7 +96,7 @@ cursor: auto;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
     border-radius: 4px;
     margin: 5px 5px; 
-    border: 1px solid var(--border-hover, rgba(0, 0, 0, 0.87));
+
   }
 }
 

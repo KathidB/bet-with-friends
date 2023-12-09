@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../../../auth/authcontext/AuthContext'
 import { useUser } from '../context/UserContext'
 import { useState } from 'react'
+import { BiSolidMessage } from 'react-icons/bi'
+
+import { BiSolidMessageDetail } from 'react-icons/bi'
 
 import './usermenu.css'
 
@@ -26,13 +29,19 @@ function UserMenu () {
       >
         {userProfile.name}
       </p>
+      <BiSolidMessage className='message-none' />
+      <BiSolidMessageDetail className='message-true' />
       <img
         src={userProfile.avatar}
         alt=''
         className='user-menu-avatar'
         onClick={handleUserMenu}
       />
-      <ul className={`user-menu ${showUserMenu ? 'open' : 'closed'}`}    onClick={handleUserMenu}>
+
+      <ul
+        className={`user-menu ${showUserMenu ? 'open' : 'closed'}`}
+        onClick={handleUserMenu}
+      >
         <li className='panel-item'>
           <Link to='/panel/'>Panel</Link>
         </li>

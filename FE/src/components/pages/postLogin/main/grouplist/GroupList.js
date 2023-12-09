@@ -32,7 +32,7 @@ function YourComponent () {
 
       if (response.ok) {
         // Pobranie danych z odpowiedzi w formacie JSON
-        const data = await response.json()
+    
 
         // Ustawienie pobranych danych w stanie komponentu
         // setCompe(data);

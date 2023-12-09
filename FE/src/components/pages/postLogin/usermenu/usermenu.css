@@ -6,7 +6,7 @@
 
 .user-menu {
   position: absolute;
-  top: 74px;
+  top: 76px;
   right: 10px;
   display: flex;
   flex-direction: column;
@@ -56,7 +56,36 @@
   cursor: pointer;
 }
 
+.typing-raccoon-bot{
+  display: none;
+}
+
+/* MEssage system */
+.message-none{
+  width: 45px;
+  height: 30px;
+color: rgb(167, 165, 165);
+}
+
+.message-true{
+  width: 45px;
+  height: 30px;
+  color: rgb(0, 214, 11);
+}
+
+
 @media (max-width: 575.98px) {
+  .typing-raccoon-top{
+    display: none;
+  }
+  .typing-raccoon-bot{
+    display: block;
+  }
+  .pred-info-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .user-menu {
     width: 100%;
     right: 0px;
@@ -73,6 +102,17 @@
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
+  .typing-raccoon-top{
+    display: none;
+  }
+  .typing-raccoon-bot{
+    display: block;
+  }
+  .pred-info-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .user-menu {
     width: 100%;
     right: 0px;

@@ -1,7 +1,4 @@
-import { BsArrowRight } from 'react-icons/bs'
-import { BsArrowLeft } from 'react-icons/bs'
-import CLBet from './betting/MatchBet'
-
+import MatchBet from './betting/MatchBet'
 import { PredictionLogic } from './data/PredictionLogic'
 import TypingRacoon from './images/raccoon-header3.webp'
 
@@ -12,9 +9,9 @@ function Prediction () {
     currentPage,
     totalMatches,
     competitions,
-    setCurrentPage,
     selectedCompetition,
     limit,
+    setCurrentPage,
     handleCompetitionChange
   } = PredictionLogic()
 
@@ -37,11 +34,22 @@ function Prediction () {
       <div className='pred'>
         {/* BOX INFORMACYJNY: */}
         <div className='pred-box-info'>
-          <img width={180} src={TypingRacoon} alt='' />
+          <img
+            className='typing-raccoon-top'
+            width={180}
+            src={TypingRacoon}
+            alt=''
+          />
           <div className='pred-info-text'>
             <h2 className='section-title panel-header'>
               Typowanie wyników <span className='span-brand'> meczów</span>
             </h2>
+            <img
+              className='typing-raccoon-bot'
+              width={180}
+              src={TypingRacoon}
+              alt=''
+            />
             <p>
               Typuj wyniki meczów wybranych rozgrywek piłkarskich. Każdy mecz
               obstawiasz osobno. <br /> Pamiętaj, masz tylko jedną możliwość
@@ -72,31 +80,15 @@ function Prediction () {
             ))}
           </div>
 
-          {/* //  Lista buttonów z zawodami */}
-          <p className='competition-name'>{matchList[0]?.competition.name}</p>
-          <p className='schedule-btns'>
-            <button
-              className='schedule-list-btn span-brand'
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(prevValue => prevValue - 1)}
-            >
-              <BsArrowLeft />
-            </button>
-            <span className='schedule-btn-span'>
-              Przeglądaj listę {currentPage} / {Math.ceil(totalMatches / limit)}
-            </span>
-            <button
-              className='schedule-list-btn span-brand'
-              onClick={() => setCurrentPage(prevValue => prevValue + 1)}
-              disabled={currentPage === Math.ceil(totalMatches / limit)}
-            >
-              <BsArrowRight />
-            </button>
-          </p>
-
           {/* // W przysszłosci będzie wiecej zawodów do wyboru- do zmiany  2023*/}
 
-          <CLBet matchList={matchList} />
+          <MatchBet
+            matchList={matchList}
+            currentPage={currentPage}
+            totalMatches={totalMatches}
+            limit={limit}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
     </section>

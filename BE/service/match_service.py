@@ -11,7 +11,7 @@ from exceptions.already_bet_exception import AlreadyBetException
 from exceptions.match_dont_exist_exception import MatchDontExistException
 from shared.base import session_factory
 from apscheduler.schedulers.background import BackgroundScheduler
-from datetime import datetime
+from datetime import datetime,timezone
 import atexit
 import uuid
 
@@ -23,13 +23,48 @@ def get_new_matches():
            matches = get_matches(competetition=competetition.public_id)
            for match in matches:
                 matchdb = session.query(Match).filter_by(public_id=match['id']).first()
+                home_team = insert_team(match=match['homeTeam'])
+                away_team = insert_team(match=match['awayTeam'])
+                
+                if match['status'] == 'FINISHED':
+                        if match['score']['winner'] == "AWAY_TEAM":
+                            winner = away_team
+                        elif match['score']['winner'] == "HOME_TEAM":
+                            winner = home_team
+                        full_time = f"""{match['score']['fullTime']['home']}-{match['score']['fullTime']['away']}"""
+                        half_time = f"""{match['score']['halfTime']['home']}-{match['score']['halfTime']['away']}"""
+                else:
+                    full_time= ''
+                    half_time= ''
+                    winner = None
+
                 if not matchdb:
-                    home_team = insert_team(match=match['homeTeam'])
-                    away_team = insert_team(match=match['awayTeam'])
-                    score_id = insert_score()
+                    score_id = insert_score(full_time=full_time,half_time=half_time,winner=winner)
                     new_match = Match(public_id=match['id'],utc_date=match['utcDate'],status=match['status'],stage=match['stage'],group=match['group'],last_updated=match['lastUpdated'],score_id=score_id,competetition_id=competetition.id,home_team_id=home_team,away_team_id=away_team)
                     session.add(new_match)
                     session.commit()
+                else:
+                    db_last_updated = matchdb.last_updated.replace(tzinfo=timezone.utc)
+                    incoming_last_updated = datetime.strptime(match["lastUpdated"], "%Y-%m-%dT%H:%M:%S%z").replace(tzinfo=timezone.utc)
+                    if db_last_updated < incoming_last_updated:
+                        print(f'update meczu {matchdb.id}')
+                        session.query(Match).filter_by(public_id=match['id']).update({
+                        'utc_date': match['utcDate'],
+                        'status': match['status'],
+                        'stage': match['stage'],
+                        'group': match['group'],
+                        'last_updated': match['lastUpdated'],
+                        'home_team_id': home_team,
+                        'away_team_id': away_team
+                        })
+                        session.commit()
+                        if match['status'] == 'FINISHED':
+                            session.query(Score).filter_by(id=matchdb.score_id).update({"full_time":full_time,"half_time":half_time,"winner":winner})
+                            session.commit()
+                    
+                        
+                    
+
 
 def get_matches_list(competetition,page:int,limit:int):
     with session_factory() as session:
@@ -119,9 +154,9 @@ def insert_team(match):
             return team.id
         return team.id
 
-def insert_score():
+def insert_score(full_time,half_time,winner):
     with session_factory() as session:
-        score = Score(public_id=uuid.uuid4())
+        score = Score(public_id=uuid.uuid4(),full_time=full_time,half_time=half_time,winner=winner)
         session.add(score)
         session.commit()
         session.refresh(score)

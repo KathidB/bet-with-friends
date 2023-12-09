@@ -76,26 +76,43 @@
 .competition-btn {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 10px;
-  margin: 0 10px 10px 10px ;
+  margin: 0 4px 10px 4px ;
   padding: 5px 10px;
   border-radius: 8px;
   border: transparent;
-  font-weight: bold;
-  /* background-color: var(--brand-alt-color); */
-  /* color: var(--white-color); 
-  */
+  font-weight: bold; 
   width: 203px;
   cursor: pointer;
-
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.212);
+  transition: all 0.3s;
 }
 
 .active-schedule {
-  box-shadow: 1px 1px 3px var(--brand-alt-color);
+  border: 1px solid rgb(71, 70, 70);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.445) ;
 }
 
 @media (max-width: 575.98px) {
+  .competition-btn {  
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: 5px 2px;
+  padding: 5px 10px;
+    border-radius: 8px;
+    border: transparent;
+    font-weight: bold;
+    /* background-color: var(--brand-alt-color); */
+    /* color: var(--white-color); 
+    */
+    width: 170px;
+    cursor: pointer;
+  
+  }
   .crest {
     display: none;
   }

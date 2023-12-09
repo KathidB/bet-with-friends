@@ -4,9 +4,8 @@ export const PredictionLogic = () => {
   const [matchList, setMatchList] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalMatches, setTotalMatches] = useState(null)
-  const [competitions, setCompetitions] = useState([]) // Nowy stan na potrzeby przechowywania kompetencji
-  const [selectedCompetition, setSelectedCompetition] = useState(2021) // Domyślnie brak wybranej kompetencji
-  // 2018 euro
+  const [competitions, setCompetitions] = useState([])
+  const [selectedCompetition, setSelectedCompetition] = useState(2021)
   const limit = 9
 
   useEffect(() => {

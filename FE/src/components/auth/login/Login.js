@@ -12,9 +12,7 @@ import './login.css'
 
 function Login () {
   const navigate = useNavigate()
-  //destrukturyzacja funkcji odpowiedzialnej za zmiane stanu zalogowanego uzytkownika.
   const { login } = useAuth()
-
   const [loginError, setLoginError] = useState(null)
   const [loading, setLoading] = useState(false)
 
