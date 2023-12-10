@@ -33,14 +33,10 @@ def send_activation_mail(reciver:str,code):
  except Exception as e:
     print(e)
 
-
 def setUrl(body:str,code:str):
     template = re.compile(r'\(frontend\)')
     new_url = f"""{configuration.get_config_by_key('external.url')}/api/v1/activate/{code}"""
     return template.sub(new_url, body)
-
-
-
 
 def send_reset_mail(reciver:str,code):
  try:
@@ -68,7 +64,5 @@ def send_reset_mail(reciver:str,code):
 
 def setUrlFront(body:str,code:str):
     template = re.compile(r'\(frontend\)')
-    new_url = f"""{configuration.get_config_by_key('external.frontend_login')}"""
+    new_url = f"""{configuration.get_config_by_key('external.frontend_reset')}/{code}"""
     return template.sub(new_url, body)
-
-    

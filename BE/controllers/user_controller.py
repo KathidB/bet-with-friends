@@ -11,6 +11,7 @@ from exceptions.password_or_login_incorrect_exception import PasswordOrLoginInco
 from exceptions.user_not_activated_exception import UserNotActivatedException
 from exceptions.user_dont_exist_exception import UserDontExistException
 from exceptions.activation_code_invalid_exception import ActivationCodeInvalidException
+from exceptions.user_dont_exist_or_code_expire_exception import UserDontExistOrCodeExpireException
 
 
 user_blueprint = Blueprint('user_blueprint', __name__)
@@ -86,5 +87,18 @@ def create_reset():
     except UserDontExistException as e:
         response = make_response(Response(message=e.message,code=e.code).__dict__)
         return response,400
+    
 
-
+@user_blueprint.route('/reset', methods=['PATCH'])
+def reset_password():
+    data = request.get_json()
+    if data['code'] and data['password']:
+        try:
+            user_service.reset_password(password=data['password'],code=data['code'])
+            response = make_response(Response(message='Successfuly reset password',code='OK').__dict__)
+            return response, 200
+        except UserDontExistOrCodeExpireException as e:
+            response = make_response(Response(message=e.message,code=e.code).__dict__)
+            return response, 400
+    response = make_response(Response(message='Field code and password is required',code="PR2"))
+    return response,400

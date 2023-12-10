@@ -15,6 +15,7 @@ from exceptions.user_alredy_exist_name_exception import UserAlredyExistNameExcep
 from exceptions.user_not_activated_exception import UserNotActivatedException
 from exceptions.password_or_login_incorrect_exception import PasswordOrLoginIncorrectException
 from exceptions.user_dont_exist_exception import UserDontExistException
+from exceptions.user_dont_exist_or_code_expire_exception import UserDontExistOrCodeExpireException
 from service.profile_service import create_profile
 
 config = ConfigurationManager.get_instance()
@@ -88,3 +89,18 @@ def create_password_reset(email:str):
            send_reset_mail(reciver=user.email,code=password_reset.code)
            return password_reset.code
        raise UserDontExistException()
+    
+
+def reset_password(password:str, code:str):
+    with session_factory() as session:
+        salt = bcrypt.gensalt()
+        password = password.encode('utf-8')
+        hashed_password = bcrypt.hashpw(password, salt).decode('utf-8')
+        user:Users = session.query(Users).join(PasswordReset).filter(PasswordReset.code == code,PasswordReset.expires >= datetime.now()).first()
+        if user:
+            session.query(Users).filter(Users.id == user.id).update({'password':hashed_password,'salt':salt})
+            session.commit()
+            session.query(PasswordReset).filter(PasswordReset.code == code).delete()
+            session.commit()
+            return
+        raise UserDontExistOrCodeExpireException()
