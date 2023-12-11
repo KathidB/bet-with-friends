@@ -1,13 +1,21 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback
+} from 'react'
+import { useAuth } from '../../../auth/authcontext/AuthContext'
 
 const UserContext = createContext()
 
 function UserProvider ({ children }) {
   const [userProfile, setUserProfile] = useState([])
+  const { ipMan } = useAuth()
 
-  const updateUserProfile = async () => {
+  const updateUserProfile = useCallback(async () => {
     try {
-      const url = 'http://130.162.44.103:5000/api/v1/profile'
+      const url = `http://${ipMan}:5000/api/v1/profile`
       const response = await fetch(url, {
         method: 'GET',
         credentials: 'include',
@@ -26,16 +34,20 @@ function UserProvider ({ children }) {
     } catch (error) {
       console.error('Błąd podczas pobierania danych:', error)
     }
-  }
+  }, [ipMan])
 
   useEffect(() => {
-    updateUserProfile()
-  }, []) // Wywołaj funkcję przy pierwszym renderowaniu
+    const fetchUserProfile = async () => {
+      await updateUserProfile()
+    }
+
+    fetchUserProfile()
+  }, [updateUserProfile]) // Wywołaj funkcję przy pierwszym renderowaniu
 
   // Update the context when userProfile changes
   useEffect(() => {
     const updateUserContext = () => {
-      //Dzięki tej funkcji jakakolwiek zmiana wywołana z nią robi update na zawartość profili, np. dla automatycznej zmiany avataru we wszystkich komponentach!
+      // Dzięki tej funkcji jakakolwiek zmiana wywołana z nią robi update na zawartość profili, np. dla automatycznej zmiany avataru we wszystkich komponentach!
     }
 
     updateUserContext()

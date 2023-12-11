@@ -1,8 +1,13 @@
+import { useNavigate } from 'react-router-dom'
 import React, { createContext, useContext, useState, useEffect } from 'react'
 
 const AuthContext = createContext()
 
+const ipMan = '130.162.44.103'
+// const ipMan = 'localhost'
+
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate()
   const [loggedIn, setLoggedIn] = useState(() => {
     const storedLoggedIn = localStorage.getItem('loggedIn')
     return storedLoggedIn ? JSON.parse(storedLoggedIn) : false
@@ -18,15 +23,15 @@ export const AuthProvider = ({ children }) => {
   const login = () => {
     setLoggedIn(true)
     localStorage.setItem('loggedIn', JSON.stringify(true))
-    console.log('User logged in')
   }
 
   const logout = async () => {
-    const url = 'http://130.162.44.103:5000/api/v1/logout'
+    const url = `http://${ipMan}:5000/api/v1/logout`
 
     try {
       const response = await fetch(url, {
         method: 'GET',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         }
@@ -35,7 +40,7 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         setLoggedIn(false)
         localStorage.removeItem('loggedIn')
-        console.log('User logged out')
+        navigate('/login')
       } else {
         console.error('Logout failed')
       }
@@ -45,7 +50,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ loggedIn, login, logout }}>
+    <AuthContext.Provider value={{ loggedIn, login, logout, ipMan }}>
       {children}
     </AuthContext.Provider>
   )

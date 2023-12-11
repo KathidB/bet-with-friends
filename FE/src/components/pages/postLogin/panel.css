@@ -52,8 +52,7 @@
   .center-panel {
     order: -1;
     /* Ustaw centralny panel na samej górze */
-    
-  }
+      }
 
   .left-panel,
   .right-panel {
@@ -71,7 +70,6 @@
 
   .center-panel {
     order: -1;
-
   }
 
   .left-panel,
@@ -89,8 +87,6 @@
 
   .center-panel {
     order: -1;
-    /* Ustaw centralny panel na samej górze */
-
   }
 
   .panel-side-box {
@@ -103,9 +99,6 @@
     flex-direction: row;
     margin: 10px 0;
   }
-
-
-
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {

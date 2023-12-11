@@ -41,6 +41,11 @@
 
 @media (max-width: 575.98px) {
 
+  .header-h1{
+    word-wrap: break-word;
+    font-size: 1.8rem;
+  }
+
   .header-front {
     display: flex;
     justify-content: center;
@@ -76,6 +81,13 @@
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
+
+  .header-h1{
+    word-wrap: break-word;
+    font-size: 2rem;
+  }
+
+
   .header-front {
     display: flex;
     justify-content: center;

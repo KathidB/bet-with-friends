@@ -1,4 +1,4 @@
-from flask import Blueprint, request, make_response,redirect
+from flask import Blueprint, request, make_response,redirect, Response as ResponseFlask
 from configuration.configuration_manager import ConfigurationManager
 from entity.users import Users
 from entity.response import Response
@@ -12,6 +12,7 @@ from exceptions.user_not_activated_exception import UserNotActivatedException
 from exceptions.user_dont_exist_exception import UserDontExistException
 from exceptions.activation_code_invalid_exception import ActivationCodeInvalidException
 from exceptions.user_dont_exist_or_code_expire_exception import UserDontExistOrCodeExpireException
+from security.token_validator import token_required
 
 
 user_blueprint = Blueprint('user_blueprint', __name__)
@@ -102,3 +103,9 @@ def reset_password():
             return response, 400
     response = make_response(Response(message='Field code and password is required',code="PR2"))
     return response,400
+
+@user_blueprint.route('/auto-login',methods=['GET'])
+@token_required
+def auto_login(current_user:Users, response:ResponseFlask):
+    response.set_data(Response(message=current_user.public_id,code="OK").to_json())
+    return response, 200

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { BsArrowRight } from 'react-icons/bs'
-import { BsArrowLeft } from 'react-icons/bs'
-import Euro2024Schedule from './competitions/euro2024/MatchesSchedule'
+import { useAuth } from '../../../../auth/authcontext/AuthContext'
+import MatchesSchedule from './competitions/MatchesSchedule'
 import './schedule.css'
 
 function Schedule () {
@@ -12,12 +11,13 @@ function Schedule () {
   const [selectedCompetition, setSelectedCompetition] = useState(2001) // Domyślnie brak wybranej kompetencji
   // 2018 euro
   const limit = 10
+  const { ipMan } = useAuth()
 
   useEffect(() => {
     const getCompetitions = async () => {
       try {
         const competitionsResponse = await fetch(
-          'http://130.162.44.103:5000/api/v1/competetition',
+          `http://${ipMan}:5000/api/v1/competetition`,
           {
             method: 'GET',
             credentials: 'include',
@@ -43,13 +43,13 @@ function Schedule () {
     }
 
     getCompetitions()
-  }, [])
+  }, [ipMan])
 
   useEffect(() => {
     const getMatches = async () => {
       try {
         const matchesResponse = await fetch(
-          `http://130.162.44.103:5000/api/v1/matches?competetition=${selectedCompetition}&page=${currentPage}&limit=${limit}`,
+          `http://${ipMan}:5000/api/v1/matches?competetition=${selectedCompetition}&page=${currentPage}&limit=${limit}`,
           {
             method: 'GET',
             credentials: 'include',
@@ -74,7 +74,7 @@ function Schedule () {
     }
 
     getMatches()
-  }, [currentPage, selectedCompetition])
+  }, [currentPage, selectedCompetition, ipMan])
 
   const handleCompetitionChange = competitionId => {
     setSelectedCompetition(competitionId)
@@ -120,29 +120,13 @@ function Schedule () {
 
         {/* //  Lista buttonów z zawodami */}
 
-        <p className='schedule-btns'>
-          <button
-            aria-label='Previous page'
-            className='schedule-list-btn span-brand'
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(prevValue => prevValue - 1)}
-          >
-            <BsArrowLeft />
-          </button>
-          <span className='schedule-btn-span'>
-            Przeglądaj listę {currentPage} / {Math.ceil(totalMatches / limit)}
-          </span>
-          <button
-            aria-label='Next page'
-            className='schedule-list-btn span-brand'
-            onClick={() => setCurrentPage(prevValue => prevValue + 1)}
-            disabled={currentPage === Math.ceil(totalMatches / limit)}
-          >
-            <BsArrowRight />
-          </button>
-        </p>
-
-        <Euro2024Schedule matchList={matchList} />
+        <MatchesSchedule
+          matchList={matchList}
+          currentPage={currentPage}
+          totalMatches={totalMatches}
+          limit={limit}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </section>
   )

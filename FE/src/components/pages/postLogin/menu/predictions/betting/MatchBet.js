@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
+import { useAuth } from '../../../../../auth/authcontext/AuthContext'
 
 import './matchbet.css'
 
@@ -17,13 +18,14 @@ function MatchBet ({
     away_team_bet: '',
     home_team_bet: ''
   })
+  const { ipMan } = useAuth()
 
-  const handleBetSubmit = async e => {
+  const handleBetSubmit = async (e, matchId) => {
     e.preventDefault()
-    const { matchId, away_team_bet, home_team_bet } = betResults
+    const { away_team_bet, home_team_bet } = betResults[matchId]
 
     try {
-      const betEndpoint = `http://130.162.44.103:5000/api/v1/bet/${matchId}`
+      const betEndpoint = `http://${ipMan}:5000/api/v1/bet/${matchId}`
       const response = await fetch(betEndpoint, {
         method: 'POST',
         credentials: 'include',
@@ -36,6 +38,8 @@ function MatchBet ({
 
       if (response.ok) {
         setSubmittedBets([...submittedBets, matchId])
+
+        console.log('Poszło', betResults)
       } else {
         console.error('Błąd podczas wysyłania zakładu')
       }
@@ -47,7 +51,7 @@ function MatchBet ({
   return matchList.length > 0 ? (
     <>
       {/* //  Lista buttonów z zawodami */}
-      {console.log(matchList)}
+
       <p className='competition-name'>{matchList[0]?.competition.name}</p>
 
       <p className='schedule-btns'>
@@ -111,7 +115,10 @@ function MatchBet ({
                   {match.utc_date.replace('T', ' ').slice(11, -3)})
                 </td>
                 <td className='td-bet'>
-                  <form onSubmit={handleBetSubmit} className='bet-form'>
+                  <form
+                    onSubmit={e => handleBetSubmit(e, match.public_id)}
+                    className='bet-form'
+                  >
                     <input
                       min={0}
                       max={20}
@@ -119,17 +126,19 @@ function MatchBet ({
                       className='bet-input'
                       type='number'
                       disabled={isBetSubmitted}
-                      value={betResults[match.public_id]}
+                      value={betResults[match.public_id]?.home_team_bet || ''}
                       onChange={e =>
                         setBetResult({
                           ...betResults,
-                          matchId: match.public_id,
-                          home_team_bet: e.target.value
+                          [match.public_id]: {
+                            ...betResults[match.public_id],
+                            home_team_bet: e.target.value
+                          }
                         })
                       }
                       placeholder={match.home_team.short_name}
                     />
-                    <span> : </span>
+                    <span className='bet-span'> : </span>
                     <input
                       min={0}
                       max={20}
@@ -138,12 +147,14 @@ function MatchBet ({
                       type='number'
                       disabled={isBetSubmitted}
                       placeholder={match.away_team.short_name}
-                      value={betResults[match.public_id]}
+                      value={betResults[match.public_id]?.away_team_bet || ''}
                       onChange={e =>
                         setBetResult({
                           ...betResults,
-                          matchId: match.public_id,
-                          away_team_bet: e.target.value
+                          [match.public_id]: {
+                            ...betResults[match.public_id],
+                            away_team_bet: e.target.value
+                          }
                         })
                       }
                     />

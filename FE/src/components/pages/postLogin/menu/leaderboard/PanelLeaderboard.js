@@ -95,6 +95,9 @@ function PanelLeaderboard () {
                 <td className='leader-name'>{leader.name}</td>
                 <td className='th-hide'>
                   <img
+                    className={`${
+                      leader.ranking.place <= 3 ? 'top-avatar' : ''
+                    }`}
                     src={`http://130.162.44.103:5000/api/v1/avatar/${leader.avatar}`}
                     alt=''
                   />

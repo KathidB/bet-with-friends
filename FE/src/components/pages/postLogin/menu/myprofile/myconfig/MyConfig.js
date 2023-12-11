@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { FaSpinner } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+
 import { useUser } from '../../../context/UserContext'
 import './myconfig.css'
 
@@ -76,41 +78,12 @@ function MyConfig () {
     }
   }
 
-  // const handleNickChange = async () => {
-  //   if (!newNick) {
-  //     console.error('Nie wybrano nicku')
-  //     return
-  //   }
-
-  //   try {
-  //     const nickResponse = await fetch('http://localhost:5000/api/v1/profile', {
-  //       method: 'PATCH',
-  //       credentials: 'include',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify({
-  //         name: newNick
-  //       })
-  //     })
-
-  //     if (nickResponse.ok) {
-  //       console.log('Zmiana nicku udana')
-  //       // Tutaj możesz dodać logikę, która aktualizuje UI w odpowiedzi na udaną zmianę nicku
-  //     } else {
-  //       console.error('Błąd podczas zmiany nicku')
-  //     }
-  //   } catch (error) {
-  //     console.error('Błąd podczas wysyłania żądania:', error)
-  //   } finally {
-  //     // Resetuj pole po zmianie nicku
-  //     setNewNick('')
-  //   }
-  // }
-
   return (
     <>
       <div className='tab-config'>
+        <Link to='/newpassword' className='signup-login'>
+          Zresetuj swoje hasło
+        </Link>
         <div className='config-avatar-box'>
           <p>Wybierz nowy avatar</p>
           <div className='avatar-list'>

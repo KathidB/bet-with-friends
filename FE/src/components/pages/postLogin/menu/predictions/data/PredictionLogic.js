@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useAuth } from '../../../../../auth/authcontext/AuthContext'
 
 export const PredictionLogic = () => {
   const [matchList, setMatchList] = useState([])
@@ -6,13 +7,14 @@ export const PredictionLogic = () => {
   const [totalMatches, setTotalMatches] = useState(null)
   const [competitions, setCompetitions] = useState([])
   const [selectedCompetition, setSelectedCompetition] = useState(2021)
+  const { ipMan } = useAuth()
   const limit = 9
 
   useEffect(() => {
     const getCompetitions = async () => {
       try {
         const competitionsResponse = await fetch(
-          'http://130.162.44.103:5000/api/v1/competetition',
+          `http://${ipMan}:5000/api/v1/competetition`,
           {
             method: 'GET',
             credentials: 'include',
@@ -22,6 +24,7 @@ export const PredictionLogic = () => {
             }
           }
         )
+
         if (competitionsResponse.ok) {
           const competitionsData = await competitionsResponse.json()
           setCompetitions(competitionsData)
@@ -38,13 +41,13 @@ export const PredictionLogic = () => {
     }
 
     getCompetitions()
-  }, [])
+  }, [ipMan])
 
   useEffect(() => {
     const getMatches = async () => {
       try {
         const matchesResponse = await fetch(
-          `http://130.162.44.103:5000/api/v1/bet?competetition=${selectedCompetition}&page=${currentPage}&limit=${limit}`,
+          `http://${ipMan}:5000/api/v1/bet?competetition=${selectedCompetition}&page=${currentPage}&limit=${limit}`,
           {
             method: 'GET',
             credentials: 'include',
@@ -68,7 +71,7 @@ export const PredictionLogic = () => {
     }
 
     getMatches()
-  }, [currentPage, selectedCompetition])
+  }, [currentPage, selectedCompetition, ipMan])
 
   const handleCompetitionChange = competitionId => {
     setSelectedCompetition(competitionId)

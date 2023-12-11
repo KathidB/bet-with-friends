@@ -30,10 +30,18 @@ pipeline {
         stage('Remove images') {
             steps {
                 script {
-                    sh 'docker images -a | grep "<none>" | awk \'{print $3}\' | xargs docker rmi'
+                    script {
+                        def noneImages = sh(script: 'docker images -a | grep "<none>" | awk \'{print $3}\'', returnStdout: true).trim()
+                        if (noneImages) {
+                            sh "docker rmi ${noneImages}"
+                        } else {
+                            echo "Brak obrazów do usunięcia"
+                        }
+                    }
                 }
             }
         }
+
         stage('Deploy Containers') {
             steps {
                 // Uruchomienie kontenerów na serwerze

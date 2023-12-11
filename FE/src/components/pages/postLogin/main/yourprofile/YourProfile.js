@@ -6,12 +6,7 @@ import './yourprofile.css'
 function YourProfile () {
   const { userProfile } = useUser()
 
-  if (!userProfile || !userProfile.rating) {
-    // Możesz tutaj wyświetlić np. ładowanie, jeśli dane są jeszcze pobierane
-    return <div>Loading...</div>
-  }
-
-  return (
+  return Object.keys(userProfile).length > 0 ? (
     <div className='panel-side-box'>
       <h2 className='panel-header'>
         Twój <span className='span-brand'>Profil</span>
@@ -20,7 +15,9 @@ function YourProfile () {
         <img
           src={userProfile.avatar}
           alt=''
-          className='avatar top-typer-avatar'
+          className={`avatar ${
+            userProfile.ranking.place <= 3 ? 'top-typer-avatar' : null
+          } `}
           height={110}
           width={110}
         />
@@ -32,6 +29,8 @@ function YourProfile () {
         </Link>
       </div>
     </div>
+  ) : (
+    'Loading...'
   )
 }
 

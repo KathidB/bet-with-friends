@@ -48,7 +48,7 @@
     font-size: 1.1rem;
 }
 
-.panel-leader-table tbody tr:nth-child(-n+3) img {
+.top-avatar {
   border: 2px solid rgba(205, 127, 50, 0.8);
   border-radius: 50%;
   box-shadow: 0 0 8px rgba(205, 127, 50, 0.8);

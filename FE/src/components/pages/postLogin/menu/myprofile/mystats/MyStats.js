@@ -8,6 +8,9 @@ import './mystats.css'
 function MyStats (props) {
   const userStats = props.props
 
+  const percentage = userStats.rating.rating
+  const style = { '--percentage': `${percentage}%` }
+
   return (
     <>
       <div className='tab-stats'>
@@ -24,9 +27,11 @@ function MyStats (props) {
         <p className='stats-item'>
           <FcInspection /> Trafienia <br /> <span>{userStats.rating.wins}</span>
         </p>
-        <p className='stats-item'>
-          <FcRating /> Rating <br />
-          <span> {userStats.rating.rating}</span> %
+
+        <p className='stats-item' style={style}>
+          <FcRating /> Rating
+          <br />
+          <span className='stats-item-chart'> {userStats.rating.rating}</span> %
         </p>
       </div>
     </>

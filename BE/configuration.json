@@ -8,7 +8,7 @@
     "frontend_login":"http://130.162.44.103/login",
     "frontend_reset":"http://130.162.44.103/resetpass"
   },
-  "SECRET_KEY":"Th1s1ss3cr3t"
+  "SECRET_KEY":"8Zz5tw0Ionm3XPZZfN0NOml3z9FMfmpgXwovR9fp6ryDIoGRM8EPHAB6iHsc0fb"
   ,
   "jwt":{
     "exp":{

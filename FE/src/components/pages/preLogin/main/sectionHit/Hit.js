@@ -26,9 +26,10 @@ function Hit () {
               </h3>
             </div>
             <p>
-              Załóż własne konto, wybierz pseudonim i zgaduj wyniki meczów oraz
-              zdarzenia boiskowe. Zdobyte punkty będą widoczne w tabeli wyników.
-              Sprawdź, jak się radzisz w porównaniu z innymi uczestnikami.
+              Załóż konto, wybierz pseudonim oraz awatar i zgaduj wyniki meczów
+              najpopularniejszych lig piłkarskich. Zdobyte punkty będą widoczne
+              w tabeli wyników . Sprawdź, jak się radzisz w porównaniu z innymi
+              uczestnikami.
             </p>
           </div>
 

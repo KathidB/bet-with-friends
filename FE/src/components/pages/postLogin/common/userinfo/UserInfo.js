@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
+import { useAuth } from '../../../../auth/authcontext/AuthContext'
 
 function UserInfo () {
   const [userProfile, setUserProfile] = useState([])
+  const { ipMan } = useAuth()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = 'http://130.162.44.103:5000/api/v1/profile'
+        const url = `http://${ipMan}:5000/api/v1/profile`
         const response = await fetch(url, {
           method: 'GET',
           credentials: 'include',
@@ -32,7 +34,7 @@ function UserInfo () {
     }
 
     fetchData()
-  }, [])
+  }, [ipMan])
 
   return userProfile
 }

@@ -54,7 +54,8 @@ function Prediction () {
               Typuj wyniki meczów wybranych rozgrywek piłkarskich. Każdy mecz
               obstawiasz osobno. <br /> Pamiętaj, masz tylko jedną możliwość
               wysłania swojej predykcji, później nie ma możliwośći jej
-              edytowania. Powodzenia!
+              edytowania. Można typować mecze do 5 dni do przodu, aż do momentu
+              rozpoczęcia meczu. Powodzenia!
             </p>
           </div>
         </div>

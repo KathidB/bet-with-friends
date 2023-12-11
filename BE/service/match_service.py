@@ -11,7 +11,8 @@ from exceptions.already_bet_exception import AlreadyBetException
 from exceptions.match_dont_exist_exception import MatchDontExistException
 from shared.base import session_factory
 from apscheduler.schedulers.background import BackgroundScheduler
-from datetime import datetime,timezone
+from datetime import datetime,timezone, timedelta
+from service.raiting_service import update_raiting
 import atexit
 import uuid
 
@@ -93,7 +94,9 @@ def get_posible_bets(competetition,page:int,limit:int) -> [Match]:
                .query(Match)
                .join(Competition)
                .outerjoin(Bets, Match.id == Bets.match_id)
-               .filter(Competition.public_id == competetition, Match.utc_date > datetime.utcnow(),Bets.match_id == None)
+               .filter(Competition.public_id == competetition, Match.utc_date > datetime.utcnow(), 
+                       Match.utc_date <= datetime.now() + timedelta(days=5)
+                       ,Bets.match_id == None)
                .order_by(Match.utc_date)
                .offset((page-1)*limit)
                .limit(limit)
@@ -102,7 +105,7 @@ def get_posible_bets(competetition,page:int,limit:int) -> [Match]:
                .query(Match)
                .join(Competition)
                .outerjoin(Bets, Match.id == Bets.match_id)
-               .filter(Competition.public_id == competetition, Match.utc_date > datetime.utcnow(),Bets.match_id == None)
+               .filter(Competition.public_id == competetition, Match.utc_date <= datetime.now() + timedelta(days=5), Match.utc_date > datetime.utcnow(),Bets.match_id == None)
                .count())
     return (posible_best, count)
 
@@ -126,6 +129,8 @@ def proces_bets():
                     if home_team_winner and bet.who_win == "home": price += 0.15
                     if draw and bet.who_win == "draw": price += 0.15
                 price = price * 100
+                profile = session.query(Profile).filter(Profile.id==bet.profile_id).first()
+                update_raiting(id=profile.rating_id,isWin=price > 0)
                 stmt = update(Profile).where(Profile.id == bet.profile_id).values(points=(Profile.points + price))
                 session.execute(stmt)
                 session.commit()
@@ -183,5 +188,6 @@ def create_jobs():
     sheduler.start()
     atexit.register(lambda: sheduler.shutdown())
 
+proces_bets()
 create_jobs()
     

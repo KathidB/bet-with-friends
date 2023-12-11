@@ -26,6 +26,19 @@
     margin-bottom: -2px;
 }
 
+
+
+
+/* WYKRES ŁĄdowania w Ratingu */
+
+.stats-item {
+  position: relative;
+  border-radius: 10px; /* Zaokrąglenie rogów */
+  background: linear-gradient(to right, #f75a4c var(--percentage), #ffffff var(--percentage));
+  overflow: hidden;
+}
+
+
 @media (max-width: 575.98px) {
   .tab-stats {
     display: flex;

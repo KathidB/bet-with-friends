@@ -9,8 +9,11 @@ function Header () {
         <div className='header-front-text'>
           <h1 className='header-h1'>
             Obstawiaj wyniki rozgrywek
-            <span className='span-brand'> Euro 2024</span> i porównuj się ze
-            znajomymi!
+            <span className='span-brand'>
+              {' '}
+              najpopularniejszych lig piłkarskich{' '}
+            </span>
+            i porównuj się ze znajomymi!
           </h1>
           <p>
             Przewiduj wyniki meczów oraz inne wydarzenia związane z grą,

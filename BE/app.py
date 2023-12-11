@@ -7,7 +7,7 @@ from controllers.ranking_controller import ranking_blueprint
 from shared.base import init_db
 from configuration.configuration_manager import ConfigurationManager
 from flask_cors import CORS
-from service.match_service import get_new_matches,insert_competetition
+from service.match_service import get_new_matches,insert_competetition,proces_bets
 
 app = Flask(__name__)
 cors = CORS(app=app,resources={r'/api/v1/*':{'origins':'*', 'supports_credentials': True}},expose_headers='X-Total-Count')
@@ -25,6 +25,7 @@ app.register_blueprint(ranking_blueprint, url_prefix=f'{api_v1_prefix}')
 
 insert_competetition()
 get_new_matches()
+proces_bets()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

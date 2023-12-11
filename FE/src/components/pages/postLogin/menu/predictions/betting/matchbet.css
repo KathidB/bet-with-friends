@@ -1,49 +1,52 @@
-.bet-table { 
+.bet-table {
   width: 100%;
   text-align: center;
   border-collapse: collapse;
   border-radius: 8px;
   margin-bottom: 10px;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.473);
-  ;
+  overflow: hidden;
 }
 
 .bet-table td {
   margin: 10px 5px;
-  border: 1px solid       rgba(192, 192, 192, 0.452);
-  background-color: rgba(192, 192, 192, 0.103);
+  border: 1px solid rgba(192, 192, 192, 0.452);
 
 }
-.td-bet{
- width: 400px;
+
+.td-bet {
+  width: 400px;
 }
 
-.bet-table th { 
-   border: 1px solid rgba(192, 192, 192, 0.452);
+.bet-table th {
+  border: 1px solid rgba(192, 192, 192, 0.452);
   padding: 8px;
+  overflow: hidden;
 }
 
-.bet-input {
-  width: 90px;
-  border: transparent;
-  padding: 5px 20px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
-  border-radius: 4px;
-  margin: 0 5px; 
-}
-
-.bet-input:disabled::after { 
- content: "";
-  border: 1px solid rgba(0, 255, 0, 0.932);
-  box-shadow: 1px 1px 3px rgba(121, 122, 121, 0.466);
-}
-.bet-form{
+.bet-form {
   border: none;
   background: none;
 }
 
-.bet-button{
-  padding: 5px 15px;
+.bet-input {
+  width: 90px;
+  border: 1px solid transparent;
+  padding: 5px 20px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
+  border-radius: 4px;
+  margin: 0 5px;
+}
+
+.bet-input:disabled {
+  background-color: rgba(187, 255, 0, 0.363);
+  border: 1px solid rgba(187, 255, 0, 0.363);
+}
+
+.bet-button {
+  text-align: center;
+  width: 70px;
+  padding: 5px 5px;
   border: 1px solid transparent;
   border-radius: 4px;
   background: #2c2d5b;
@@ -51,63 +54,125 @@
   color: var(--white-color);
   cursor: pointer;
   margin-left: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.815);
 }
 
-.bet-button:disabled{ 
-background-color: rgb(192, 192, 192);
-cursor: auto;
+.bet-button:disabled {
+  background-color: rgba(187, 255, 0, 0.363); 
+  color: #2c2d5b;
+  text-align: center;
+  cursor: auto;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.815);
 }
 
 @media (max-width: 575.98px) {
- 
-  .bet-form{
-    width: 100%;
+  .bet-form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-   }
-   .bet-input { 
-  width: 60%;
-
+  }
+  .bet-input { 
     border: transparent;
+    padding: 5px 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
+    border-radius: 4px;
+    margin: 5px 5px;
+  }
+  .bet-span{
+    display: none;
+  }
+}
+
+
+@media (max-width: 435.98px) {
+  .bet-button{
+    margin-left: 0;
+    margin-bottom: 5px;
+  }
+ 
+  .bet-form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  .bet-input {      
+    border: 1px solid transparent;
     padding: 5px 20px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
     border-radius: 4px;
-    margin: 5px 5px; 
-  
+    margin: 5px 5px;
+    margin-right: 5px;
   }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
-
+  .bet-button{
+    margin-right: 0;
+  }
  
-  .bet-form{
+  .bet-form {
     width: 100%;
     display: flex;
-  flex-wrap: wrap;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-   }
-   .bet-input {
-    width: 90px;
-    border: transparent;
+  }
+  .bet-input {      
+    border: 1px solid transparent;
     padding: 5px 20px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
     border-radius: 4px;
-    margin: 5px 5px; 
-
+    margin: 5px 5px;
+    margin-right: 5px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
-
+  .bet-button{
+    margin-right: 0;
+  }
+ 
+  .bet-form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  .bet-input {      
+    border: 1px solid transparent;
+    padding: 5px 10px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
+    border-radius: 4px;
+    margin: 5px 5px;
+    margin-right: 5px;
+  }
 }
 
-@media (min-width: 992px) and (max-width: 1199.98px) {
-  
-}
+@media (min-width: 992px) and (max-width: 1199.98px) {}
 
-@media (min-width: 1200px) and (max-width: 1670.98px) {
-  
+@media (min-width: 1200px) and (max-width: 1300.98px) {
+  .bet-button{
+    margin-right: 0;
+  }
+ 
+  .bet-form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  .bet-input {      
+    border: 1px solid transparent;
+    padding: 5px 10px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
+    border-radius: 4px;
+    margin: 5px 5px;
+    margin-right: 5px;
+  }
 }

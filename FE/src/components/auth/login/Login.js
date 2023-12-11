@@ -5,23 +5,24 @@ import validate from '../validation/LogInValidations'
 import RaccoonLogin from './images/raccoon-login3.webp'
 import { ScrollToTop } from '../../utilities/ScrollToTop'
 import { FaSpinner } from 'react-icons/fa'
-
 import { useAuth } from '../authcontext/AuthContext'
 
 import './login.css'
 
 function Login () {
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const { login, ipMan } = useAuth()
   const [loginError, setLoginError] = useState(null)
   const [loading, setLoading] = useState(false)
+
+  console.log(ipMan)
 
   const handleSubmit = async (userData, { resetForm }) => {
     setLoginError(null)
     try {
       setLoading(true)
-      // Wysyłanie danych do backendu
-      const response = await fetch('http://130.162.44.103:5000/api/v1/login', {
+
+      const response = await fetch(`http://${ipMan}:5000/api/v1/login`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -36,7 +37,7 @@ function Login () {
         // Czyszczenie formularza po udanym logowaniu
         resetForm({
           values: {
-            name: '',
+            email: '',
             password: ''
           }
         })
@@ -45,6 +46,8 @@ function Login () {
         setLoginError(null)
 
         login()
+
+        // Navigate after login
         navigate('/panel')
       } else {
         // Obsługa błędów, np. wyświetlenie komunikatu użytkownikowi
@@ -59,7 +62,6 @@ function Login () {
         }
       }
     } catch (error) {
-      // Ustawienie błędu, który zostanie wyświetlony użytkownikowi
       setLoginError(error.message || 'Wystąpił błąd podczas logowania.')
     }
   }
@@ -141,15 +143,26 @@ function Login () {
               {loginError && (
                 <div className='login-server-error-msg'>{loginError}</div>
               )}
+              <div className='new-pass'>
+                <Link
+                  to='/newpassword'
+                  className='signup-login'
+                  onClick={ScrollToTop}
+                >
+                  Przypomnij hasło
+                </Link>
+              </div>
             </Form>
           )}
         </Formik>
 
         <div className='form-to-signup'>
-          Nie posiadasz konta?
-          <Link to='/signup' className='signup-login' onClick={ScrollToTop}>
-            Zarejestruj się
-          </Link>
+          <div>
+            <span>Nie masz konta?</span>
+            <Link to='/signup' className='signup-login' onClick={ScrollToTop}>
+              Zarejestruj się
+            </Link>
+          </div>
         </div>
       </div>
     </section>

@@ -30,7 +30,9 @@ function UserMenu () {
         {userProfile.name}
       </p>
       <BiSolidMessage className='message-none' />
-      <BiSolidMessageDetail className='message-true' />
+      <div className='message-true'>
+        <BiSolidMessageDetail className='message-true' />
+      </div>
       <img
         src={userProfile.avatar}
         alt=''

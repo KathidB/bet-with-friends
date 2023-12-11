@@ -1,6 +1,38 @@
-function Euro2024Schedule ({ matchList }) {
+import { BsArrowRight } from 'react-icons/bs'
+import { BsArrowLeft } from 'react-icons/bs'
+
+function MatchesSchedule ({
+  matchList,
+  currentPage,
+  totalMatches,
+  limit,
+  setCurrentPage
+}) {
   return matchList.length > 0 ? (
     <>
+      <p className='competition-name'>{matchList[0]?.competition.name}</p>
+      <p className='schedule-btns'>
+        <button
+          aria-label='Previous page'
+          className='schedule-list-btn span-brand'
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(prevValue => prevValue - 1)}
+        >
+          <BsArrowLeft />
+        </button>
+        <span className='schedule-btn-span'>
+          Przeglądaj listę {currentPage} / {Math.ceil(totalMatches / limit)}
+        </span>
+        <button
+          aria-label='Next page'
+          className='schedule-list-btn span-brand'
+          onClick={() => setCurrentPage(prevValue => prevValue + 1)}
+          disabled={currentPage === Math.ceil(totalMatches / limit)}
+        >
+          <BsArrowRight />
+        </button>
+      </p>
+
       <table className='schedule-table'>
         <thead>
           <tr>
@@ -9,7 +41,7 @@ function Euro2024Schedule ({ matchList }) {
             <th>Wynik</th>
             <th>Goście</th>
             <th className='crest'></th>
-            <th>Termin</th>
+            <th className='crest'>Termin</th>
           </tr>
         </thead>
         <tbody>
@@ -24,7 +56,7 @@ function Euro2024Schedule ({ matchList }) {
                 />
               </td>
               <td>{match.home_team.short_name}</td>
-              <td>{match.score.full_time ?? 'TBD'}</td>
+              <td>{match.score.full_time.replace('-', ' - ') ?? 'TBD'}</td>
 
               <td>{match.away_team.short_name}</td>
               <td className='crest'>
@@ -35,7 +67,7 @@ function Euro2024Schedule ({ matchList }) {
                   alt=''
                 />
               </td>
-              <td>
+              <td className='crest'>
                 {' '}
                 {new Date(match.utc_date).toLocaleDateString('en-GB')} (
                 {match.utc_date.replace('T', ' ').slice(11, -3)})
@@ -50,4 +82,4 @@ function Euro2024Schedule ({ matchList }) {
   )
 }
 
-export default Euro2024Schedule
+export default MatchesSchedule
