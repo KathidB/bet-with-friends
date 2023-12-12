@@ -5,6 +5,7 @@ import validate from '../validation/LogInValidations'
 import RaccoonLogin from './images/raccoon-login3.webp'
 import { ScrollToTop } from '../../utilities/ScrollToTop'
 import { FaSpinner } from 'react-icons/fa'
+
 import { useAuth } from '../authcontext/AuthContext'
 
 import './login.css'
@@ -14,8 +15,6 @@ function Login () {
   const { login, ipMan } = useAuth()
   const [loginError, setLoginError] = useState(null)
   const [loading, setLoading] = useState(false)
-
-  console.log(ipMan)
 
   const handleSubmit = async (userData, { resetForm }) => {
     setLoginError(null)
@@ -99,6 +98,7 @@ function Login () {
                 id='email'
                 name='email'
                 placeholder='Email'
+                autoComplete='email'
                 className={
                   formik.touched.email && formik.errors.email
                     ? 'login-input-error'

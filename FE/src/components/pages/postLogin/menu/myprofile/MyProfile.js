@@ -45,11 +45,11 @@ function MyProfile () {
           </button>
           <button
             className={`tabs-btn ${
-              activeTab === 'Aktywność' ? 'active-btn' : ''
+              activeTab === 'Historia' ? 'active-btn' : ''
             }`}
-            onClick={() => handleTabClick('Aktywność')}
+            onClick={() => handleTabClick('Historia')}
           >
-            Aktywność
+            Historia
           </button>
           <button
             className={`tabs-btn ${
@@ -65,7 +65,7 @@ function MyProfile () {
           <hr className='hr-panel' />
           {activeTab === 'Statystyki' && <MyStats props={userProfile} />}
           {activeTab === 'Osiągnięcia' && <MyAchiv props={userProfile} />}
-          {activeTab === 'Aktywność' && <MyHistory props={userProfile} />}
+          {activeTab === 'Historia' && <MyHistory props={userProfile} />}
           {activeTab === 'Ustawienia' && <MyConfig />}
         </div>
       </div>

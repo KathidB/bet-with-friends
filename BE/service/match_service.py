@@ -1,4 +1,4 @@
-from sqlalchemy import update
+from sqlalchemy import update,or_
 from service.footaball_data_service import get_matches,get_competetition
 from configuration.configuration_manager import ConfigurationManager
 from entity.competition import Competition
@@ -7,6 +7,7 @@ from entity.team import Team
 from entity.score import Score
 from entity.bets import Bets
 from entity.profile import Profile
+from entity.users import Users
 from exceptions.already_bet_exception import AlreadyBetException
 from exceptions.match_dont_exist_exception import MatchDontExistException
 from shared.base import session_factory
@@ -88,26 +89,51 @@ def get_competetition_list():
     with session_factory() as session:
         return session.query(Competition).all()
 
-def get_posible_bets(competetition,page:int,limit:int) -> [Match]:
+def get_posible_bets(competetition,page:int,limit:int,user:Users) -> [Match]:
     with session_factory() as session:
-       posible_best =  (session
-               .query(Match)
-               .join(Competition)
-               .outerjoin(Bets, Match.id == Bets.match_id)
-               .filter(Competition.public_id == competetition, Match.utc_date > datetime.utcnow(), 
-                       Match.utc_date <= datetime.now() + timedelta(days=5)
-                       ,Bets.match_id == None)
-               .order_by(Match.utc_date)
-               .offset((page-1)*limit)
-               .limit(limit)
-               .all())
-       count = (session
-               .query(Match)
-               .join(Competition)
-               .outerjoin(Bets, Match.id == Bets.match_id)
-               .filter(Competition.public_id == competetition, Match.utc_date <= datetime.now() + timedelta(days=5), Match.utc_date > datetime.utcnow(),Bets.match_id == None)
-               .count())
-    return (posible_best, count)
+        profile = session.query(Profile).filter(Profile.user_id == user.id).first()
+        possible_best = (session
+            .query(Match)
+            .join(Competition, Match.competetition_id == Competition.id)
+            .filter(
+                Competition.public_id == competetition,
+                Match.utc_date >= datetime.utcnow(),
+                Match.utc_date <= datetime.now() + timedelta(days=5),
+            )
+            .order_by(Match.utc_date,Match.home_team_id)
+            .all()
+        )
+        print(obj.to_json() for obj in possible_best)
+        count = (session
+            .query(Match)
+            .join(Competition, Match.competetition_id == Competition.id)
+            .filter(
+                Competition.public_id == competetition,
+                Match.utc_date >= datetime.utcnow(),
+                Match.utc_date <= datetime.now() + timedelta(days=5),
+            ).all()
+        )
+        possible_best = filter_match(matchs=possible_best,session=session,profile=profile)
+        count = len(filter_match(matchs=count,session=session,profile=profile))
+        if count >= page * limit:
+            start = (page - 1) * limit
+            end = start + limit
+            possible_best = possible_best[start:end]
+        else:
+            start = (page - 2) * limit
+            end = start + limit
+            possible_best = possible_best[start:end]
+
+    return (possible_best, count)
+
+
+def filter_match(matchs:[Match],session,profile:Profile) -> [Match]:
+    result:[Match] = []
+    for match in matchs:
+        bets = session.query(Bets).filter(Bets.profile_id == profile.id,Bets.match_id == match.id).first()
+        if not bets:
+            result.append(match)
+    return result
 
 def proces_bets():
     with session_factory() as session:
@@ -121,14 +147,11 @@ def proces_bets():
             bets_to_preces = session.query(Bets).filter(Bets.match_id == match.id)
             for bet in bets_to_preces:
                 price = 0
-                if bet.away_team and bet.home_team:
-                    if bet.away_team == int(away_team_score): price += 0.50
-                    if bet.home_team == int(home_team_score): price += 0.50
+                if bet.away_team == int(away_team_score) and bet.home_team == int(home_team_score): price = 100
                 elif bet.who_win:
-                    if away_team_winner and bet.who_win == "away": price += 0.15
-                    if home_team_winner and bet.who_win == "home": price += 0.15
-                    if draw and bet.who_win == "draw": price += 0.15
-                price = price * 100
+                    if away_team_winner and bet.who_win == "away": price = 20
+                    if home_team_winner and bet.who_win == "home": price = 20
+                    if draw and bet.who_win == "draw": price = 20
                 profile = session.query(Profile).filter(Profile.id==bet.profile_id).first()
                 update_raiting(id=profile.rating_id,isWin=price > 0)
                 stmt = update(Profile).where(Profile.id == bet.profile_id).values(points=(Profile.points + price))
@@ -175,6 +198,13 @@ def create_bet(match:int,user_id:int,bets:Bets):
             profile =  session.query(Profile).filter_by(user_id=user_id).first()
             if not match_db:
                 raise MatchDontExistException()
+            if not bets.who_win:
+                if bets.away_team == bets.home_team:
+                    bets.who_win = "draw"
+                elif bets.home_team > bets.away_team:
+                    bets.who_win = "home"
+                else:
+                    bets.who_win = 'away'
             bet = Bets(public_id=uuid.uuid4(),match_id=match_db.id,profile_id = profile.id, away_team=bets.away_team,home_team=bets.home_team,who_win=bets.who_win)
             session.add(bet)
             session.commit()
@@ -188,6 +218,5 @@ def create_jobs():
     sheduler.start()
     atexit.register(lambda: sheduler.shutdown())
 
-proces_bets()
 create_jobs()
     

@@ -6,7 +6,7 @@ export const PredictionLogic = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalMatches, setTotalMatches] = useState(null)
   const [competitions, setCompetitions] = useState([])
-  const [selectedCompetition, setSelectedCompetition] = useState(2021)
+  const [selectedCompetition, setSelectedCompetition] = useState(2001)
   const { ipMan } = useAuth()
   const limit = 9
 
@@ -28,10 +28,6 @@ export const PredictionLogic = () => {
         if (competitionsResponse.ok) {
           const competitionsData = await competitionsResponse.json()
           setCompetitions(competitionsData)
-          // zamiana bo w euro nie ma jeszcze meczy a jest na 1 miejscu w tabeli wiec jest pusta domyślnie.
-          // competitionsData.reverse()
-
-          // Sprawdź, czy Champions League jest w dostępnych konkurencjach
         } else {
           console.error('Błąd podczas pobierania danych')
         }
@@ -71,7 +67,7 @@ export const PredictionLogic = () => {
     }
 
     getMatches()
-  }, [currentPage, selectedCompetition, ipMan])
+  }, [currentPage, selectedCompetition, ipMan, totalMatches])
 
   const handleCompetitionChange = competitionId => {
     setSelectedCompetition(competitionId)
@@ -86,6 +82,7 @@ export const PredictionLogic = () => {
     selectedCompetition,
     limit,
     setCurrentPage,
-    handleCompetitionChange
+    handleCompetitionChange,
+    setTotalMatches
   }
 }

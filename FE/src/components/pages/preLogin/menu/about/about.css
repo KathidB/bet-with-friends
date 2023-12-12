@@ -1,3 +1,11 @@
 .about-bold{
+    font-size: 1.1rem;
     font-weight: bold;
+}
+
+.about-us{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { FaSpinner } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-
 import { useUser } from '../../../context/UserContext'
+import PanelPassReset from '../../../../../auth/panelpassreset/PanelPassReset'
 import './myconfig.css'
 
 function MyConfig () {
@@ -81,9 +80,8 @@ function MyConfig () {
   return (
     <>
       <div className='tab-config'>
-        <Link to='/newpassword' className='signup-login'>
-          Zresetuj swoje hasło
-        </Link>
+        <PanelPassReset />
+
         <div className='config-avatar-box'>
           <p>Wybierz nowy avatar</p>
           <div className='avatar-list'>
@@ -113,7 +111,6 @@ function MyConfig () {
               <button className='config-btn' onClick={handleAvatarChange}>
                 {loading ? (
                   <>
-                    {' '}
                     <FaSpinner className='spinner-icon' />
                     Przesyłanie...
                   </>

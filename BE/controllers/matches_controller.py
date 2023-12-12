@@ -48,7 +48,7 @@ def get_bets(current_user,response:Response):
         limit = int(request.args.get('limit'))
     if request.args.get('competetition'):
         competetition = request.args.get('competetition')
-        (posible_best, count) = get_posible_bets(page=page,limit=limit,competetition=competetition)
+        (posible_best, count) = get_posible_bets(page=page,limit=limit,competetition=competetition,user=current_user)
         response.set_data(json.dumps([obj.to_json() for obj in posible_best],indent=4))
         response.headers['X-Total-Count'] = count
         return response

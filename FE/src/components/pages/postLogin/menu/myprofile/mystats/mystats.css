@@ -16,8 +16,10 @@
   width: 20%;
   min-width: 200px;
   font-size: 1.2rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px; */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.205);
 }
+
 .tab-stats p {
   line-height: 35px;
 }
@@ -26,15 +28,12 @@
     margin-bottom: -2px;
 }
 
-
-
-
 /* WYKRES ŁĄdowania w Ratingu */
 
 .stats-item {
   position: relative;
   border-radius: 10px; /* Zaokrąglenie rogów */
-  background: linear-gradient(to right, #f75a4c var(--percentage), #ffffff var(--percentage));
+  background: linear-gradient(to right, #dbdddf var(--percentage), #ffffff var(--percentage));
   overflow: hidden;
 }
 

@@ -29,8 +29,8 @@ def get_matches(current_user:Users,response:Response):
 @token_required
 def update_profile(current_user:Users, response:Response):
     data = request.get_json()
-    if not data.get('name') and not data.get('avatar'):
-        response.set_data(CustomResponse("One field is required name or field","PR1").to_json())
+    if not data.get('password') and not data.get('avatar'):
+        response.set_data(CustomResponse("One field is required password or avatar","PR1").to_json())
         return response
     if data.get('avatar'):
         try:
@@ -40,7 +40,7 @@ def update_profile(current_user:Users, response:Response):
             return response
     else:
         try:
-            update_name(data.get('name'),user_id=current_user.id)
+            update_name(data.get('password'),user_id=current_user.id)
         except ProfileDontExistException as e:
             response.set_data(CustomResponse(e.message,e.code).to_json())
             return response

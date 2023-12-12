@@ -1,5 +1,10 @@
 .tab-config{
-   width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+     width: 100%;
+      gap: 10px;
 }
 
 .config-form{
@@ -8,13 +13,11 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-
 }
 
 .config-form-item{
     padding: 20px 0px ;
-    margin: 10px 0;
-    /* width: 100%; */
+    margin: 10px 0; 
     width: 280px;
 }
 
@@ -58,11 +61,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    align-content: center;
+    align-content: flex-start;
     flex-wrap: wrap;
     width: 550px;
+   
     max-height: 225px;   
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .avatar-item{

@@ -1,11 +1,19 @@
+import AboutRaccoons from './images/aboutraccoons.webp'
 import './about.css'
 
 function About () {
   return (
-    <section className='app-wrap'>
+    <section className='app-wrap about-us'>
       <h2 className='section-title'>
         O <span className='span-brand'>nas</span>{' '}
       </h2>
+
+      <img
+        className='about-img'
+        src={AboutRaccoons}
+        width={250}
+        alt='Raccoon reading about us page'
+      />
 
       <p>
         <span className='span-brand about-bold'>
@@ -40,7 +48,7 @@ function About () {
       </p>
       <p>
         <span className='span-brand about-bold'>
-          Zdobądź Punkty i Wspię się na Szczyt:
+          Zdobądź Punkty i Wspię się na Szczyt:{' '}
         </span>
         Twój talent typowania zostanie doceniony dzięki systemowi punktacji w
         Bet With Friends. Im trafniejsze typy, tym więcej punktów zdobywasz.

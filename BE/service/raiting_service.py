@@ -21,6 +21,7 @@ def update_raiting(id:int,isWin:bool):
         if isWin:
             rating.wins += 1
         rate = calc_rating(rating=rating)
+        rate = round(rate,2)
         stmt = update(Rating).where(Rating.id == rating.id).values(rating = rate)
         session.execute(stmt)
         session.commit()

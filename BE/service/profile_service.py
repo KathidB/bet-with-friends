@@ -8,6 +8,7 @@ from service.ranking_service import create_ranking
 from entity.users import Users
 from entity.rating import Rating
 from shared.base import session_factory
+import bcrypt
 import uuid
 from configuration.configuration_manager import ConfigurationManager
 
@@ -56,11 +57,16 @@ def update_avatar(avatar:str,user_id:int):
         except NoResultFound:
             raise ProfileDontExistException()
         
-def update_name(name:str,user_id:int):
+def update_name(password:str,user_id:int):
     with session_factory() as session:
         try:
             session.query(Profile).filter(Profile.user_id == user_id).one()
-            stmt = update(Profile).where(Profile.user_id == user_id).values(avatar=name)
+
+            salt = bcrypt.gensalt()
+            password = password.encode('utf-8')
+            hashed_password = bcrypt.hashpw(password, salt)
+            password = hashed_password.decode('utf-8')
+            stmt = update(Users).where(Users.id == user_id).values(password=password)
             session.execute(stmt)
             session.commit()
         except NoResultFound:

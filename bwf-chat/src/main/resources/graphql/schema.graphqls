@@ -1,0 +1,35 @@
+type Profile{
+    uuid:String!
+    name:String
+    image:String
+    ranking:Int
+}
+
+type Reaction{
+    uuid:String!
+    reaction:String
+    counter:Int
+}
+
+type Message{
+    uuid:String!
+    sender:Profile
+    reaction:[Reaction]
+    content:String
+}
+
+type Response{
+    message:String
+    code:String
+    timestamp:String
+}
+
+type Query{
+    getMessages(page:Int!,limit:Int!):[Message]
+}
+type Mutation{
+    sendMessage(message:String!):Response
+}
+type Subscription{
+    newMessageSubscription:Message
+}
