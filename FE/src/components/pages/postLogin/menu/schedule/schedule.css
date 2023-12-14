@@ -18,8 +18,11 @@
 }
 
 
+.mobile-date{
+  display: none;
+}
 
-.schedule-table td {
+.mobile-schedule {
   margin: 10px 5px;
   border: 1px solid rgba(192, 192, 192, 0.452);
   padding: 2px;
@@ -105,18 +108,28 @@
 }
 
 @media (max-width: 575.98px) {
-
   .app-wrap{
     padding: 5px;
   }
 
+  .schedule-table{
+    border-collapse: separate;
+    border-spacing: 0px 10px;
+    box-shadow: 0px 0px 3px transparent;
+  }
+
+
+
   .schedule-tr {
     border: 1px solid rgba(0, 0, 0, 0.164);
-
+box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.205);
   }
+
+
 
   .schedule-table-tr {
     width: auto;
+  
   }
 
 
@@ -152,11 +165,9 @@
     justify-content: flex-start;
     flex-direction: row;
     gap: 2px;
-    margin: 2px 0;
-   
+    margin: 2px 0;   
     height: 100px;
-    flex-wrap: nowrap;
-  
+    flex-wrap: nowrap;  
     overflow-y: auto;
   }
 
@@ -203,7 +214,7 @@
 
 
 
-  .schedue-result {
+  .schedule-result {
     width: 50px;
   }
 
@@ -224,25 +235,26 @@
   }
 
 
-  .schedule-table td {
-    margin: 10px 5px;
-    padding: 10px 0px;
+  .mobile-schedule {
+    border: 1px solid rgba(192, 192, 192, 0.452);
+    padding: 2px;  
   }
 
   .schedule-date {
     display: inline-block;
   }
-
-
-
-
+  .mobile-date{
+    display: inline-block;
+  }
 
 
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
 
-
+  .mobile-date{
+    display: inline-block;
+  }
 
   .schedule-tr {
     border: 1px solid rgba(0, 0, 0, 0.164);
@@ -335,7 +347,7 @@
 
 
 
-  .schedue-result {
+  .schedule-result {
     width: 50px;
   }
 
@@ -355,14 +367,17 @@
   }
 
 
-  .schedule-table td {
+  .mobile-schedule{
     margin: 10px 5px;
     padding: 10px 0px;
   }
 
   .schedule-date {
     display: inline-block;
+    /* margin:  0 5px; */
   }
+
+
 
 
 }

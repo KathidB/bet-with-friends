@@ -26,7 +26,7 @@ function PanelFooter () {
         </li>
         <li className='footer-panel-li'>
           <Link to='/panel/toptypers' className='footer-panel-item'>
-            <FcBullish /> <br /> Leaderboard
+            <FcBullish /> <br /> Tabela
           </Link>
         </li>
         <li className='footer-panel-li'>
