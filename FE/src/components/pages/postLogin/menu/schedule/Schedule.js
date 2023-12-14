@@ -95,7 +95,7 @@ function Schedule () {
   }
 
   return (
-    <section>
+    <section className='app-wrap'>
       <div className='schedule'>
         <h2 className='panel-header'>
           Terminarz <span className='span-brand'>rozgrywek</span>
@@ -112,7 +112,7 @@ function Schedule () {
               }`}
               onClick={() => handleCompetitionChange(competition.public_id)}
             >
-              <img width={50} height={50} src={competition.emblem} alt='' />
+              <img width={50} height={50} src={competition.emblem} alt='' className='comp-button-img'/>
               {handleCompetitionNames(competition.name)}
             </button>
           ))}

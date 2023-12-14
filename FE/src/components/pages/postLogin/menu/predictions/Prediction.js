@@ -100,7 +100,7 @@ function Prediction () {
               </div>
             )}
 
-            <p>
+            <p className='how-to-bet-p'>
               Typuj wyniki meczów wybranych rozgrywek piłkarskich. Każdy mecz
               obstawiasz osobno. <br /> Pamiętaj, masz tylko jedną możliwość
               wysłania swojej predykcji, później nie ma możliwośći jej
@@ -125,12 +125,18 @@ function Prediction () {
                 }`}
                 onClick={() => handleCompetitionChange(competition.public_id)}
               >
-                <img width={50} height={50} src={competition.emblem} alt='' />
+                <img
+                  width={50}
+                  height={50}
+                  src={competition.emblem}
+                  alt=''
+                  className='comp-button-img'
+                />
                 {handleCompetitionNames(competition.name)}
               </button>
             ))}
           </div>
-
+          <hr className='hr-panel-bot'></hr>
           {/* // W przysszłosci będzie wiecej zawodów do wyboru- do zmiany  2023*/}
 
           <MatchBet

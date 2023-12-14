@@ -10,6 +10,13 @@ function MatchesSchedule ({
 }) {
   return matchList.length > 0 ? (
     <>
+      <img
+        className='footbal-team-crest'
+        width={65}
+        height={65}
+        src={matchList[0].competition.emblem}
+        alt='Footbal team emblem'
+      />
       <p className='competition-name'>{matchList[0]?.competition.name}</p>
       <p className='schedule-btns'>
         <button
@@ -35,10 +42,10 @@ function MatchesSchedule ({
 
       <table className='schedule-table'>
         <thead>
-          <tr>
+          <tr className='schedule-table-tr'>
             <th className='crest'></th>
             <th>Gospodarze</th>
-            <th>Wynik</th>
+            <th className='schedue-result'>Wynik</th>
             <th>Goście</th>
             <th className='crest'></th>
             <th className='crest'>Termin</th>
@@ -46,7 +53,7 @@ function MatchesSchedule ({
         </thead>
         <tbody>
           {matchList.map(match => (
-            <tr key={match.score.public_id}>
+            <tr key={match.score.public_id} className='schedule-tr'>
               <td className='crest'>
                 <img
                   width={25}
@@ -55,10 +62,34 @@ function MatchesSchedule ({
                   alt=''
                 />
               </td>
-              <td>{match.home_team.short_name}</td>
-              <td>{match.score.full_time.replace('-', ' - ') ?? 'TBD'}</td>
+              <td className='schedule-team-crest-home'>
+                <img
+                  className='home-team-crest'
+                  width={25}
+                  height={25}
+                  src={match.home_team.crest}
+                  alt=''
+                />
+                {match.home_team.short_name}
+              </td>
+              <td>
+                {match.score.full_time.replace('-', ' - ') ?? 'TBD'} <br />
+               <span className="schedule-date">
+               {new Date(match.utc_date).toLocaleDateString('en-GB')} (
+                {match.utc_date.replace('T,', ' ').slice(11, -3)})
+               </span>
+              </td>
 
-              <td>{match.away_team.short_name}</td>
+              <td className='schedule-team-crest-away'>
+                {match.away_team.short_name}{' '}
+                <img
+                  className='away-team-crest'
+                  width={25}
+                  height={25}
+                  src={match.away_team.crest}
+                  alt=''
+                />
+              </td>
               <td className='crest'>
                 <img
                   width={25}

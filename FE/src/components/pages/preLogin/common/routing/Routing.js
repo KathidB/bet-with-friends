@@ -22,7 +22,6 @@ function Routing () {
       <Route path='/SignUp' element={<SingUp />} />
       <Route path='/NewPassword' element={<NewPassword />} />
 
-      {/* Dodaj nową trasę dla ResetPass z dynamicznym segmentem :token. Dzięki temu adress po reset token może być randomowy i odbierać tokeny do resetowania hasła bez uruchamiania NotFound. */}
       <Route path='/resetpass/:token' element={<ResetPass />} />
 
       <Route path='*' element={<NotFound />} />

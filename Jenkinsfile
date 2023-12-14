@@ -28,12 +28,23 @@ pipeline {
         stage('Remove containers'){
             steps{
                 script{
-                    sh "docker stop bfw_be || true"
-                    sh "docker rm bfw_be || true"
-                    sh "docker stop bfw_be_chat || true"
-                    sh "docker rm bfw_be_chat || true"
-                    sh "docker stop bfw_fe || true"
-                    sh "docker rm bfw_fe || true"
+                     def stopAndRemoveContainer = { container ->
+                        def containerExists = sh(
+                            script: "docker ps -aqf name=${container}",
+                            returnStatus: true
+                        ) == 0
+
+                        if (containerExists) {
+                            sh "docker stop ${container} || true"
+                            sh "docker rm ${container} || true"
+                        } else {
+                            echo "Container ${container} does not exist."
+                        }
+            }
+
+            stopAndRemoveContainer('bfw_be')
+            stopAndRemoveContainer('bfw_be_chat')
+            stopAndRemoveContainer('bfw_fe')
                 }
             }
         }
@@ -57,7 +68,7 @@ pipeline {
                 // Uruchomienie kontenerów na serwerze
                 script {
                     sh 'docker run -d -p 5000:5000 --name bfw_be bfw_be:latest'
-                    sh 'docker run -d -p 8080:8080 --name bfw_be_chat bfw_be_chat:latest'
+                    sh 'docker run -d -p 8081:8081 --name bfw_be_chat bfw_be_chat:latest'
                     sh 'docker run -d -p 80:80 --name bfw_fe bfw_fe:latest'
                 }
             }

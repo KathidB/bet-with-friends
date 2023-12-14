@@ -56,7 +56,6 @@ function Matches () {
         if (pubMatchesResponse.ok) {
           const matchesInfo = await pubMatchesResponse.json()
           setMatchesData(matchesInfo)
-          console.log('oK')
         } else {
           console.error(
             'Błąd podczas pobierania danych:',

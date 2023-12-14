@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
 import { useAuth } from '../../../../../auth/authcontext/AuthContext'
@@ -39,8 +39,9 @@ function MatchBet ({
 
       if (response.ok) {
         setSubmittedBets([...submittedBets, matchId])
-
-        console.log('Poszło', betResults)
+        if (matchList.length <= 1) {
+          setCurrentPage(prevValue => prevValue - 1)
+        }
         setTotalMatches(prevTotalMatches => prevTotalMatches + 1)
       } else {
         console.error('Błąd podczas wysyłania zakładu')
@@ -50,10 +51,26 @@ function MatchBet ({
     }
   }
 
+  const handlePrevPage = () => {
+    setCurrentPage(prevValue => prevValue - 1)
+  }
+
+  const handleNextPage = () => {
+    setCurrentPage(prevValue => prevValue + 1)
+  }
+
+  const whatPageIsIT = Math.ceil(totalMatches / limit)
+
   return matchList.length > 0 ? (
     <>
       {/* //  Lista buttonów z zawodami */}
-
+      <img
+        className='footbal-team-crest'
+        width={65}
+        height={65}
+        src={matchList[0].competition.emblem}
+        alt='Footbal team emblem'
+      />
       <p className='competition-name'>{matchList[0]?.competition.name}</p>
 
       <p className='schedule-btns'>
@@ -61,16 +78,16 @@ function MatchBet ({
           className='schedule-list-btn span-brand'
           disabled={currentPage === 1}
           aria-label='Page left'
-          onClick={() => setCurrentPage(prevValue => prevValue - 1)}
+          onClick={handlePrevPage}
         >
           <BsArrowLeft />
         </button>
         <span className='schedule-btn-span'>
-          Przeglądaj listę {currentPage} / {Math.ceil(totalMatches / limit)}
+          Przeglądaj listę {`${currentPage} / ${whatPageIsIT}`}
         </span>
         <button
           className='schedule-list-btn span-brand'
-          onClick={() => setCurrentPage(prevValue => prevValue + 1)}
+          onClick={handleNextPage}
           disabled={currentPage === Math.ceil(totalMatches / limit)}
           aria-label='Page right'
         >
@@ -79,7 +96,7 @@ function MatchBet ({
       </p>
 
       <table className='bet-table'>
-        <thead>
+        <thead className='bet-thead'>
           <tr>
             <th className='crest'></th>
             <th>Gospodarze</th>
@@ -93,7 +110,7 @@ function MatchBet ({
           {matchList.map(match => {
             const isBetSubmitted = submittedBets.includes(match.public_id)
             return (
-              <tr key={match.public_id}>
+              <tr key={match.public_id} className='tr-bet'>
                 <td className='crest'>
                   <img
                     width={25}
@@ -102,8 +119,8 @@ function MatchBet ({
                     alt={`Crest of ${match.home_team.short_name}`}
                   />
                 </td>
-                <td>{match.home_team.short_name}</td>
-                <td>{match.away_team.short_name}</td>
+                <td className='td-short-name'>{match.home_team.short_name}</td>
+                <td className='td-short-name'>{match.away_team.short_name}</td>
                 <td className='crest'>
                   <img
                     width={25}
@@ -112,11 +129,32 @@ function MatchBet ({
                     alt={`Crest of ${match.away_team.short_name}`}
                   />
                 </td>
-                <td className='crest'>
+
+                <td className='match-time'>
                   {new Date(match.utc_date).toLocaleDateString('en-GB')} (
                   {match.utc_date.replace('T', ' ').slice(11, -3)})
                 </td>
+
                 <td className='td-bet'>
+                  <p className='match-time-mobile'>
+                    {new Date(match.utc_date).toLocaleDateString('en-GB')} (
+                    {match.utc_date.replace('T', ' ').slice(11, -3)})
+                    <br />
+                    <img
+                      width={15}
+                      height={15}
+                      src={match.home_team.crest}
+                      alt={`Crest of ${match.home_team.short_name}`}
+                    />{' '}
+                    {match.home_team.short_name} - {match.away_team.short_name}{' '}
+                    <img
+                      width={15}
+                      height={15}
+                      src={match.away_team.crest}
+                      alt={`Crest of ${match.home_team.short_name}`}
+                    />
+                  </p>
+
                   <form
                     onSubmit={e => handleBetSubmit(e, match.public_id)}
                     className='bet-form'
@@ -141,6 +179,7 @@ function MatchBet ({
                       placeholder={match.home_team.short_name}
                     />
                     <span className='bet-span'> : </span>
+
                     <input
                       min={0}
                       max={20}

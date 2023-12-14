@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import PanelNav from './common/nav/PanelNav'
-import GroupList from './main/grouplist/GroupList'
+import Chat from './main/chat/Chat'
 import PanelRouting from './common/routing/PanelRouting'
 import Ads from './main/ads/Ads'
 import PanelFooter from './common/footer/PanelFooter'
@@ -48,8 +48,7 @@ function Panel () {
         <PanelNav />
         <div className='panel-box'>
           <div className='left-panel'>
-            <GroupList />
-            <Ads />
+            <TopParent />
           </div>
 
           <div className='center-panel'>
@@ -57,7 +56,8 @@ function Panel () {
           </div>
 
           <div className='right-panel'>
-            <TopParent />
+            <Chat />
+            <Ads />
           </div>
         </div>
         <PanelFooter />

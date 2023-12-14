@@ -7,21 +7,23 @@
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.473);
   overflow: hidden;
 }
+.match-time-mobile{
+  display: none;
+}
 
 .bet-table td {
   margin: 10px 5px;
   border: 1px solid rgba(192, 192, 192, 0.452);
-
-}
-
-.td-bet {
-  width: 400px;
 }
 
 .bet-table th {
   border: 1px solid rgba(192, 192, 192, 0.452);
   padding: 8px;
   overflow: hidden;
+}
+
+.td-bet {
+  width: 400px;
 }
 
 .bet-form {
@@ -65,7 +67,21 @@
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.815);
 }
 
+
+
+
 @media (max-width: 575.98px) {
+
+
+
+  .match-time-mobile{
+    display: block;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(192, 192, 192, 0.219);
+    border-radius: 4px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.301);
+  }
   .bet-form {
     display: flex;
     flex-direction: row;
@@ -75,41 +91,80 @@
   }
   .bet-input { 
     border: transparent;
-    padding: 5px 5px;
+    padding: 8px 15px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
-    border-radius: 4px;
-    margin: 5px 5px;
+    border-radius: 6px;
+    margin: 0px 2px;
+    text-align: left;
+    max-width: 150px;
   }
   .bet-span{
     display: none;
   }
-}
 
-
-@media (max-width: 435.98px) {
-  .bet-button{
-    margin-left: 0;
-    margin-bottom: 5px;
+  .footbal-team-crest{
+    margin-top: 10px;
   }
- 
-  .bet-form {
-    width: 100%;
+
+  .bet-table {  
+    box-shadow: none;    
+  }
+  .bet-table td {  
+    border:1px solid transparent;
+  }
+  
+  .bet-table th {
+   border: 1px solid transparent;
+  }
+
+  .bet-form{
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+    margin: 4px 0px;
+    padding: 10px 0;
+    border-radius: 6px;
+    background-color: rgba(192, 192, 192, 0.082);
+    border-radius: 4px;   
   }
-  .bet-input {      
-    border: 1px solid transparent;
-    padding: 5px 20px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
-    border-radius: 4px;
-    margin: 5px 5px;
-    margin-right: 5px;
-  }
+
+
+
+
+/* // MOBILKA */
+
+
+.bet-button {
+  text-align: center;
+  width: 70px;
+  padding: 6px 5px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: #2c2d5b;
+  font-weight: bold;
+  color: var(--white-color);
+  cursor: pointer;
+  margin-left: 0px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.815);
 }
+
+.match-time{
+  display: none;
+  }
+
+}
+
+
+
 
 @media (min-width: 576px) and (max-width: 767.98px) {
+
+      .away-team-crest{
+       align-self: flex-start;
+      }
+
+
+
   .bet-button{
     margin-right: 0;
   }

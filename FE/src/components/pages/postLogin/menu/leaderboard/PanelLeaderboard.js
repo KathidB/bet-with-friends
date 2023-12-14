@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
 import './panelleaderboard.css'
+import RaccoonLeader from './images/raccoon-leader.webp'
 
 function PanelLeaderboard () {
   const [leadersData, setLeadersData] = useState([])
@@ -49,9 +50,21 @@ function PanelLeaderboard () {
         <h2 className='section-title panel-header'>
           <span className='span-brand'> Leader</span>board
         </h2>
-        <p style={{ textAlign: 'center' }}>
+
+        <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
           Najlepsi typerzy Bet With <span className='span-brand'>Friends</span>
         </p>
+        <span style={{ display: 'block', textAlign: 'center' }}>
+          {' '}
+          Liczba graczy: {totalLeaders}{' '}
+        </span>
+        <img
+          className='leader-raccoon'
+          src={RaccoonLeader}
+          alt=''
+          width={125}
+          height={125}
+        />
         <p className='schedule-btns'>
           <button
             className='schedule-list-btn span-brand'
@@ -88,7 +101,9 @@ function PanelLeaderboard () {
             {leadersData.map(leader => (
               <tr
                 key={leader.public_id}
-                className={`${leader.ranking.place <= 3 ? 'top-players' : ''}`}
+                className={`top-panel-player ${
+                  leader.ranking.place <= 3 ? 'top-players' : ''
+                }`}
               >
                 <td className={`th-place`}>{leader.ranking.place}</td>
 
@@ -106,6 +121,59 @@ function PanelLeaderboard () {
                 <td>{leader.rating.bets}</td>
                 <td>{leader.rating.wins}</td>
                 <td className='th-hide'>{leader.rating.rating} %</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {/* /// MOBILE */}
+
+        <table className='panel-leader-mobile'>
+          <thead>
+            <tr></tr>
+          </thead>
+          <tbody>
+            {leadersData.map(leader => (
+              <tr
+                key={leader.public_id}
+                className={`top-panel-player ${
+                  leader.ranking.place <= 3 ? 'top-players' : ''
+                }`}
+              >
+                <td className='leader-stats-box'>
+                  <div className='top-leader-box'>
+                    <span className='leader-place top-leader-box-item'>
+                      {' '}
+                      {leader.ranking.place}
+                    </span>
+                    <p className='top-leader-box-item'> {leader.name} </p>
+                    <img
+                      className={` top-leader-box-item leader-box-img ${
+                        leader.ranking.place <= 3 ? 'top-avatar' : ''
+                      }`}
+                      src={`http://130.162.44.103:5000/api/v1/avatar/${leader.avatar}`}
+                      alt=''
+                      width={40}
+                    />
+                  </div>
+                  <div className='leader-stats'>
+                    <p>
+                      Punkty
+                      <br /> {leader.points}
+                    </p>
+                    <p>
+                      Bety <br />
+                      {leader.rating.bets}
+                    </p>
+                    <p>
+                      Winy <br />
+                      {leader.rating.wins}
+                    </p>
+                    <p>
+                      Rating <br />
+                      {leader.rating.rating} %
+                    </p>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>

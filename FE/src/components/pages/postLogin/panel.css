@@ -23,10 +23,12 @@
 }
 
 .left-panel {
+  min-width: 300px;
   margin-right: 10px;
 }
 
 .right-panel {
+  min-width: 300px;
   margin-left: 10px;
 }
 
@@ -47,6 +49,7 @@
   .panel-box {
     display: flex;
     flex-direction: column;
+    padding: 0;
   }
 
   .center-panel {
@@ -122,6 +125,7 @@
     flex-direction: row;
     margin: 10px 0;
   }
+  
 }
 
 

@@ -8,14 +8,14 @@ import NotFound from '../../../../auth/NotFound'
 function PanelRounting () {
   return (
     <>
-    <div className='panel-routing-box'>
-      <Routes>
-        <Route path='/' element={<Prediction />} />
-        <Route path='/toptypers' element={<PanelLeaderboard />} />
-        <Route path='/schedule' element={<Schedule />} />
-        <Route path='/profile' element={<MyProfile />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+      <div className='panel-routing-box'>
+        <Routes>
+          <Route path='/' element={<Prediction />} />
+          <Route path='/toptypers' element={<PanelLeaderboard />} />
+          <Route path='/schedule' element={<Schedule />} />
+          <Route path='/profile' element={<MyProfile />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
       </div>
     </>
   )

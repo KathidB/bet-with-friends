@@ -56,7 +56,12 @@ function UserMenu () {
         <li className='panel-item'>
           <Link to='/panel/profile'>Mój profil</Link>
         </li>
-        <li className='panel-item'>
+
+        <li className='panel-item chat-item'>
+          <Link to='/panel/profile'>Chat</Link>
+        </li>
+
+        <li className='panel-item '>
           <label htmlFor='darkmode'>Darkmode</label>
           <input type='checkbox' id='darkmode' />
         </li>

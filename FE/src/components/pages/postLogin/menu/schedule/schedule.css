@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 55px;
+  margin: 0px 55px;
 }
 
 .schedule-table {
@@ -14,14 +14,10 @@
   border-radius: 8px;
   margin-bottom: 10px;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.473);
-  ;
   overflow-x: auto;
 }
 
-.schedule-table th,
-.schedule-table td {
-  width: 100px;
-}
+
 
 .schedule-table td {
   margin: 10px 5px;
@@ -32,6 +28,11 @@
 .schedule-table th {
   border: 1px solid rgba(192, 192, 192, 0.452);
   padding: 8px;
+
+}
+
+.schedule-date {
+  display: none;
 }
 
 .competition-name {
@@ -66,7 +67,7 @@
 /* // ZAWODY */
 .competition-buttons {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
@@ -77,11 +78,11 @@
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
-  margin: 0 4px 10px 4px ;
+  margin: 0 4px 10px 4px;
   padding: 5px 10px;
   border-radius: 8px;
   border: transparent;
-  font-weight: bold; 
+  font-weight: bold;
   width: 203px;
   cursor: pointer;
   background-color: white;
@@ -91,51 +92,279 @@
 
 .active-schedule {
   border: 1px solid rgb(71, 70, 70);
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.445) ;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.445);
+}
+
+.home-team-crest,
+.away-team-crest {
+  display: none;
+}
+
+.footbal-team-crest {
+  display: none;
 }
 
 @media (max-width: 575.98px) {
-  .competition-btn {  
+
+  .app-wrap{
+    padding: 5px;
+  }
+
+  .schedule-tr {
+    border: 1px solid rgba(0, 0, 0, 0.164);
+
+  }
+
+  .schedule-table-tr {
+    width: auto;
+  }
+
+
+
+  .home-team-crest,
+  .away-team-crest,
+  .footbal-team-crest {
+    display: inline-block;
+  }
+
+  .how-to-bet-p,
+  .how-to-bet,
+  .typing-raccoon-bot,
+  .panel-header,
+  .hr-panel {
+    display: none;
+  }
+
+  .hr-panel-bot {
+    width: 100%;
+    height: 2px;
+    background-color: rgba(126, 126, 126, 0.185);
+  }
+
+  .comp-button-img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .competition-buttons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 2px;
+    margin: 2px 0;
+   
+    height: 100px;
+    flex-wrap: nowrap;
+  
+    overflow-y: auto;
+  }
+
+  .competition-btn {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    flex-direction: column;
     gap: 8px;
-    margin: 0 4px 10px 0px ;
-    padding: 5px 10px;
-    border-radius: 8px;
-    border: transparent;
-    font-weight: bold; 
-    width: 170px;
-    cursor: pointer;
+    height: 80px;
+    margin: 1px;
+    padding: 5px 0px;
+    border-radius: 4px;
+    font-weight: bold;
+    min-width: 112px;
     background-color: white;
-    border: 1px solid rgba(0, 0, 0, 0.212);
+    border: 0px solid rgba(0, 0, 0, 0.212);
     transition: all 0.3s;
-  
+    cursor: pointer;
   }
+
   .crest {
     display: none;
   }
-  .schedule-table td {
-    margin: 10px 5px;
-    padding: 8px;
-  }
+
 
   .schedule {
     margin: 0 0px;
   }
+
+
+  /* MOBILE TABELA: */
+  .bet-thead {
+    display: none;
+  }
+
+  .td-short-name {
+    display: none;
+  }
+
+  .schedule-table {
+    border-radius: 0;
+  }
+
+
+
+  .schedue-result {
+    width: 50px;
+  }
+
+  .schedule-team-crest-home {
+    text-align: left;
+    width: 40%;
+
+  }
+
+  .schedule-team-crest-away {
+    text-align: right;
+    width: 40%;
+  }
+
+  .home-team-crest,
+  .away-team-crest {
+    padding: 0 10px;
+  }
+
+
+  .schedule-table td {
+    margin: 10px 5px;
+    padding: 10px 0px;
+  }
+
+  .schedule-date {
+    display: inline-block;
+  }
+
+
+
+
+
+
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
+
+
+
+  .schedule-tr {
+    border: 1px solid rgba(0, 0, 0, 0.164);
+
+  }
+
+  .schedule-table-tr {
+    width: auto;
+  }
+
+
+
+  .home-team-crest,
+  .away-team-crest,
+  .footbal-team-crest {
+    display: inline-block;
+  }
+
+  .how-to-bet-p,
+  .how-to-bet,
+  .typing-raccoon-bot,
+  .panel-header,
+  .hr-panel {
+    display: none;
+  }
+
+  .hr-panel-bot {
+    width: 100%;
+    height: 2px;
+    background-color: rgba(126, 126, 126, 0.185);
+  }
+
+  .comp-button-img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .competition-buttons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 2px;
+    margin: 2px;
+    height: 90px;
+    flex-wrap: nowrap;
+    overflow-y: auto;
+  }
+
+  .competition-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    height: 80px;
+    margin: 1px;
+    padding: 5px 0px;
+    border-radius: 4px;
+    font-weight: bold;
+    min-width: 112px;
+    background-color: white;
+    border: 0px solid rgba(0, 0, 0, 0.212);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
   .crest {
     display: none;
   }
-  .schedule-table td {
-    margin: 10px 5px;
-    padding: 20px 0;
-  }
+
+
   .schedule {
     margin: 0 0px;
   }
+
+
+  /* MOBILE TABELA: */
+  .bet-thead {
+    display: none;
+  }
+
+  .td-short-name {
+    display: none;
+  }
+
+  .schedule-table {
+    border-radius: 0;
+  }
+
+
+
+  .schedue-result {
+    width: 50px;
+  }
+
+  .schedule-team-crest-home {
+    text-align: left;
+    width: 40%;
+  }
+
+  .schedule-team-crest-away {
+    text-align: right;
+    width: 40%;
+  }
+
+  .home-team-crest,
+  .away-team-crest {
+    padding: 0 10px;
+  }
+
+
+  .schedule-table td {
+    margin: 10px 5px;
+    padding: 10px 0px;
+  }
+
+  .schedule-date {
+    display: inline-block;
+  }
+
+
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {

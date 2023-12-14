@@ -11,7 +11,10 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17
 # Set the working directory in the container
 WORKDIR /app
+
+EXPOSE 8081
+
 # Copy the built JAR file from the previous stage to the container
 COPY --from=build /app/target/bwf-chat-0.0.1-SNAPSHOT.jar .
 # Set the command to run the application
-CMD ["java", "-jar", "my-application.jar"]
+CMD ["java", "-jar", "bwf-chat-0.0.1-SNAPSHOT.jar"]
