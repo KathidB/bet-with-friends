@@ -1,5 +1,6 @@
 package com.example.bwfchat.entity;
 
+import com.google.gson.Gson;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,8 @@ import lombok.Setter;
 import org.springframework.context.ApplicationEventPublisher;
 import com.example.bwfchat.events.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -49,5 +52,10 @@ public class Message {
         DatabaseChangeEvent event = new DatabaseChangeEvent(this);
         applicationEventPublisher.publishEvent(event);
         databaseChangeService.publishDatabaseChangeEvent(event);
+    }
+
+    public static String toJsonReaction(List<Reaction> reactionList){
+        Gson gson = new Gson();
+        return gson.toJson(reactionList);
     }
 }

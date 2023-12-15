@@ -8,6 +8,7 @@ import com.example.bwfchat.mediator.MessageMediator;
 import com.example.bwfchat.services.JwtService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -31,6 +32,8 @@ public class MessageController {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpServletRequest httpServletRequest = attributes.getRequest();
         Cookie[] cookies = httpServletRequest.getCookies();
+        HttpServletResponse httpServletResponse = attributes.getResponse();
+        httpServletResponse.addHeader("X-Total-Count", String.valueOf(messageMediator.getTotalCount()));
         return messageMediator.getMessage(page, limit,cookies);
     }
 
@@ -43,6 +46,17 @@ public class MessageController {
 
         return new Response("Message has been send","OK");
     }
+
+    @MutationMapping
+    public Response sendReaction(@Argument String uuid,@Argument boolean isDelete,@Argument String messageUuid){
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpServletRequest httpServletRequest = attributes.getRequest();
+        Cookie[] cookies = httpServletRequest.getCookies();
+        messageMediator.sendReaction(uuid,isDelete,cookies,messageUuid);
+
+        return new Response("Reaction has been send","OK");
+    }
+
 
     @SubscriptionMapping
     public Flux<Message> newMessageSubscription(){
