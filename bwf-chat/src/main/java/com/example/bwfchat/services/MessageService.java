@@ -1,28 +1,25 @@
 package com.example.bwfchat.services;
 
 import com.example.bwfchat.entity.Message;
-import com.example.bwfchat.entity.Profile;
 import com.example.bwfchat.entity.Reaction;
 import com.example.bwfchat.exceptions.ProfileDontExistException;
 import com.example.bwfchat.repository.MessageRepository;
 import com.example.bwfchat.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 @RequiredArgsConstructor
 public class MessageService {
     private final MessageRepository messageRepository;
     private final ProfileRepository profileRepository;
+    private final ReactionService reactionService;
 
     public void sendMessage(String message,String user){
         profileRepository.findProfileByUser(user).ifPresentOrElse(value->{
@@ -35,7 +32,6 @@ public class MessageService {
 
     }
 
-
     public List<Message> getMessage(int page, int limit) {
        return messageRepository.findAll(page,limit);
     }
@@ -46,24 +42,38 @@ public class MessageService {
     public void processReaction(String userId, String uuid, boolean isDelete,String messageUid) {
         List<Reaction> reactionList = new ArrayList<>();
         Optional<Message> message =  messageRepository.findByUuid(messageUid);
-        boolean processed = false;
+        AtomicBoolean processed = new AtomicBoolean(false);
         message.ifPresentOrElse(value->{
-            reactionList.addAll(Reaction.toObject(value.getReaction()));
+            if (value.getReaction() != null){
+                reactionList.addAll(Reaction.toObject(value.getReaction()));
+            }
             reactionList.forEach(reaction -> {
-                if (processed) return;
+                if (processed.get()) return;
                 if (reaction.getUuid().equals(uuid)
                         && isDelete
                         && reaction.getUsers().contains(userId)) {
+                    reaction.getUsers().removeIf(user-> user.equals(userId));
                     reaction.setCounter(reaction.getCounter()-1);
+                    processed.set(true);
                 } else if (reaction.getUuid().equals(uuid)
-                        && !isDelete
-                        && !reaction.getReaction().contains(userId)) {
-                    reaction.setCounter(reaction.getCounter()+1);
+                        && !isDelete) {
+                    if (!reaction.getUsers().contains(userId)){
+                        reaction.getUsers().add(uuid);
+                        reaction.setCounter(reaction.getCounter()+1);
+                    }
+                    processed.set(true);
                 }
             });
-            if (!processed && !isDelete){
-                //Reaction reaction = new Reaction(UUID.randomUUID().toString(),)
+            if (!processed.get() && !isDelete){
+                reactionService.reactionList().forEach(reaction -> {
+                   if (reaction.getUuid().equals(uuid)){
+                       reactionList.add(new Reaction(reaction.getUuid(),reaction.getReaction(),new ArrayList<String>(List.of(userId)),1l));
+                   }
+               });
             }
+            reactionList.removeIf(reaction -> reaction.getCounter() <= 0l);
+            value.setReaction(Message.toJsonReaction(reactionList));
+            messageRepository.save(value);
         },()-> {throw new RuntimeException();});
         Message finalMessage = message.get();
         finalMessage.setReaction(Message.toJsonReaction(reactionList));
