@@ -1,6 +1,8 @@
 import atexit
 from entity.ranking import Ranking
 from entity.profile import Profile
+from entity.competition import Competition
+from entity.competetion_ranking import CompetetitionRanking
 from shared.base import session_factory
 import uuid
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -15,6 +17,12 @@ def create_ranking(profile:Profile):
         session.commit()
         session.refresh(ranking)
     return ranking
+
+def create_competetion_ranking(profile_id:int) -> None:
+    with session_factory() as session:
+        for comp in config.get_config_by_key('football_data.competitions'):
+            competetition:Competition = session.query(Competition).filter(Competition.public_id == comp).first()
+            session.add(CompetetitionRanking(public_id = uuid.uuid4(),competetition_id = competetition.id,points = 0,profile_id = profile_id))
 
 def update_ranking():
     with session_factory() as session:

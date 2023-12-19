@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useQuery, useMutation, useSubscription } from '@apollo/client'
 import { gql } from '@apollo/client'
 
@@ -43,14 +43,15 @@ const SEND_MESSAGE = gql`
 
 const DisplayMessages = () => {
   const [inputMessage, setInputMessage] = useState('')
+  const messagesEndRef = useRef()
 
   const { loading, error, data, refetch } = useQuery(GET_MESSAGES, {
-    variables: { limit: 10, page: 1 }
+    variables: { limit: 30, page: 1 }
   })
 
   const {
     data: subscriptionData,
-    loading: subscriptionLoading,
+    // loading: subscriptionLoading,
     error: subscriptionError
   } = useSubscription(NEW_MESSAGE_SUBSCRIPTION)
 
@@ -77,6 +78,10 @@ const DisplayMessages = () => {
       }
     }
   }
+  // scroll na dół chatu po renderze
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView()
+  }, [data, subscriptionData])
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error :</p>
@@ -84,7 +89,7 @@ const DisplayMessages = () => {
 
   return (
     <div className='chat-wrapper'>
-      <div className='chat'>
+      <div className='chatter'>
         {[...data.getMessages]
           .map(subMsg => (
             <ul className='chat-box' key={subMsg.uuid}>
@@ -109,6 +114,7 @@ const DisplayMessages = () => {
       <div>
         <form className='chat-input-box' onSubmit={handleSendMessage}>
           <input
+            ref={messagesEndRef}
             type='text'
             maxLength={150}
             value={inputMessage}

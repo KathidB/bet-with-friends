@@ -8,6 +8,7 @@ from entity.score import Score
 from entity.bets import Bets
 from entity.profile import Profile
 from entity.users import Users
+from entity.competetion_ranking import CompetetitionRanking
 from exceptions.already_bet_exception import AlreadyBetException
 from exceptions.match_dont_exist_exception import MatchDontExistException
 from shared.base import session_factory
@@ -159,6 +160,14 @@ def proces_bets():
                 stmt = update(Profile).where(Profile.id == bet.profile_id).values(points=(Profile.points + price))
                 session.execute(stmt)
                 session.commit()
+                ranking_competetition:CompetetitionRanking = session.query(CompetetitionRanking).filter(CompetetitionRanking.profile_id == profile.id, CompetetitionRanking.competetition_id == match.competetition_id).first()
+                if ranking_competetition:
+                    stmt = update(CompetetitionRanking).where(CompetetitionRanking.profile_id == profile.id, CompetetitionRanking.competetition_id == match.competetition_id).values(points=(CompetetitionRanking.points + price))
+                    session.execute(stmt)
+                    session.commit()
+                else:
+                    session.add(CompetetitionRanking(public_id = uuid.uuid4(),competetition_id = match.competetition_id,points = price,profile_id = profile.id))
+                    session.commit()
             stmt = update(Match).where(Match.id == match.id).values(proces = True)
             session.execute(stmt)
             session.commit()

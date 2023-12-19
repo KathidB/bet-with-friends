@@ -18,7 +18,6 @@ function PanelFooter () {
   const handleShowChat = () => {
     setIsChatVisible(!isChatVisible)
   }
-  console.log('hell  o')
 
   return (
     <>
@@ -28,11 +27,11 @@ function PanelFooter () {
         {currentYear}
       </p>
 
-      <div className={`show-chat${isChatVisible ? ' visible' : 'visible'}`}>
-        {isChatVisible && <DisplayMessages />}
-      </div>
-
       <ul className='footer-panel'>
+        <div className={`show-chat${isChatVisible ? ' visible' : ' hidden'}`}>
+          {isChatVisible && <DisplayMessages />}
+        </div>
+
         <li className='footer-panel-li'>
           <Link to='/panel/' className='footer-panel-item'>
             <FcHome /> <br /> Panel

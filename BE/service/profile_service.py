@@ -4,7 +4,7 @@ from sqlalchemy import update
 from exceptions.profile_dont_exist_exception import ProfileDontExistException
 from sqlalchemy.orm.exc import NoResultFound
 from service.raiting_service import create_raiting
-from service.ranking_service import create_ranking
+from service.ranking_service import create_ranking,create_competetion_ranking
 from entity.users import Users
 from entity.rating import Rating
 from shared.base import session_factory

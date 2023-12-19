@@ -9,6 +9,10 @@
   display: none;
  }
 
+
+
+
+
  .footer-panel-chat{
   background:none;
   border: transparent;
@@ -47,33 +51,37 @@
     align-items: center;
     justify-content: center;   
   }
-    
-}
-  
-@media (max-width: 575.98px) {
-  
-
-  .show-chat {
-    position: absolute;
-    margin: 0 5px;
-    background-color: var(--white-color);
-    top: 90px;
-    left: 0;
-    right: 0;      
-    border-radius: 4px;  
-    transition: all .3s;
-   
+  .show-chat{
+    height: 90vh;
+    transition: all .5s;
   }
 
+  .hidden{  
+    position: absolute;
+    bottom: 1262px;
+    left: 0;
+    right: 0;
+    max-height: 90vh;
+    overflow-y:auto ;      
+    background-color: white;       
+
+ }
+
+  
+
   .visible {
-    display: block;
-    bottom:  0;
+    position: absolute;
+    bottom: 62px;
+    left: 0;
+    right: 0;
+    max-height: 90vh;
+    overflow-y:auto ;      
+    background-color: white;     
+  
     }
 
   .btn-chat-active{
     color: var(--brand-color);
   }
-}
-
-  
+ }
   

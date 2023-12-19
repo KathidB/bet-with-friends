@@ -4,6 +4,7 @@
     background-color: var(--white-color);
     padding: 0 10px;
     height: 80px;
+    z-index: 5000;
 }
 
 .nav-panel-box {
@@ -35,6 +36,16 @@
 
 
 @media (max-width: 575.98px) {
+
+    .nav-panel {
+        position: sticky;
+        top: 0;
+      
+    }
+
+    .user-menu.closed {
+        top: -1520%;
+    }
    
     .panel-menu {
        display: none;

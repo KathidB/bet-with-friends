@@ -1,3 +1,7 @@
+.chat-wrapper{
+  max-height: 400px;
+transition: bottom .3s;
+}
 .chat {
   width: 100%;
   height: 100%;
@@ -46,7 +50,7 @@
 
 .chat-input {
   width: 100%;
-  height: 25px;
+  height: 30px;
   border: 1px solid #c2c1c1;
   border-radius: 4px;
 }
@@ -69,10 +73,17 @@
 
   @media (max-width: 576px) {
    
-  
-
-   
-
-
+/*  
+    .chat-wrapper{ 
+      position: absolute;
+      bottom: 62px;
+      left: 0;
+      right: 0;
+      max-height: 90vh;
+      overflow-y:auto ;      
+      background-color: white;    
+    } */
+    
+    
     
   }
