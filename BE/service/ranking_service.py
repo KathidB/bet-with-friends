@@ -44,11 +44,3 @@ def get_ranking(page:int,limit:int) -> Profile:
             .filter(Ranking.place != 0)
             .count())
     return (ranking,count)
-
-def create_jobs():
-    sheduler = BackgroundScheduler()
-    sheduler.add_job(func=update_ranking, trigger="interval", seconds=config.get_config_by_key('jobs.updateProfile'))
-    sheduler.start()
-    atexit.register(lambda: sheduler.shutdown())
-
-create_jobs()

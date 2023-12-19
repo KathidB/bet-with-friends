@@ -16,6 +16,8 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SubscriptionMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import reactor.core.publisher.Flux;
@@ -62,10 +64,6 @@ public class MessageController {
 
     @SubscriptionMapping
     public Flux<Message> newMessageSubscription(){
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpServletRequest httpServletRequest = attributes.getRequest();
-        Cookie[] cookies = httpServletRequest.getCookies();
-        messageMediator.validateCookies(cookies);
         return databaseChangeService.databaseChangeStream().map(event -> (Message) event.getSource());
     }
 }

@@ -15,6 +15,11 @@ def get_matches(competetition):
     response = requests.get(url=uri,params=params,headers=headers)
     if 'matches' in response.json():
         return response.json()['matches']
+    headers = {'X-Auth-Token': config.get_config_by_key('football_data.token3')}
+    params = {"dateFrom":dateFrom,"dateTo":dateTo}
+    response = requests.get(url=uri,params=params,headers=headers)
+    if 'matches' in response.json():
+        return response.json()['matches']
     return []
 
 def get_competetition(competetition):

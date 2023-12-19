@@ -1,6 +1,6 @@
 from flask import Blueprint, request,Response
 from security.token_validator import token_required,update_token
-from service.match_service import get_competetition_list,get_matches_list,get_posible_bets,create_bet
+from service.match_service import get_competetition_list,get_matches_list,get_posible_bets,create_bet,get_historical_bets
 from entity.response import Response as CustomResponse
 from entity.competition import Competition
 from entity.bets import Bets
@@ -69,4 +69,21 @@ def create_bet_post(current_user,response:Response,match:int):
     except ValidationError as e:
         response.set_data(CustomResponse(message=e.message,code='R4').to_json())
         response.status_code = 400
+    return response
+
+@match_blueprint.route('/bet/history',methods=['GET'])
+@token_required
+def bets_history_get(current_user,response:Response,):
+    page = 1 
+    limit = 5
+    competetition = None
+    if request.args.get('page'):
+        page = int(request.args.get('page'))
+    if request.args.get('limit'):
+        limit = int(request.args.get('limit'))
+    if request.args.get('competetition'):
+        competetition = request.args.get('competetition')
+    (posible_best, count) = get_historical_bets(page=page,limit=limit,competetition=competetition,user=current_user)
+    response.set_data(json.dumps([obj.to_json() for obj in posible_best],indent=4))
+    response.headers['X-Total-Count'] = count
     return response

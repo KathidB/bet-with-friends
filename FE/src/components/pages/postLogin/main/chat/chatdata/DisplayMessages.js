@@ -1,41 +1,126 @@
-import React from 'react'
-import { useQuery } from '@apollo/client'
-import gql from 'graphql-tag'
+import React, { useEffect, useState } from 'react'
+import { useQuery, useMutation, useSubscription } from '@apollo/client'
+import { gql } from '@apollo/client'
 
 const GET_MESSAGES = gql`
-  query GetMessages {
-    getMessages {
+  query GetMessages($limit: Int!, $page: Int!) {
+    getMessages(limit: $limit, page: $page) {
       content
       sender {
-        image
+        avatar
         name
         ranking
+      }
+      uuid
+    }
+  }
+`
+
+const NEW_MESSAGE_SUBSCRIPTION = gql`
+  subscription NewMessageSubscription {
+    newMessageSubscription {
+      content
+      uuid
+      sender {
+        name
+        avatar
+        ranking
+        uuid
       }
     }
   }
 `
 
-function DisplayMessages () {
-  const { loading, error, data } = useQuery(GET_MESSAGES, {
+const SEND_MESSAGE = gql`
+  mutation SendMessage($message: String!) {
+    sendMessage(message: $message) {
+      code
+      message
+      timestamp
+    }
+  }
+`
+
+const DisplayMessages = () => {
+  const [inputMessage, setInputMessage] = useState('')
+
+  const { loading, error, data, refetch } = useQuery(GET_MESSAGES, {
     variables: { limit: 10, page: 1 }
   })
 
+  const {
+    data: subscriptionData,
+    loading: subscriptionLoading,
+    error: subscriptionError
+  } = useSubscription(NEW_MESSAGE_SUBSCRIPTION)
+
+  const [sendMessage] = useMutation(SEND_MESSAGE)
+
+  useEffect(() => {
+    if (subscriptionData && subscriptionData.newMessageSubscription) {
+      refetch()
+    }
+  }, [subscriptionData, refetch])
+
+  // WYSYŁANKO WIADOMOŚCI:
+  const handleSendMessage = async e => {
+    e.preventDefault()
+
+    if (inputMessage.trim() !== '') {
+      try {
+        await sendMessage({
+          variables: { message: inputMessage }
+        })
+        setInputMessage('')
+      } catch (err) {
+        console.error('Error sending message:', err)
+      }
+    }
+  }
+
   if (loading) return <p>Loading...</p>
-  if (error) return <p>Error: {error.message}</p>
+  if (error) return <p>Error :</p>
+  if (subscriptionError) return <p>Error :</p>
 
   return (
-    <div>
-      {data.getMessages.map((message, index) => (
-        <div key={index}>
-          <img
-            src={message.sender.image}
-            alt={`${message.sender.name}'s avatar`}
+    <div className='chat-wrapper'>
+      <div className='chat'>
+        {[...data.getMessages]
+          .map(subMsg => (
+            <ul className='chat-box' key={subMsg.uuid}>
+              <li className='chat-box-item'>
+                {' '}
+                <img
+                  className='chat-avatar'
+                  src={subMsg.sender.avatar}
+                  height={30}
+                  alt={`${subMsg.sender.name}'s avatar`}
+                />
+                <p> {subMsg.sender.ranking}</p>
+                <p>{subMsg.sender.name}:</p>
+                <div className='chat-box-msg'>
+                  <p className='chat-message'> {subMsg.content}</p>
+                </div>
+              </li>
+            </ul>
+          ))
+          .reverse()}
+      </div>
+      <div>
+        <form className='chat-input-box' onSubmit={handleSendMessage}>
+          <input
+            type='text'
+            maxLength={150}
+            value={inputMessage}
+            className='chat-input'
+            placeholder='Wiadomość...'
+            onChange={e => setInputMessage(e.target.value)}
           />
-          <p>{message.sender.name}</p>
-          <p>Ranking: {message.sender.ranking}</p>
-          <p>Message: {message.content}</p>
-        </div>
-      ))}
+          <button className='chat-button' type='submit'>
+            Wyślij
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

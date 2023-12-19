@@ -9,6 +9,10 @@
   display: none;
  }
 
+ .footer-panel-chat{
+  background:none;
+  border: transparent;
+ }
 
  @media (max-width: 575.98px) {  
   .panel-footer{
@@ -46,9 +50,30 @@
     
 }
   
+@media (max-width: 575.98px) {
   
-  
-  
-  @media (min-width: 576px) and (max-width: 767.98px) {
-  
+
+  .show-chat {
+    position: absolute;
+    margin: 0 5px;
+    background-color: var(--white-color);
+    top: 90px;
+    left: 0;
+    right: 0;      
+    border-radius: 4px;  
+    transition: all .3s;
+   
   }
+
+  .visible {
+    display: block;
+    bottom:  0;
+    }
+
+  .btn-chat-active{
+    color: var(--brand-color);
+  }
+}
+
+  
+  

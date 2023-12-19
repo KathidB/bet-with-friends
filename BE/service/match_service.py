@@ -11,10 +11,8 @@ from entity.users import Users
 from exceptions.already_bet_exception import AlreadyBetException
 from exceptions.match_dont_exist_exception import MatchDontExistException
 from shared.base import session_factory
-from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime,timezone, timedelta
 from service.raiting_service import update_raiting
-import atexit
 import uuid
 
 config  = ConfigurationManager.get_instance()
@@ -214,13 +212,31 @@ def create_bet(match:int,user_id:int,bets:Bets):
             session.commit()
             return
         raise AlreadyBetException()
-
-def create_jobs():
-    sheduler = BackgroundScheduler()
-    sheduler.add_job(func=get_new_matches, trigger="interval", seconds=config.get_config_by_key('jobs.getMatches'))
-    sheduler.add_job(func=proces_bets,trigger="interval", seconds=config.get_config_by_key('jobs.procesBets'))
-    sheduler.start()
-    atexit.register(lambda: sheduler.shutdown())
-
-create_jobs()
     
+
+def get_historical_bets(page:int,limit:int, competetition:int,user:Users):
+    with session_factory() as session:
+        profile:Profile = session.query(Profile).filter(Profile.user_id == user.id).first()
+        if competetition:
+            comp:Competition = session.query(Competition).filter(Competition.public_id==competetition).first()
+            return ((session.query(Bets)
+             .join(Match)
+             .filter(Match.competetition_id == comp.id, Bets.profile_id == profile.id)
+             .order_by(Match.utc_date)
+             .offset((page-1)*limit)
+             .limit(limit)
+             .all()),     
+             session.query(Bets)
+             .join(Match)
+             .filter(Match.competetition_id == comp.id, Bets.profile_id == profile.id).count())
+        return ((session.query(Bets)
+             .join(Match)
+             .filter(Bets.profile_id == profile.id)
+             .order_by(Match.utc_date)
+             .offset((page-1)*limit)
+             .limit(limit)
+             .all()),
+             session.query(Bets)
+             .join(Match)
+             .filter(Bets.profile_id == profile.id).count()
+             )  
