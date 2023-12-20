@@ -53,59 +53,57 @@ function MatchesSchedule ({
         </thead>
         <tbody>
           {matchList.map(match => (
-            <>
-              <tr key={match.score.public_id} className='schedule-tr'>
-                <td className='crest mobile-schedule'>
-                  <img
-                    width={25}
-                    height={25}
-                    src={match.home_team.crest}
-                    alt=''
-                  />
-                </td>
-                <td className='schedule-team-crest-home mobile-schedule'>
-                  <img
-                    className='home-team-crest'
-                    width={25}
-                    height={25}
-                    src={match.home_team.crest}
-                    alt=''
-                  />
-                  {match.home_team.short_name}
-                </td>
-                <td className='mobile-schedule'>
-                  {match.score.full_time.replace('-', ' - ') ?? 'TBD'} <br />
-                  <span className=' mobile-date'>
-                    {new Date(match.utc_date).toLocaleDateString('en-GB')} (
-                    {match.utc_date.replace('T,', ' ').slice(11, -3)})
-                  </span>
-                </td>
-
-                <td className='schedule-team-crest-away mobile-schedule'>
-                  {match.away_team.short_name}{' '}
-                  <img
-                    className='away-team-crest'
-                    width={25}
-                    height={25}
-                    src={match.away_team.crest}
-                    alt=''
-                  />
-                </td>
-                <td className='crest mobile-schedule'>
-                  <img
-                    width={25}
-                    height={25}
-                    src={match.away_team.crest}
-                    alt=''
-                  />
-                </td>
-                <td className='crest mobile-schedule'>
-                  {' '}
+            <tr key={match.score.public_id} className='schedule-tr'>
+              <td className='crest mobile-schedule'>
+                <img
+                  width={25}
+                  height={25}
+                  src={match.home_team.crest}
+                  alt=''
+                />
+              </td>
+              <td className='schedule-team-crest-home mobile-schedule'>
+                <img
+                  className='home-team-crest'
+                  width={25}
+                  height={25}
+                  src={match.home_team.crest}
+                  alt=''
+                />
+                {match.home_team.short_name}
+              </td>
+              <td className='mobile-schedule'>
+                {match.score.full_time.replace('-', ' - ') ?? 'TBD'} <br />
+                <span className=' mobile-date'>
                   {new Date(match.utc_date).toLocaleDateString('en-GB')} (
-                  {match.utc_date.replace('T', ' ').slice(11, -3)})
-                </td>
-              </tr>
-            </>
+                  {match.utc_date.replace('T,', ' ').slice(11, -3)})
+                </span>
+              </td>
+
+              <td className='schedule-team-crest-away mobile-schedule'>
+                {match.away_team.short_name}{' '}
+                <img
+                  className='away-team-crest'
+                  width={25}
+                  height={25}
+                  src={match.away_team.crest}
+                  alt=''
+                />
+              </td>
+              <td className='crest mobile-schedule'>
+                <img
+                  width={25}
+                  height={25}
+                  src={match.away_team.crest}
+                  alt=''
+                />
+              </td>
+              <td className='crest mobile-schedule'>
+                {' '}
+                {new Date(match.utc_date).toLocaleDateString('en-GB')} (
+                {match.utc_date.replace('T', ' ').slice(11, -3)})
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>

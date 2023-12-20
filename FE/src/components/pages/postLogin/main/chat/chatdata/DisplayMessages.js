@@ -101,8 +101,7 @@ const DisplayMessages = () => {
                   height={30}
                   alt={`${subMsg.sender.name}'s avatar`}
                 />
-                <p> {subMsg.sender.ranking}</p>
-                <p>{subMsg.sender.name}:</p>
+                <p className='chat-user'>{subMsg.sender.name}:</p>
                 <div className='chat-box-msg'>
                   <p className='chat-message'> {subMsg.content}</p>
                 </div>

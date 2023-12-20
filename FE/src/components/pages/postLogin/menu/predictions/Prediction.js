@@ -16,7 +16,6 @@ function Prediction () {
     limit,
     setCurrentPage,
     setTotalMatches,
-
     handleCompetitionChange
   } = PredictionLogic()
 

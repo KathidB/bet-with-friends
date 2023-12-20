@@ -17,13 +17,13 @@ function MyProfile () {
   return Object.keys(userProfile).length > 0 ? (
     <section style={{ marginBottom: '30px' }} className='app-wrap '>
       <div>
-        <h2 className='section-title panel-header '>
+        {/* <h2 className='section-title panel-header '>
           Mój <span className='span-brand'>profil</span>{' '}
-        </h2>
+        </h2> */}
       </div>
       <div className='my-profile '>
         <div className='my-header '>
-          <img src={userProfile.avatar} alt='' className='avatar' width={125} />
+          <img src={userProfile.avatar} alt='' className='avatar' width={80} />
           <p className='your-name'>Witaj, {userProfile.name}</p>
         </div>
         <div className='tabs'>

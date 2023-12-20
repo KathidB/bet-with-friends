@@ -71,7 +71,6 @@ function MatchBet ({
         src={matchList[0].competition.emblem}
         alt='Footbal team emblem'
       />
-      <p className='competition-name'>{matchList[0]?.competition.name}</p>
 
       <p className='schedule-btns'>
         <button

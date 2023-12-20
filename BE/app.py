@@ -24,9 +24,9 @@ app.register_blueprint(match_blueprint, url_prefix=f'{api_v1_prefix}')
 app.register_blueprint(profile_blueprint, url_prefix=f'{api_v1_prefix}')
 app.register_blueprint(ranking_blueprint, url_prefix=f'{api_v1_prefix}')
 
-insert_competetition()
-get_new_matches()
-proces_bets()
+#insert_competetition()
+#get_new_matches()
+#proces_bets()
 
 
 if __name__ == '__main__':

@@ -7,6 +7,7 @@ from service.raiting_service import create_raiting
 from service.ranking_service import create_ranking,create_competetion_ranking
 from entity.users import Users
 from entity.rating import Rating
+from entity.competetion_ranking import CompetetitionRanking
 from shared.base import session_factory
 import bcrypt
 import uuid
@@ -34,6 +35,7 @@ def get_profile_by_uid(uuid:str):
         if profile:
            avatar_url = config.get_config_by_key('external.url')+"/api/v1/avatar/"+profile.avatar
            profile.avatar = avatar_url
+           profile.ranking_competetition = get_comp_ranking(profile_id=profile.id)
            return profile
         raise ProfileDontExistException()
 
@@ -43,9 +45,17 @@ def get_profile_by_id(id:int):
         if profile:
             avatar_url = config.get_config_by_key('external.url')+"/api/v1/avatar/"+profile.avatar
             profile.avatar = avatar_url
+            profile.ranking_competetition = get_comp_ranking(profile_id=profile.id)
             return profile
         raise ProfileDontExistException()
     
+def get_comp_ranking(profile_id:int):
+    with session_factory() as session:
+        comps = session.query(CompetetitionRanking).filter(CompetetitionRanking.profile_id == profile_id).all()
+        ranking_list = []
+        for comp in comps:
+            ranking_list.append({'competetition':comp.competetition.to_json(),'place':comp.place,'points':comp.points})
+        return ranking_list
 
 def update_avatar(avatar:str,user_id:int):
     with session_factory() as session:

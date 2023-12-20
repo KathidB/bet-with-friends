@@ -28,9 +28,9 @@ function PanelFooter () {
       </p>
 
       <ul className='footer-panel'>
-        <div className={`show-chat${isChatVisible ? ' visible' : ' hidden'}`}>
+        <li className={`show-chat${isChatVisible ? ' visible' : ' hidden'}`}>
           {isChatVisible && <DisplayMessages />}
-        </div>
+        </li>
 
         <li className='footer-panel-li'>
           <Link to='/panel/' className='footer-panel-item'>

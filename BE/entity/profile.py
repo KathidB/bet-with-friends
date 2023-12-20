@@ -22,6 +22,7 @@ class Profile(Base):
     ranking = relationship(Ranking,foreign_keys=[ranking_id],lazy='joined')
     user = relationship(Users,foreign_keys=[user_id])
     rating = relationship(Rating,foreign_keys=[rating_id],lazy='joined')
+    ranking_competetition = []
 
 
     def to_json(self):
@@ -32,6 +33,7 @@ class Profile(Base):
             "avatar": self.avatar,
             "ranking": json.loads(self.ranking.to_json()),
             "rating": json.loads(self.rating.to_json()),
+            "ranking_competetition": self.ranking_competetition
         }
 
     
