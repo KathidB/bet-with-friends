@@ -1,4 +1,4 @@
-from sqlalchemy import Column,String, Integer, ForeignKey
+from sqlalchemy import Column,String, Integer, ForeignKey, Double
 from entity.competition import Competition
 from entity.profile import Profile
 from dataclasses import dataclass
@@ -13,10 +13,13 @@ class CompetetitionRanking(Base):
 
     id = Column(Integer,primary_key=True)
     public_id = Column(String,unique=True)
-    place = Column(Integer)
+    place = Column(Integer,default=0)
     competetition_id = Column(Integer,ForeignKey('competition.id'))
-    points = Column(Integer)
+    points = Column(Integer,default=0)
     tendency = Column(Integer,default=0)
+    bets = Column(Integer,default=0)
+    wins = Column(Integer,default=0)
+    rating = Column(Double)
     profile_id = Column(Integer,ForeignKey("profiles.id")) 
     
     competetition = relationship(Competition,foreign_keys=[competetition_id],lazy='joined')
@@ -29,7 +32,10 @@ class CompetetitionRanking(Base):
             "points":self.points,
             "competetition": self.competetition.to_json(),
             "profile": self.profile.to_json(),
-            "tendency": self.tendency
+            "tendency": self.tendency,
+            "bets": self.bets,
+            "wins": self.wins,
+            "rating":self.rating
         }
     
 

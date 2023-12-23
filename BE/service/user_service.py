@@ -17,6 +17,7 @@ from exceptions.password_or_login_incorrect_exception import PasswordOrLoginInco
 from exceptions.user_dont_exist_exception import UserDontExistException
 from exceptions.user_dont_exist_or_code_expire_exception import UserDontExistOrCodeExpireException
 from service.profile_service import create_profile
+from service.achivment_service import insert_achivments
 
 config = ConfigurationManager.get_instance()
 def create_user(user:Users):
@@ -36,14 +37,16 @@ def create_user(user:Users):
             session.refresh(user)
             code = create_activation(user_id=user.id)
             send_activation_mail(user.email,code=code)
-            create_profile(user=user)
+            profile = create_profile(user=user)
+            insert_achivments(profile_id=profile.id)
         except IntegrityError as e:
             if 'already exists.' in str(e.orig):
                 if 'name' in str(e.orig):
                     raise UserAlredyExistNameException(user.name)
                 elif 'email' in str(e.orig):
                     raise UserAlredyExistEmailException(user.email)
-        except:
+        except Exception as e:
+            print(e)
             session.rollback()
 
 def activate_user(code:str):

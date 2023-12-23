@@ -3,17 +3,31 @@ import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
 import './panelleaderboard.css'
 import RaccoonLeader from './images/raccoon-leader.webp'
+import { PredictionLogic } from '../predictions/data/PredictionLogic'
+import { useAuth } from '../../../../auth/authcontext/AuthContext'
+
+import { FaArrowDown } from 'react-icons/fa'
+import { FaArrowUp } from 'react-icons/fa'
+import { FaArrowDownUpAcrossLine } from 'react-icons/fa6'
+import { FcGlobe } from 'react-icons/fc'
+
+import TotalLeaders from './totalLeaders/TotalLeaders'
 
 function PanelLeaderboard () {
   const [leadersData, setLeadersData] = useState([])
+  const [handleTableShow, setHandleTableShow] = useState(false)
   const [page, setPage] = useState(1)
   const [totalLeaders, setTotalLeaders] = useState(null)
   const [limit] = useState(10)
+  const [selectedCompetition, setSelectedCompetition] = useState(2002)
+  const { ipMan } = useAuth()
+  const { competitions } = PredictionLogic()
 
+  // MAIN API FOR ALL  LEADERBOARD!
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `http://130.162.44.103:5000/api/v1/ranking?page=${page}&limit=${limit}`
+        const url = `http://${ipMan}:5000/api/v1/ranking?competetition=${selectedCompetition}&page=${page}&limit=${limit}`
 
         const response = await fetch(url, {
           method: 'GET',
@@ -25,50 +39,92 @@ function PanelLeaderboard () {
           }
         })
 
-        // Sprawdź, czy status odpowiedzi jest OK (200)
         if (response.ok) {
           const jsonData = await response.json()
+
           setLeadersData(jsonData)
           setTotalLeaders(response.headers.get('X-Total-Count'))
         } else {
-          // Odczytaj treść odpowiedzi jako tekst, jeśli nie jest to JSON
           const errorText = await response.text()
-          console.error('Błąd pobierania danych:', errorText)
+          console.error('Error fetching data:', errorText)
         }
       } catch (error) {
-        console.error('Błąd pobierania danych:', error)
+        console.error('Error fetching data:', error)
       }
     }
 
     fetchData()
-  }, [page, limit])
+  }, [page, limit, ipMan, selectedCompetition])
+
+  const handleCompetitionChange = competitionId => {
+    setSelectedCompetition(competitionId)
+    // Resetowanie strony przy zmianie turnieju
+  }
 
   return (
-    leadersData &&
-    leadersData.length > 0 && (
-      <section className='app-wrap'>
-        <h2 className='section-title panel-header'>
-          <span className='span-brand'> Leader</span>board
-        </h2>
+    <section className='app-wrap'>
+      <h2 className='section-title panel-header'>
+        <span className='span-brand'> Leader</span>board
+      </h2>
+      {/*  buttony */}
 
-        <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
-          Najlepsi typerzy Bet With <span className='span-brand'>Friends</span>
-        </p>
-        <span style={{ display: 'block', textAlign: 'center' }}>
-          {' '}
-          Liczba graczy: {totalLeaders}{' '}
-        </span>
-        <img
-          className='leader-raccoon'
-          src={RaccoonLeader}
-          alt=''
-          width={125}
-          height={125}
-        />
+      <div className='competition-buttons'>
+        <button
+          onClick={() => setHandleTableShow(true)}
+          // className='competition-btn'
+
+          className={`competition-btn ${
+            handleTableShow ? 'active-schedule' : ''
+          }`}
+        >
+          <FcGlobe size={50} />
+          <p>Ranking Globalny</p>
+        </button>
+
+        {competitions.map(competition => (
+          <button
+            key={competition.public_id}
+            className={`competition-btn ${
+              selectedCompetition === competition.public_id && !handleTableShow
+                ? 'active-schedule'
+                : ''
+            }`}
+            onClick={() => {
+              handleCompetitionChange(competition.public_id)
+              setHandleTableShow(false)
+            }}
+          >
+            <img
+              width={50}
+              height={50}
+              src={competition.emblem}
+              alt='football team emblem'
+              className='comp-button-img'
+              loading='lazy'
+            />
+            <p>{competition.name}</p>
+          </button>
+        ))}
+      </div>
+
+      <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
+        Najlepsi typerzy Bet With <span className='span-brand'>Friends</span>
+      </p>
+
+      <img
+        className='leader-raccoon'
+        src={RaccoonLeader}
+        alt=''
+        width={125}
+        height={125}
+        loading='lazy'
+      />
+
+      {!handleTableShow && (
         <p className='schedule-btns'>
           <button
             className='schedule-list-btn span-brand'
-            disabled={page === 1 ? true : false}
+            disabled={page === 1 || totalLeaders === '0' ? true : false}
             onClick={() => setPage(prevValue => prevValue - 1)}
           >
             <BsArrowLeft />
@@ -80,11 +136,16 @@ function PanelLeaderboard () {
             className='schedule-list-btn span-brand'
             onClick={() => setPage(prevValue => prevValue + 1)}
             // total matches np. 16 przez 10 daje 1.6 i Ceil robi 2.
-            disabled={page === Math.ceil(totalLeaders / limit)}
+            disabled={
+              page === Math.ceil(totalLeaders / limit) || totalLeaders === '0'
+            }
           >
             <BsArrowRight />
           </button>
         </p>
+      )}
+
+      {!leadersData.length <= 0 && handleTableShow === false ? (
         <table className='panel-leader-table'>
           <thead>
             <tr>
@@ -102,31 +163,48 @@ function PanelLeaderboard () {
               <tr
                 key={leader.public_id}
                 className={`top-panel-player ${
-                  leader.ranking.place <= 3 ? 'top-players' : ''
+                  leader.place <= 3 ? 'top-players' : ''
                 }`}
               >
-                <td className={`th-place`}>{leader.ranking.place}</td>
-
-                <td className='leader-name'>{leader.name}</td>
+                <td className={`th-place`}>
+                  {leader.place}{' '}
+                  <span style={{ color: 'green' }}>
+                    {leader.tendency === 2 && <FaArrowUp />}
+                  </span>
+                  <span style={{ color: 'red' }}>
+                    {leader.tendency === 1 && <FaArrowDown />}
+                  </span>
+                  <span style={{ color: 'gray' }}>
+                    {leader.tendency === 0 && <FaArrowDownUpAcrossLine />}
+                  </span>
+                </td>
+                <td className='leader-name'>{leader.profile.name}</td>
                 <td className='th-hide'>
                   <img
-                    className={`${
-                      leader.ranking.place <= 3 ? 'top-avatar' : ''
-                    }`}
-                    src={`http://130.162.44.103:5000/api/v1/avatar/${leader.avatar}`}
-                    alt=''
+                    className={`${leader.place <= 3 ? 'top-avatar' : ''}`}
+                    src={`http://130.162.44.103:5000/api/v1/avatar/${leader.profile.avatar}`}
+                    alt='user avatar'
+                    loading='lazy'
                   />
                 </td>
                 <td>{leader.points}</td>
-                <td>{leader.rating.bets}</td>
-                <td>{leader.rating.wins}</td>
-                <td className='th-hide'>{leader.rating.rating} %</td>
+                <td>{leader.bets}</td>
+                <td>{leader.wins}</td>
+                <td className='th-hide'>{leader.rating} %</td>
               </tr>
             ))}
           </tbody>
+          {leadersData.length <= 0 && (
+            <p style={{ textAlign: 'center' }}>Oczekiwanie na rozgrywki..</p>
+          )}
         </table>
-        {/* /// MOBILE */}
+      ) : (
+        <p className='dektop-leader-check' style={{ textAlign: 'center' }}>
+          Oczekiwanie na rozgrywki...
+        </p>
+      )}
 
+      {!handleTableShow && (
         <table className='panel-leader-mobile'>
           <thead>
             <tr></tr>
@@ -136,23 +214,48 @@ function PanelLeaderboard () {
               <tr
                 key={leader.public_id}
                 className={`top-panel-player ${
-                  leader.ranking.place <= 3 ? 'top-players' : ''
+                  leader.place <= 3 ? 'top-players' : ''
                 }`}
               >
+                {console.log(leader)}
                 <td className='leader-stats-box'>
                   <div className='top-leader-box'>
                     <span className='leader-place top-leader-box-item'>
                       {' '}
-                      {leader.ranking.place}
+                      {leader.place}
                     </span>
-                    <p className='top-leader-box-item'> {leader.name} </p>
+
+                    {leader.tendency === 2 && (
+                      <span style={{ color: 'green' }}>
+                        <FaArrowUp />
+                      </span>
+                    )}
+
+                    {leader.tendency === 1 && (
+                      <span style={{ color: 'red' }}>
+                        <FaArrowDown />
+                      </span>
+                    )}
+
+                    {leader.tendency === 0 && (
+                      <span style={{ color: 'gray' }}>
+                        <FaArrowDownUpAcrossLine />
+                      </span>
+                    )}
+
+                    <p className='top-leader-box-item'>
+                      {' '}
+                      {leader.profile.name}
+                    </p>
+
                     <img
                       className={` top-leader-box-item leader-box-img ${
-                        leader.ranking.place <= 3 ? 'top-avatar' : ''
+                        leader.place <= 3 ? 'top-avatar' : ''
                       }`}
-                      src={`http://130.162.44.103:5000/api/v1/avatar/${leader.avatar}`}
+                      src={`http://130.162.44.103:5000/api/v1/avatar/${leader.profile.avatar}`}
                       alt=''
                       width={40}
+                      loading='lazy'
                     />
                   </div>
                   <div className='leader-stats'>
@@ -162,24 +265,29 @@ function PanelLeaderboard () {
                     </p>
                     <p>
                       Bety <br />
-                      {leader.rating.bets}
+                      {leader.bets}
                     </p>
                     <p>
                       Winy <br />
-                      {leader.rating.wins}
+                      {leader.wins}
                     </p>
                     <p>
                       Rating <br />
-                      {leader.rating.rating} %
+                      {leader.rating} %
                     </p>
                   </div>
                 </td>
               </tr>
             ))}
           </tbody>
+          {leadersData.length <= 0 && (
+            <p style={{ textAlign: 'center' }}>Oczekiwanie na rozgrywki..</p>
+          )}
         </table>
-      </section>
-    )
+      )}
+
+      {handleTableShow && <TotalLeaders />}
+    </section>
   )
 }
 export default PanelLeaderboard

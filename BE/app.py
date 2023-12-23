@@ -8,6 +8,7 @@ from shared.base import init_db
 from configuration.configuration_manager import ConfigurationManager
 from flask_cors import CORS
 from service.match_service import get_new_matches,insert_competetition,proces_bets
+from service.achivment_service import update_achivments_for_old_users
 import service.sheduler_service
 
 app = Flask(__name__)
@@ -27,6 +28,9 @@ app.register_blueprint(ranking_blueprint, url_prefix=f'{api_v1_prefix}')
 #insert_competetition()
 #get_new_matches()
 #proces_bets()
+if config.get_config_by_key("achivments_update_mode"):
+    update_achivments_for_old_users()
+
 
 
 if __name__ == '__main__':

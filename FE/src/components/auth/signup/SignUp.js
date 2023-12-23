@@ -117,7 +117,7 @@ function SignUp () {
                 type='text'
                 id='name'
                 name='name'
-                max={20}
+                maxLength={20}
                 placeholder='Nazwa użytkownika'
                 className={
                   touched.name && errors.name ? 'signup-input-error' : ''

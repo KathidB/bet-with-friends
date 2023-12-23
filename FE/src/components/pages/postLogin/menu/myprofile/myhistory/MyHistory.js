@@ -130,84 +130,113 @@ function MyHistory () {
             </button>
           </div>
         ) : (
-          <p>Brak histori typowania...</p>
+          <p>Brak historii typowania...</p>
         )}
 
         <div className='history-list'>
           <ul className='history-ul'>
-            {historyBets.map(bets => (
-              <li
-                className={`history-item ${
-                  bets.match.score?.full_time &&
-                  (Number(bets.match.score.full_time.split('-')[0]) ===
-                    bets.home_team &&
-                  Number(bets.match.score.full_time.split('-')[1]) ===
-                    bets.away_team
-                    ? 'hit'
-                    : (Number(bets.match.score.full_time.split('-')[0]) >
-                        Number(bets.match.score.full_time.split('-')[1]) &&
-                        bets.home_team > bets.away_team) ||
-                      (Number(bets.match.score.full_time.split('-')[0]) <
-                        Number(bets.match.score.full_time.split('-')[1]) &&
-                        bets.home_team < bets.away_team) ||
+            {historyBets
+              .map(bets => (
+                <>
+                  {console.log(bets)}
+                  <div
+                    key={bets.match.score.public_id}
+                    className={`history-data-item ${
+                      bets.match.score?.full_time &&
                       (Number(bets.match.score.full_time.split('-')[0]) ===
-                        Number(bets.match.score.full_time.split('-')[1]) &&
-                        bets.home_team === bets.away_team)
-                    ? 'target'
-                    : 'miss')
-                }`}
-                key={bets.public_id}
-              >
-                <div className='history-result'>
-                  <img
-                    className='history-home-team-img'
-                    src={bets.match.home_team.crest}
-                    width={25}
-                    alt='home team crest'
-                  />
-                  <p>{bets.match.home_team.short_name}</p>
-                </div>
-                <div className='history-result history-span'>
-                  <p>
-                    Bet
-                    <br /> {bets.home_team}-{bets.away_team}
-                  </p>
-                  <p>
-                    {bets.match.score?.full_time ? (
-                      <span className='history-span-result'>
-                        Wynik <br /> {bets.match.score?.full_time}
-                      </span>
-                    ) : (
-                      <span className='history-span-result'>
-                        Wynik <br /> TBD
-                      </span>
-                    )}
-                  </p>
-                </div>
-                <div className='history-result history-right'>
-                  <p>{bets.match.away_team.short_name}</p>
-                  <img
-                    className='history-away-team-img'
-                    src={bets.match.away_team.crest}
-                    width={25}
-                    alt='home team crest'
-                  />
-                </div>
-              </li>
-            ))}
-            <hr className='history-hr' />
-            <div className='legend'>
-              <span className='legend-item-one'>
-                Pełne trafienie <br /> 100 pkt
-              </span>
+                        bets.home_team &&
+                      Number(bets.match.score.full_time.split('-')[1]) ===
+                        bets.away_team
+                        ? 'hit'
+                        : (Number(bets.match.score.full_time.split('-')[0]) >
+                            Number(bets.match.score.full_time.split('-')[1]) &&
+                            bets.home_team > bets.away_team) ||
+                          (Number(bets.match.score.full_time.split('-')[0]) <
+                            Number(bets.match.score.full_time.split('-')[1]) &&
+                            bets.home_team < bets.away_team) ||
+                          (Number(bets.match.score.full_time.split('-')[0]) ===
+                            Number(bets.match.score.full_time.split('-')[1]) &&
+                            bets.home_team === bets.away_team)
+                        ? 'target'
+                        : 'miss')
+                    }`}
+                  >
+                    <p>
+                      {new Date(bets.match.utc_date).toLocaleDateString(
+                        'en-GB'
+                      )}
+                      {` `}
+                      {bets.match.utc_date.slice(11, -3)}
+                    </p>
 
-              <span className='legend-item-three'>
-                Wskazanie zwyciężcy <br /> 20 pkt
-              </span>
-              <span className='legend-item-two'>
-                Pudło <br /> 0 pkt
-              </span>
-            </div>
+                    <img
+                      className='cometition-emblem'
+                      src={bets.match.competition.emblem}
+                      alt='cometition emblem'
+                      height={30}
+                    />
+
+                    <p>
+                      Typowałeś: {bets.home_team}-{bets.away_team}
+                    </p>
+                  </div>
+                  <li
+                    className={`history-item ${
+                      bets.match.score?.full_time &&
+                      (Number(bets.match.score.full_time.split('-')[0]) ===
+                        bets.home_team &&
+                      Number(bets.match.score.full_time.split('-')[1]) ===
+                        bets.away_team
+                        ? 'hit-boxa'
+                        : (Number(bets.match.score.full_time.split('-')[0]) >
+                            Number(bets.match.score.full_time.split('-')[1]) &&
+                            bets.home_team > bets.away_team) ||
+                          (Number(bets.match.score.full_time.split('-')[0]) <
+                            Number(bets.match.score.full_time.split('-')[1]) &&
+                            bets.home_team < bets.away_team) ||
+                          (Number(bets.match.score.full_time.split('-')[0]) ===
+                            Number(bets.match.score.full_time.split('-')[1]) &&
+                            bets.home_team === bets.away_team)
+                        ? 'target-box'
+                        : 'miss-box')
+                    }`}
+                    key={bets.public_id}
+                  >
+                    <div className='history-result'>
+                      <img
+                        className='history-home-team-img'
+                        src={bets.match.home_team.crest}
+                        width={25}
+                        alt='home team crest'
+                      />
+                      <p>{bets.match.home_team.short_name}</p>
+                    </div>
+
+                    <p>
+                      {bets.match.score?.full_time ? (
+                        <span className='history-span-result'>
+                          Wynik: <br /> {bets.match.score?.full_time}
+                        </span>
+                      ) : (
+                        <span className='history-span-result'>
+                          Wynik <br /> TBD
+                        </span>
+                      )}
+                    </p>
+
+                    <div className='history-result history-right'>
+                      <p>{bets.match.away_team.short_name}</p>
+                      <img
+                        className='history-away-team-img'
+                        src={bets.match.away_team.crest}
+                        width={25}
+                        alt='home team crest'
+                      />
+                    </div>
+                  </li>
+                </>
+              ))
+              .reverse()}
           </ul>
         </div>
       </div>

@@ -162,7 +162,18 @@ def proces_bets():
                 session.commit()
                 ranking_competetition:CompetetitionRanking = session.query(CompetetitionRanking).filter(CompetetitionRanking.profile_id == profile.id, CompetetitionRanking.competetition_id == match.competetition_id).first()
                 if ranking_competetition:
-                    stmt = update(CompetetitionRanking).where(CompetetitionRanking.profile_id == profile.id, CompetetitionRanking.competetition_id == match.competetition_id).values(points=(CompetetitionRanking.points + price))
+                    win = 0
+                    if price > 0:
+                        win = 1
+                    rate = 0
+                    try:
+                        rate =  100 * (ranking_competetition.wins+win) / (ranking_competetition.bets+1)
+                    except ZeroDivisionError:
+                        rate = 0
+                    rate = round(rate,2)
+                    stmt = (update(CompetetitionRanking)
+                            .where(CompetetitionRanking.profile_id == profile.id, CompetetitionRanking.competetition_id == match.competetition_id)
+                            .values(points=(CompetetitionRanking.points + price),bets =(CompetetitionRanking.bets+1),wins=CompetetitionRanking.wins+win,rating=rate))
                     session.execute(stmt)
                     session.commit()
                 else:

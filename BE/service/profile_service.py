@@ -5,6 +5,7 @@ from exceptions.profile_dont_exist_exception import ProfileDontExistException
 from sqlalchemy.orm.exc import NoResultFound
 from service.raiting_service import create_raiting
 from service.ranking_service import create_ranking,create_competetion_ranking
+from service.achivment_service import get_achivments_by_profile
 from entity.users import Users
 from entity.rating import Rating
 from entity.competetion_ranking import CompetetitionRanking
@@ -27,6 +28,8 @@ def create_profile(user:Users):
         stmt = update(Profile).where(Profile.id == profile.id).values(ranking_id=ranking.id)
         session.execute(stmt)
         session.commit()
+        session.refresh(profile)
+        return profile
 
 
 def get_profile_by_uid(uuid:str):
@@ -36,6 +39,7 @@ def get_profile_by_uid(uuid:str):
            avatar_url = config.get_config_by_key('external.url')+"/api/v1/avatar/"+profile.avatar
            profile.avatar = avatar_url
            profile.ranking_competetition = get_comp_ranking(profile_id=profile.id)
+           profile.achievements = get_achivments_by_profile(profile_id=profile.id)
            return profile
         raise ProfileDontExistException()
 
@@ -46,6 +50,7 @@ def get_profile_by_id(id:int):
             avatar_url = config.get_config_by_key('external.url')+"/api/v1/avatar/"+profile.avatar
             profile.avatar = avatar_url
             profile.ranking_competetition = get_comp_ranking(profile_id=profile.id)
+            profile.achievements = get_achivments_by_profile(profile_id=profile.id)
             return profile
         raise ProfileDontExistException()
     
