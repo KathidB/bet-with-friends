@@ -36,5 +36,5 @@
     "uri":"https://api.football-data.org/v4",
     "competitions":[2018,2001,2021,2002,2019,2014,2013,2015]
   },
-  "achivments_update_mode":false
+  "achivments_update_mode":true
 }

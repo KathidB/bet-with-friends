@@ -69,7 +69,9 @@ transition: bottom .3s;
   color: var(--white-color);
   cursor: pointer;
 }
-
+.chat-message {
+  word-break: break-all;
+}
 
   @media (max-width: 576px) {
    
