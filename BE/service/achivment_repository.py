@@ -3,7 +3,17 @@ import uuid
 
 
 def get_list_of_achiv(profile_id:int):
-    return [generate_first_bet(profile_id),generate_first_win(profile_id),generate_first_lose(profile_id),generate_przegryw(profile_id),generate_hat_trick(profile_id)]
+    return [generate_first_bet(profile_id),
+            generate_first_win(profile_id),
+            generate_first_lose(profile_id),
+            generate_przegryw(profile_id),
+            generate_hat_trick(profile_id),
+            generate_25_bet(profile_id),
+            generate_50_bet(profile_id),
+            generate_100_bet(profile_id),
+            generate_1000_bet(profile_id),
+            generate_25_ratings(profile_id),
+            generate_50_ratings(profile_id)]
 
 
 def generate_przegryw(profile_id:int) -> Achivments:
@@ -120,3 +130,63 @@ def generate_hat_trick(profile_id:int) -> Achivments:
                                 ELSE FALSE
                             END AS result;
                         """)
+
+def generate_25_bet(profile_id:int) -> Achivments:
+    return Achivments(
+        uuid=uuid.uuid4(),
+        achivment_type_uuid='c290ea7a-1b7c-473c-8c8b-f211f5f35f13',
+        achiv_name='Początek nałogu',
+        profile_id=profile_id,
+        description='Utwórz 25 betów',
+        image_url='',
+        query_text=f"""SELECT count(id) > 25 as result from bets where profile_id = {profile_id}""")
+
+def generate_50_bet(profile_id:int) -> Achivments:
+    return Achivments(
+        uuid=uuid.uuid4(),
+        achivment_type_uuid='a56165e0-fca0-43f4-a87f-db4ea97816f8',
+        achiv_name='50 słusznych decyzji',
+        profile_id=profile_id,
+        description='Utwórz 50 betów',
+        image_url='',
+        query_text=f"""SELECT count(id) > 50 as result from bets where profile_id = {profile_id}""")
+
+def generate_100_bet(profile_id:int) -> Achivments:
+    return Achivments(
+        uuid=uuid.uuid4(),
+        achivment_type_uuid='bb0ac1e5-e332-4831-a581-09e9a7540df5',
+        achiv_name='W pełni',
+        profile_id=profile_id,
+        description='Utwórz 100 betów',
+        image_url='',
+        query_text=f"""SELECT count(id) > 100 as result from bets where profile_id = {profile_id}""")
+
+def generate_1000_bet(profile_id:int) -> Achivments:
+    return Achivments(
+        uuid=uuid.uuid4(),
+        achivment_type_uuid='a1902fab-f273-4b1e-91d4-402680269b1e',
+        achiv_name='Pierwszy tysiąc trzeba ukraść',
+        profile_id=profile_id,
+        description='Utwórz 1000 betów',
+        image_url='',
+        query_text=f"""SELECT count(id) > 1000 as result from bets where profile_id = {profile_id}""")
+
+def generate_25_ratings(profile_id:int) -> Achivments:
+    return Achivments(
+        uuid=uuid.uuid4(),
+        achivment_type_uuid='770c1587-8c46-48ab-ac70-1de695b3b0a3',
+        achiv_name='Poproszę ćwiartkę',
+        profile_id=profile_id,
+        description='Osiągnij 25% skuteczności betów',
+        image_url='',
+        query_text=f"""select r.rating >= 25 as result from profiles join ratings r on profiles.rating_id = r.id where profiles.id = {profile_id}""")
+
+def generate_50_ratings(profile_id:int) -> Achivments:
+    return Achivments(
+        uuid=uuid.uuid4(),
+        achivment_type_uuid='d87bb683-37d1-4295-b18d-4c15a37ac501',
+        achiv_name='50/50',
+        profile_id=profile_id,
+        description='Osiągnij 50% skuteczności betów',
+        image_url='',
+        query_text=f"""select r.rating >= 50 as result from profiles join ratings r on profiles.rating_id = r.id where profiles.id = {profile_id}""")

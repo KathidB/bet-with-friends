@@ -2,9 +2,11 @@ import { useState } from 'react'
 import MatchBet from './betting/MatchBet'
 import { PredictionLogic } from './data/PredictionLogic'
 import TypingRacoon from './images/raccoon-header3.webp'
+import { useAuth } from '../../../../auth/authcontext/AuthContext'
 
 import './prediction.css'
 function Prediction () {
+  const { darkMode } = useAuth()
   const [isHowToModalVisible, setHowToModalVisibility] = useState(false)
 
   const {
@@ -52,6 +54,7 @@ function Prediction () {
             height={180}
             src={TypingRacoon}
             alt=''
+          
           />
           <div className='pred-info-text'>
             <h2 className='section-title panel-header'>
@@ -71,7 +74,11 @@ function Prediction () {
             {/* MODAL */}
             {isHowToModalVisible && (
               <div className='how-to-modal' onClick={closeHowToModal}>
-                <div className='how-to-modal-content'>
+                <div
+                  className={`how-to-modal-content ${
+                    darkMode && 'darkmode-on'
+                  }`}
+                >
                   <h4>Instrukcja jak typować:</h4>
                   <span className='close-modal'>X</span>
                   <ol>
@@ -117,6 +124,11 @@ function Prediction () {
             {competitions.map(competition => (
               <button
                 key={competition.public_id}
+                style={
+                  darkMode
+                    ? { color: 'white', backgroundColor: '#1F1F1F' }
+                    : { color: 'black' }
+                }
                 className={`competition-btn ${
                   selectedCompetition === competition.public_id
                     ? 'active-schedule'
@@ -130,13 +142,13 @@ function Prediction () {
                   src={competition.emblem}
                   alt=''
                   className='comp-button-img'
+                  style={{backgroundColor:"white", borderRadius:"2px"}}
                 />
                 {handleCompetitionNames(competition.name)}
               </button>
             ))}
           </div>
           <hr className='hr-panel-bot'></hr>
-          {/* // W przysszłosci będzie wiecej zawodów do wyboru- do zmiany  2023*/}
 
           <MatchBet
             matchList={matchList}

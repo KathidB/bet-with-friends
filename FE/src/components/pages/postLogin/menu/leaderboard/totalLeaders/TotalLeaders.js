@@ -15,14 +15,11 @@ function TotalLeaders () {
   const [limit] = useState(6)
   const { ipMan } = useAuth()
 
-  console.log(leadersData)
-
   // MAIN API FOR TOTAL LEADERBOARD!
   useEffect(() => {
     const fetchData = async () => {
       try {
         const url = `http://${ipMan}:5000/api/v1/ranking?page=${page}&limit=${limit}`
-        console.log('Fetching data from:', url)
 
         const response = await fetch(url, {
           method: 'GET',
@@ -36,7 +33,6 @@ function TotalLeaders () {
 
         if (response.ok) {
           const jsonData = await response.json()
-          console.log('Data received:', jsonData)
           setLeadersData(jsonData)
           setTotalLeaders(response.headers.get('X-Total-Count'))
         } else {

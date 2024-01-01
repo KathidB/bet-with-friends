@@ -1,11 +1,14 @@
+import { useAuth } from '../../../../auth/authcontext/AuthContext'
+
 import './toptyper.css'
 
 function TopTyper (props) {
   const { leadersData } = props
+  const { darkMode } = useAuth()
   const topTyper = leadersData && leadersData.length > 0 ? leadersData[0] : null
 
   return leadersData && leadersData.length > 0 ? (
-    <div className='panel-side-box'>
+    <div className={`panel-side-box ${darkMode && 'darkmode-on'}`}>
       <h2 className='panel-header'>
         Najlepszy <span className='span-brand'>Typer</span>{' '}
       </h2>

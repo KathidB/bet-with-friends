@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useQuery, useMutation, useSubscription } from '@apollo/client'
 import { gql } from '@apollo/client'
+import { useAuth } from '../../../../../auth/authcontext/AuthContext'
 
 const GET_MESSAGES = gql`
   query GetMessages($limit: Int!, $page: Int!) {
@@ -44,6 +45,7 @@ const SEND_MESSAGE = gql`
 const DisplayMessages = () => {
   const [inputMessage, setInputMessage] = useState('')
   const messagesEndRef = useRef()
+  const { darkMode } = useAuth()
 
   const { loading, error, data, refetch } = useQuery(GET_MESSAGES, {
     variables: { limit: 30, page: 1 }
@@ -84,12 +86,12 @@ const DisplayMessages = () => {
   }, [data, subscriptionData])
 
   if (loading) return <p>Loading...</p>
-  if (error) return <p>Error {error}:</p>
-  if (subscriptionError) return <p>Error :</p>
+  if (error) return <p>Error: {error}</p>
+  if (subscriptionError) return <p>Error: {subscriptionError}</p>
 
   return (
     <div className='chat-wrapper'>
-      <div className='chatter'>
+      <div className={`chatter ${darkMode && 'darkmode-on'}`}>
         {[...data.getMessages]
           .map(subMsg => (
             <ul className='chat-box' key={subMsg.uuid}>

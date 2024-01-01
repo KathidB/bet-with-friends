@@ -5,10 +5,15 @@ import MyAchiv from './myachiv/MyAchiv'
 import MyHistory from './myhistory/MyHistory'
 import MyConfig from './myconfig/MyConfig'
 import './myprofile.css'
+import { useAuth } from '../../../../auth/authcontext/AuthContext'
 
 function MyProfile () {
   const { userProfile } = useUser()
   const [activeTab, setActiveTab] = useState('Statystyki')
+  const { darkMode } = useAuth()
+  const experience = userProfile.experience
+  const level = userProfile.level
+  const style = { '--percentage': `${experience}%` }
 
   const handleTabClick = tab => {
     setActiveTab(tab)
@@ -21,10 +26,20 @@ function MyProfile () {
           Mój <span className='span-brand'>profil</span>{' '}
         </h2> */}
       </div>
-      <div className='my-profile '>
-        <div className='my-header '>
-          <img src={userProfile.avatar} alt='' className='avatar' width={80} />
-          <p className='your-name'>Witaj, {userProfile.name}</p>
+      <div className='my-profile'>
+        <div className='my-header'>
+          <img src={userProfile.avatar} alt='' className='avatar ' width={80} />
+
+          <p className='your-name'>
+            Witaj, {userProfile.name} (lvl {level})
+          </p>
+
+          <p
+            className='level-item'
+            style={{ ...style, color: darkMode ? 'black' : null }}
+          >
+            EXP: {experience} / 100
+          </p>
         </div>
         <div className='tabs'>
           <button

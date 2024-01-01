@@ -157,7 +157,7 @@ def proces_bets():
                     if draw and bet.who_win == "draw": price = 20
                 profile = session.query(Profile).filter(Profile.id==bet.profile_id).first()
                 update_raiting(id=profile.rating_id,isWin=price > 0)
-                stmt = update(Profile).where(Profile.id == bet.profile_id).values(points=(Profile.points + price))
+                stmt = update(Profile).where(Profile.id == bet.profile_id).values(points=(Profile.points + price),experience=(Profile.experience + 10))
                 session.execute(stmt)
                 session.commit()
                 ranking_competetition:CompetetitionRanking = session.query(CompetetitionRanking).filter(CompetetitionRanking.profile_id == profile.id, CompetetitionRanking.competetition_id == match.competetition_id).first()

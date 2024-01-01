@@ -3,7 +3,6 @@ import { useAuth } from '../../../auth/authcontext/AuthContext'
 import { useUser } from '../context/UserContext'
 import { useState } from 'react'
 import { BiSolidMessage } from 'react-icons/bi'
-
 import { BiSolidMessageDetail } from 'react-icons/bi'
 
 import './usermenu.css'
@@ -11,7 +10,7 @@ import './usermenu.css'
 function UserMenu () {
   const { userProfile } = useUser()
   const [showUserMenu, setUserMenu] = useState(false)
-  const { logout } = useAuth()
+  const { logout, darkMode, handleDarkMode } = useAuth()
 
   const handleLogout = () => {
     logout()
@@ -41,25 +40,55 @@ function UserMenu () {
       />
 
       <ul
-        className={`user-menu ${showUserMenu ? 'open' : 'closed'}`}
+        className={`user-menu ${showUserMenu ? 'open' : 'closed'} 
+        ${darkMode ? 'darkmode-on' : ''}        
+        `}
         onClick={handleUserMenu}
       >
         <li className='panel-item'>
-          <Link to='/panel/'>Panel</Link>
+          <Link
+            style={darkMode ? { color: 'white' } : { color: 'black' }}
+            to='/panel/'
+          >
+            Panel
+          </Link>
         </li>
         <li className='panel-item'>
-          <Link to='/panel/toptypers'>Leaderboard</Link>
+          <Link
+            style={darkMode ? { color: 'white' } : { color: 'black' }}
+            to='/panel/toptypers'
+          >
+            Leaderboard
+          </Link>
         </li>
         <li className='panel-item'>
-          <Link to='/panel/schedule'>Terminarz</Link>
+          <Link
+            style={darkMode ? { color: 'white' } : { color: 'black' }}
+            to='/panel/schedule'
+          >
+            Terminarz
+          </Link>
         </li>
         <li className='panel-item'>
-          <Link to='/panel/profile'>Mój profil</Link>
+          <Link
+            style={darkMode ? { color: 'white' } : { color: 'black' }}
+            to='/panel/profile'
+          >
+            Mój profil
+          </Link>
         </li>
 
-        <li className='panel-item '>
-          <label htmlFor='darkmode'>Darkmode</label>
-          <input type='checkbox' id='darkmode' />
+        <li className='panel-item darkmode-input'>
+          <label className='darkmode-input' htmlFor='darkmode'>
+            Darkmode
+            {darkMode ? <span> On</span> : <span> Off</span>}
+          </label>
+          <input
+            type='checkbox'
+            id='darkmode'
+            checked={darkMode}
+            onChange={handleDarkMode}
+          />
         </li>
         <li className='panel-item'>
           <button className='panel-logout-btn' onClick={handleLogout}>

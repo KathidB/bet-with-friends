@@ -24,8 +24,8 @@ const httpLink = new HttpLink({
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    // url: 'ws://localhost:8081/graphql'
     url: 'ws://130.162.44.103:8081/graphql'
+    // url: 'ws://localhost:8081/graphql'
   })
 )
 

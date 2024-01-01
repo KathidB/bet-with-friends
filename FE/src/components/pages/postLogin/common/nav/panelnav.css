@@ -27,12 +27,22 @@
     width: 1px;
     height: 80px;
     margin: 0 20px;
-    background-color: silver;
+  
 }
 
 .panel-item {
     padding: 0 10px;
 }
+
+.panel-item a:hover{
+    color: var(--brand-color)
+}
+
+.panel-item a{
+  color: black;
+}
+
+
 
 
 @media (max-width: 575.98px) {

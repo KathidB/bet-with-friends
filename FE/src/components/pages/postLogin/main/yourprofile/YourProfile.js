@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom'
 import { useUser } from '../../context/UserContext'
+import { useAuth } from '../../../../auth/authcontext/AuthContext'
 
 import './yourprofile.css'
 
 function YourProfile () {
   const { userProfile } = useUser()
+  const { darkMode } = useAuth()
 
   return Object.keys(userProfile).length > 0 ? (
-    <div className='panel-side-box'>
+    <div className={`panel-side-box ${darkMode && 'darkmode-on'}`}>
       <h2 className='panel-header'>
         Twój <span className='span-brand'>Profil</span>
       </h2>

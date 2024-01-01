@@ -19,6 +19,8 @@ class Profile(Base):
     ranking_id = Column(Integer, ForeignKey("rankings.id"))
     rating_id = Column(Integer,ForeignKey('ratings.id'))
     user_id = Column(Integer,ForeignKey('users.id'))
+    experience = Column(Integer)
+    level = Column(Integer)
     ranking = relationship(Ranking,foreign_keys=[ranking_id],lazy='joined')
     user = relationship(Users,foreign_keys=[user_id])
     rating = relationship(Rating,foreign_keys=[rating_id],lazy='joined')
@@ -35,7 +37,9 @@ class Profile(Base):
             "ranking": json.loads(self.ranking.to_json()),
             "rating": json.loads(self.rating.to_json()),
             "ranking_competetition": self.ranking_competetition,
-            "achievements": self.achievements
+            "achievements": self.achievements,
+            "experience": self.experience,
+            "level": self.level
         }
 
     

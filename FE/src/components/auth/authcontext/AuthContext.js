@@ -7,6 +7,10 @@ const ipMan = '130.162.44.103'
 // const ipMan = 'localhost'
 
 export const AuthProvider = ({ children }) => {
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedDarkMode = localStorage.getItem('darkMode')
+    return savedDarkMode ? JSON.parse(savedDarkMode) : false
+  })
   const navigate = useNavigate()
   const [loggedIn, setLoggedIn] = useState(() => {
     const storedLoggedIn = localStorage.getItem('loggedIn')
@@ -49,8 +53,20 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  // OBSŁUGA DARKMODE
+
+  const handleDarkMode = () => {
+    setDarkMode(!darkMode)
+  }
+
+  useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode))
+  }, [darkMode])
+
   return (
-    <AuthContext.Provider value={{ loggedIn, login, logout, ipMan }}>
+    <AuthContext.Provider
+      value={{ loggedIn, login, logout, ipMan, darkMode, handleDarkMode }}
+    >
       {children}
     </AuthContext.Provider>
   )

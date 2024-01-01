@@ -1,30 +1,57 @@
-import { NavLink, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import UserMenu from '../../usermenu/UserMenu'
+import { useAuth } from '../../../../auth/authcontext/AuthContext'
 import './panelnav.css'
 
 function PanelNav () {
+  const { darkMode } = useAuth()
+
   return (
     <>
-      <nav className='nav-panel'>
+      <nav className={`nav-panel ${darkMode && 'darkmode-on'}`}>
         <div className='nav-panel-box'>
-          <Link to='/panel/' className='brand front-brand-logo'>
+          <Link
+            style={darkMode ? { color: 'white' } : { color: 'black' }}
+            to='/panel/'
+            className='brand front-brand-logo'
+          >
             Bet With <span className='span-brand'>Friends</span>
           </Link>
 
-          <div className='border'></div>
+          <hr className='border' style={!darkMode ? {  backgroundColor: "silver"}: {backgroundColor:"transparent"}} />
 
           <ul className='panel-menu'>
             <li className='panel-item'>
-              <NavLink to='/panel/'>Panel</NavLink>
+              <Link
+                to='/panel/'
+                style={darkMode ? { color: 'white' } : { color: 'black' }}
+              >
+                Panel
+              </Link>
             </li>
             <li className='panel-item'>
-              <NavLink to='/panel/toptypers'>Leaderboard</NavLink>
+              <Link
+                style={darkMode ? { color: 'white' } : { color: 'black' }}
+                to='/panel/toptypers'
+              >
+                Leaderboard
+              </Link>
             </li>
             <li className='panel-item'>
-              <NavLink to='/panel/schedule'>Terminarz</NavLink>
+              <Link
+                style={darkMode ? { color: 'white' } : { color: 'black' }}
+                to='/panel/schedule'
+              >
+                Terminarz
+              </Link>
             </li>
             <li className='panel-item'>
-              <NavLink to='/panel/profile'>Profil</NavLink>
+              <Link
+                style={darkMode ? { color: 'white' } : { color: 'black' }}
+                to='/panel/profile'
+              >
+                Profil
+              </Link>
             </li>
           </ul>
         </div>

@@ -52,12 +52,12 @@ function Nav () {
         </li>
         <li>
           <NavLink to='/login' className='nav-front-login-btn '>
-            Log In
+            Zaloguj
           </NavLink>
         </li>
         <li>
           <NavLink to='/signup' className='nav-front-signup-btn '>
-            Sign Up
+            Dołącz
           </NavLink>
         </li>
       </ul>

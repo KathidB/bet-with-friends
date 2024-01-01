@@ -16,6 +16,7 @@ function MatchesSchedule ({
         height={65}
         src={matchList[0].competition.emblem}
         alt='Footbal team emblem'
+        style={{ backgroundColor: 'white', borderRadius: '2px' }}
       />
       <p className='competition-name'>{matchList[0]?.competition.name}</p>
       <p className='schedule-btns'>

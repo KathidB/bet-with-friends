@@ -49,7 +49,7 @@ function Leaderboard () {
               <th>Nick</th>
               <th className='th-hide'>Avatar</th>
               <th>Punkty</th>
-              <th>Bety</th>
+              <th className='th-hide'>Bety</th>
               <th>Winy</th>
               <th className='th-hide'>Rating</th>
             </tr>
@@ -67,7 +67,7 @@ function Leaderboard () {
                   />
                 </td>
                 <td>{leader.points}</td>
-                <td>{leader.rating.bets}</td>
+                <td className='th-hide'>{leader.rating.bets}</td>
                 <td>{leader.rating.wins}</td>
                 <td className='th-hide'>{leader.rating.rating}</td>
               </tr>

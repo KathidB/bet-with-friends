@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import './panel.css'
 
 function Panel () {
-  const { login, ipMan } = useAuth()
+  const { login, ipMan, darkMode } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -43,15 +43,19 @@ function Panel () {
   }, [navigate, login, ipMan])
 
   return (
-    <div className='panel-wrapper panel'>
+    <div
+      className={`panel-wrapper panel  ${darkMode && 'darkmode-on'}'`}
+      style={darkMode ? { backgroundColor: 'rgb(19, 18, 18)' } : null}
+    >
       <UserProvider>
         <PanelNav />
-        <div className='panel-box'>
+
+        <div className={`panel-box ${darkMode && 'darkmode-on'}`}>
           <div className='left-panel'>
             <TopParent />
           </div>
 
-          <div className='center-panel'>
+          <div className={`center-panel ${darkMode && 'darkmode-on'}`}>
             <PanelRouting />
           </div>
 

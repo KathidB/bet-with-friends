@@ -20,7 +20,7 @@ function PanelLeaderboard () {
   const [totalLeaders, setTotalLeaders] = useState(null)
   const [limit] = useState(10)
   const [selectedCompetition, setSelectedCompetition] = useState(2002)
-  const { ipMan } = useAuth()
+  const { ipMan, darkMode } = useAuth()
   const { competitions } = PredictionLogic()
 
   // MAIN API FOR ALL  LEADERBOARD!
@@ -70,6 +70,11 @@ function PanelLeaderboard () {
 
       <div className='competition-buttons'>
         <button
+          style={
+            darkMode
+              ? { color: 'white', backgroundColor: '#1F1F1F' }
+              : { color: 'black' }
+          }
           onClick={() => setHandleTableShow(true)}
           // className='competition-btn'
 
@@ -77,13 +82,18 @@ function PanelLeaderboard () {
             handleTableShow ? 'active-schedule' : ''
           }`}
         >
-          <FcGlobe size={50} />
+          <FcGlobe className='fc-globe' />
           <p>Ranking Globalny</p>
         </button>
 
         {competitions.map(competition => (
           <button
             key={competition.public_id}
+            style={
+              darkMode
+                ? { color: 'white', backgroundColor: '#1F1F1F' }
+                : { color: 'black' }
+            }
             className={`competition-btn ${
               selectedCompetition === competition.public_id && !handleTableShow
                 ? 'active-schedule'
@@ -101,6 +111,7 @@ function PanelLeaderboard () {
               alt='football team emblem'
               className='comp-button-img'
               loading='lazy'
+              style={{ backgroundColor: 'white', borderRadius: '2px' }}
             />
             <p>{competition.name}</p>
           </button>
@@ -123,16 +134,30 @@ function PanelLeaderboard () {
       {!handleTableShow && (
         <p className='schedule-btns'>
           <button
+            style={
+              totalLeaders === '0' ? { display: 'none' } : { display: 'block' }
+            }
             className='schedule-list-btn span-brand'
             disabled={page === 1 || totalLeaders === '0' ? true : false}
             onClick={() => setPage(prevValue => prevValue - 1)}
           >
             <BsArrowLeft />
           </button>
-          <span className='schedule-btn-span'>
-            Przeglądaj listę {page} / {Math.ceil(totalLeaders / limit)}
-          </span>
+
+          {totalLeaders === '0' ? (
+            <span className='schedule-btn-span'>
+              Oczekiwanie na rozgrywki...
+            </span>
+          ) : (
+            <span className='schedule-btn-span'>
+              Przeglądaj listę {page} / {Math.ceil(totalLeaders / limit)}
+            </span>
+          )}
+
           <button
+            style={
+              totalLeaders === '0' ? { display: 'none' } : { display: 'block' }
+            }
             className='schedule-list-btn span-brand'
             onClick={() => setPage(prevValue => prevValue + 1)}
             // total matches np. 16 przez 10 daje 1.6 i Ceil robi 2.
@@ -194,15 +219,8 @@ function PanelLeaderboard () {
               </tr>
             ))}
           </tbody>
-          {leadersData.length <= 0 && (
-            <p style={{ textAlign: 'center' }}>Oczekiwanie na rozgrywki..</p>
-          )}
         </table>
-      ) : (
-        <p className='dektop-leader-check' style={{ textAlign: 'center' }}>
-          Oczekiwanie na rozgrywki...
-        </p>
-      )}
+      ) : null}
 
       {!handleTableShow && (
         <table className='panel-leader-mobile'>
@@ -217,7 +235,6 @@ function PanelLeaderboard () {
                   leader.place <= 3 ? 'top-players' : ''
                 }`}
               >
-                {console.log(leader)}
                 <td className='leader-stats-box'>
                   <div className='top-leader-box'>
                     <span className='leader-place top-leader-box-item'>
@@ -280,9 +297,6 @@ function PanelLeaderboard () {
               </tr>
             ))}
           </tbody>
-          {leadersData.length <= 0 && (
-            <p style={{ textAlign: 'center' }}>Oczekiwanie na rozgrywki..</p>
-          )}
         </table>
       )}
 

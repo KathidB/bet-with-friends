@@ -9,7 +9,10 @@
     font-weight: bold;
     transition: color 0.3s;
     font-size: 18px;
+    color: black;
 }
+
+
 
 .nav-front li a:hover {
     color: var(--brand-color);

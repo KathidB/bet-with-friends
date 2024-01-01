@@ -1,24 +1,22 @@
 .panel-footer{  
     font-size: 10px;
     text-align: center;
-    margin: 4px;
-    border-radius: 10px;  
+margin: 10px 0;
+    border-radius: 0px;  
+    
  } 
 
  .footer-panel{
   display: none;
  }
-
-
-
-
+ 
 
  .footer-panel-chat{
   background:none;
   border: transparent;
  }
 
- @media (max-width: 575.98px) {  
+ @media (max-width: 768.98px) {  
   .panel-footer{
     display: none;
   }
@@ -34,9 +32,8 @@
     list-style: none;
     padding: 5px;
     margin-bottom: 0;
+    margin-top: 0;
     background-color: white ;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.493);
   }
 
@@ -44,7 +41,9 @@
     text-align: center;   
     padding: 5px;
     font-size: 1rem;
+    color: black;
   }
+
 
   .footer-panel-li{
     display: flex;
@@ -63,10 +62,12 @@
     right: 0;
     max-height: 90vh;
     overflow-y:auto ;      
-    background-color: white;       
-
+    background-color: white;     
  }
 
+ .hidden-bg{
+  background-color: black;      
+ }
   
 
   .visible {

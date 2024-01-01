@@ -3,9 +3,11 @@ package com.example.bwfchat.controller;
 import com.example.bwfchat.entity.Message;
 import com.example.bwfchat.entity.Profile;
 import com.example.bwfchat.entity.Response;
+import com.example.bwfchat.entity.SystemInfo;
 import com.example.bwfchat.events.DatabaseChangeService;
 import com.example.bwfchat.mediator.MessageMediator;
 import com.example.bwfchat.services.JwtService;
+import com.example.bwfchat.services.SystemInfoService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,6 +31,7 @@ import java.util.List;
 public class MessageController {
 
     private final MessageMediator messageMediator;
+    private final SystemInfoService systemInfoService;
     private final DatabaseChangeService databaseChangeService;
 
     @QueryMapping
@@ -39,6 +42,17 @@ public class MessageController {
         HttpServletResponse httpServletResponse = attributes.getResponse();
         httpServletResponse.addHeader("X-Total-Count", String.valueOf(messageMediator.getTotalCount()));
         return messageMediator.getMessage(page-1, limit,cookies);
+    }
+
+    @QueryMapping
+    public List<SystemInfo> getSystemInfo(@Argument int page, @Argument  int limit){
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpServletRequest httpServletRequest = attributes.getRequest();
+        Cookie[] cookies = httpServletRequest.getCookies();
+        HttpServletResponse httpServletResponse = attributes.getResponse();
+        String userID = messageMediator.validateCookies(cookies);
+        httpServletResponse.addHeader("X-Total-Count", String.valueOf(systemInfoService.getTotalCount(userID)));
+        return systemInfoService.getSystemInfo(userID,page-1, limit);
     }
 
     @MutationMapping

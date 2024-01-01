@@ -1,13 +1,29 @@
 :root {
   --brand-color: #f75a4c;
   --brand-font: 24px;
-  --brand-alt-color: #2C2D5B;   
-  --white-color: #ffffff;
-  --black-color: #000000;
+  --brand-alt-color: #2C2D5B;  
   --signup-error: #ce0202;
   --backend-success-color: #047904;
   --validation-error-color: #ce0202;
   --panel-comp-bg: #f7f6f3; 
+
+
+  --background-color: #ffffff;
+  --background-dark-color: rgb(5, 1, 39);
+
+  --white-color: #ffffff;
+  --black-color: #000000;
+}
+
+.darkmode-on {
+  background-color: rgba(19, 19, 19) !important;
+  color:var(--white-color) !important;
+  transition: background-color .4s , color .4s ;
+}
+
+.darkmode-off {
+  background-color: var(--white-color) !important;
+  color: var(--black-color) !important;
 }
 
 body { 
@@ -19,7 +35,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   overflow-y: scroll;  
-  overflow-x: hidden;
+  overflow-x: hidden;  
+
+
 }
 
 nav {
@@ -31,7 +49,6 @@ nav {
 
 a {
   text-decoration: none; 
-  color: var(--black-color);
 }
 
 h1{

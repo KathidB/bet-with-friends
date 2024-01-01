@@ -18,6 +18,12 @@ type Message{
     content:String
 }
 
+type SystemInfo{
+    uuid:String!
+    message:String
+    status:Boolean!
+}
+
 type Response{
     message:String
     code:String
@@ -26,6 +32,7 @@ type Response{
 
 type Query{
     getMessages(page:Int!,limit:Int!):[Message]
+    getSystemInfo(page:Int!,limit:Int!):[SystemInfo]
 }
 type Mutation{
     sendMessage(message:String!):Response
