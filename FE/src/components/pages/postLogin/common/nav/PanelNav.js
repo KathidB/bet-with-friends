@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import UserMenu from '../../usermenu/UserMenu'
+import UserMenu from '../usermenu/UserMenu'
 import { useAuth } from '../../../../auth/authcontext/AuthContext'
 import './panelnav.css'
 
@@ -18,7 +18,14 @@ function PanelNav () {
             Bet With <span className='span-brand'>Friends</span>
           </Link>
 
-          <hr className='border' style={!darkMode ? {  backgroundColor: "silver"}: {backgroundColor:"transparent"}} />
+          <hr
+            className='border'
+            style={
+              !darkMode
+                ? { backgroundColor: 'silver' }
+                : { backgroundColor: 'transparent' }
+            }
+          />
 
           <ul className='panel-menu'>
             <li className='panel-item'>

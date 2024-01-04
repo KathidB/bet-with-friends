@@ -46,16 +46,19 @@ const DisplayMessages = () => {
   const [inputMessage, setInputMessage] = useState('')
   const messagesEndRef = useRef()
   const { darkMode } = useAuth()
+  const [observedElement, setObservedElement] = useState(null)
+  const topRef = useRef(null)
+
+  const [msgLimit, setMsgLimit] = useState(30)
+  const [page, setPage] = useState(1)
 
   const { loading, error, data, refetch } = useQuery(GET_MESSAGES, {
-    variables: { limit: 30, page: 1 }
+    variables: { limit: msgLimit, page: page }
   })
 
-  const {
-    data: subscriptionData,
-    // loading: subscriptionLoading,
-    error: subscriptionError
-  } = useSubscription(NEW_MESSAGE_SUBSCRIPTION)
+  const { data: subscriptionData, error: subscriptionError } = useSubscription(
+    NEW_MESSAGE_SUBSCRIPTION
+  )
 
   const [sendMessage] = useMutation(SEND_MESSAGE)
 
@@ -81,16 +84,41 @@ const DisplayMessages = () => {
     }
   }
   // scroll na dół chatu po renderze
+
+  useEffect(() => {
+    setObservedElement(topRef.current)
+  }, [data])
+
+  useEffect(() => {
+    if (observedElement) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            console.log('User has scrolled to the top!')
+            setMsgLimit(prevLimit => prevLimit + 10)
+          }
+        },
+        { threshold: 1 }
+      )
+
+      observer.observe(observedElement)
+
+      return () => {
+        observer.unobserve(observedElement)
+      }
+    }
+  }, [observedElement])
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView()
-  }, [data, subscriptionData])
+  }, [data])
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error: {error}</p>
   if (subscriptionError) return <p>Error: {subscriptionError}</p>
 
   return (
-    <div className='chat-wrapper'>
+    <div className='chat-wrapper' ref={topRef}>
       <div className={`chatter ${darkMode && 'darkmode-on'}`}>
         {[...data.getMessages]
           .map(subMsg => (

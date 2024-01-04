@@ -15,6 +15,8 @@ from shared.base import session_factory
 from datetime import datetime,timezone, timedelta
 from service.raiting_service import update_raiting
 import uuid
+import json
+import requests
 
 config  = ConfigurationManager.get_instance()
 
@@ -160,6 +162,9 @@ def proces_bets():
                 stmt = update(Profile).where(Profile.id == bet.profile_id).values(points=(Profile.points + price),experience=(Profile.experience + 10))
                 session.execute(stmt)
                 session.commit()
+                if price > 0:
+                    message = "Brawo prawidłowo obstawiłeś mecz "+ bet.match.home_team.name+"-"+bet.match.away_team.name+". Sprawdź szczegóły w profilu."
+                    send_message(message=message,profile_id=profile.id)
                 ranking_competetition:CompetetitionRanking = session.query(CompetetitionRanking).filter(CompetetitionRanking.profile_id == profile.id, CompetetitionRanking.competetition_id == match.competetition_id).first()
                 if ranking_competetition:
                     win = 0
@@ -260,3 +265,9 @@ def get_historical_bets(page:int,limit:int, competetition:int,user:Users):
              .join(Match)
              .filter(Bets.profile_id == profile.id).count()
              )  
+
+def send_message(message:str,profile_id:int) -> None:
+    headers = {'Content-Type':'application/json','APP-TOKEN':config.get_config_by_key('APP-TOKEN')}
+    data={"message":message,"profileId":profile_id}
+    url = config.get_config_by_key('external.url-systeminfo')
+    requests.post(url=url,headers=headers,json=data)

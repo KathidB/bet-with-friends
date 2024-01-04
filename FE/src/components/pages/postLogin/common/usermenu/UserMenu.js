@@ -1,16 +1,27 @@
 import { Link } from 'react-router-dom'
-import { useAuth } from '../../../auth/authcontext/AuthContext'
-import { useUser } from '../context/UserContext'
+import { useAuth } from '../../../../auth/authcontext/AuthContext'
+import { useUser } from '../../context/UserContext'
 import { useState } from 'react'
-import { BiSolidMessage } from 'react-icons/bi'
 import { BiSolidMessageDetail } from 'react-icons/bi'
-
+import NewMessages from './newmessages/NewMessages'
 import './usermenu.css'
 
+import GraphQLDataFetcher from './gglDataFetcher/GraphQLDataFetcher'
+
 function UserMenu () {
+  const { data } = GraphQLDataFetcher()
   const { userProfile } = useUser()
   const [showUserMenu, setUserMenu] = useState(false)
   const { logout, darkMode, handleDarkMode } = useAuth()
+  const [showMsg, setShowMsg] = useState(false)
+
+  const systemInfo = data?.getSystemInfo || []
+
+  const filteredMessages = systemInfo.filter(message => {
+    return message.status === false
+  })
+
+  const filteredMessagesLength = filteredMessages.length
 
   const handleLogout = () => {
     logout()
@@ -28,10 +39,25 @@ function UserMenu () {
       >
         {userProfile.name}
       </p>
-      <BiSolidMessage className='message-none' />
-      <div className='message-true'>
-        <BiSolidMessageDetail className='message-true' />
-      </div>
+
+      {/* // INFO O NOWEJ WIADOMOŚĆI  */}
+
+      {filteredMessagesLength > 0 ? (
+        <span className='span-true'>{filteredMessagesLength}!</span>
+      ) : null}
+      <button
+        disabled={filteredMessagesLength === 0}
+        className='message-true'
+        onClick={() => setShowMsg(!showMsg)}
+      >
+        <BiSolidMessageDetail
+          className={`message-none ${
+            filteredMessagesLength <= 0 ? 'message-none' : 'message-true'
+          }`}
+        />
+      </button>
+      {showMsg && <NewMessages />}
+
       <img
         src={userProfile.avatar}
         alt=''

@@ -28,7 +28,7 @@
 }
 
 .user-menu.closed {
-  top: -120%;
+  top: -200%;
 }
 
 .panel-item {
@@ -80,37 +80,41 @@
   display: none;
 }
 
-/* MEssage system */
+
 .message-none{
-  display: none;
-  width: 40px;
-  height: 40px;
+  position: relative; 
+  border: transparent;
+  background-color: transparent;
+  width: 35px;
+  height: 35px;
+  color: rgb(99, 100, 99);
+  margin-right: 15px;
+  cursor: pointer;
+  transition: transform 0.3s;
   color: rgb(167, 165, 165);
 }
 
 .message-true {
   position: relative; 
-  width: 30px;
-  height: 30px;
+  border: transparent;
+  background-color: transparent;
+  width: 35px;
+  height: 35px;
   color: rgb(0, 214, 11);
   margin-right: 15px;
   cursor: pointer;
   transition: transform 0.3s;
 }
+
 .message-true:hover {
   transform: scale(1.05);
 }
 
-.message-true::before {
-  content: "5!";
+/* // do podmiany */
+.span-true{
   color: var(--brand-color);
   font-weight: bold;
-  width: 20px; 
-  height: 20px; 
-  position: absolute;
-  top: -14px;
-  left: 10px;
-  z-index: 5;
+  font-size: 1.3rem;
 }
 
 
