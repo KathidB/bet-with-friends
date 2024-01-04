@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import './newmessages.css'
 import { useAuth } from '../../../../../auth/authcontext/AuthContext'
-import GraphQLDataFetcher from '../gglDataFetcher/GraphQLDataFetcher'
+import useGraphQLDataFetcher from '../gglDataFetcher/GraphQLDataFetcher'
 
 const NewMessages = () => {
   const { darkMode } = useAuth()
@@ -14,10 +14,14 @@ const NewMessages = () => {
     subscriptionData,
     subscriptionError,
     readSystemInfo
-  } = GraphQLDataFetcher()
+  } = useGraphQLDataFetcher()
 
   useEffect(() => {
-    if (subscriptionData && subscriptionData.newMessageSubscription) {
+    if (
+      subscriptionData &&
+      subscriptionData.newSystemInfoSubscription &&
+      refetch
+    ) {
       refetch()
     }
   }, [subscriptionData, refetch])

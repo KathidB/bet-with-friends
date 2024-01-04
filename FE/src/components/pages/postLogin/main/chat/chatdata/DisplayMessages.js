@@ -3,6 +3,8 @@ import { useQuery, useMutation, useSubscription } from '@apollo/client'
 import { gql } from '@apollo/client'
 import { useAuth } from '../../../../../auth/authcontext/AuthContext'
 
+import { MdOutlineArrowDropDown } from 'react-icons/md'
+
 const GET_MESSAGES = gql`
   query GetMessages($limit: Int!, $page: Int!) {
     getMessages(limit: $limit, page: $page) {
@@ -50,10 +52,9 @@ const DisplayMessages = () => {
   const topRef = useRef(null)
 
   const [msgLimit, setMsgLimit] = useState(30)
-  const [page, setPage] = useState(1)
 
   const { loading, error, data, refetch } = useQuery(GET_MESSAGES, {
-    variables: { limit: msgLimit, page: page }
+    variables: { limit: msgLimit, page: 1 }
   })
 
   const { data: subscriptionData, error: subscriptionError } = useSubscription(
@@ -62,9 +63,15 @@ const DisplayMessages = () => {
 
   const [sendMessage] = useMutation(SEND_MESSAGE)
 
+  const chatContainerRef = useRef(null) // New ref for the chat container
+
   useEffect(() => {
     if (subscriptionData && subscriptionData.newMessageSubscription) {
       refetch()
+      chatContainerRef.current?.scrollIntoView({
+        block: 'end',
+        behavior: 'smooth'
+      })
     }
   }, [subscriptionData, refetch])
 
@@ -89,13 +96,20 @@ const DisplayMessages = () => {
     setObservedElement(topRef.current)
   }, [data])
 
+  // po scoll do samej góry pobierz nowe dane
+
   useEffect(() => {
     if (observedElement) {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
             console.log('User has scrolled to the top!')
-            setMsgLimit(prevLimit => prevLimit + 10)
+            setMsgLimit(prevLimit => prevLimit + 30)
+
+            chatContainerRef.current?.scrollIntoView({
+              block: 'nearest',
+              behavior: 'smooth'
+            })
           }
         },
         { threshold: 1 }
@@ -109,9 +123,18 @@ const DisplayMessages = () => {
     }
   }, [observedElement])
 
+  // scollowanie do samego dołu przy  załadowaniu chatu
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView()
   }, [data])
+
+  // guziks colluje na sam dół.
+  const scrollToBottom = () => {
+    chatContainerRef.current?.scrollIntoView({
+      break: 'end',
+      behavior: 'smooth'
+    })
+  }
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error: {error}</p>
@@ -122,7 +145,7 @@ const DisplayMessages = () => {
       <div className={`chatter ${darkMode && 'darkmode-on'}`}>
         {[...data.getMessages]
           .map(subMsg => (
-            <ul className='chat-box' key={subMsg.uuid}>
+            <ul className='chat-box' key={subMsg.uuid} ref={chatContainerRef}>
               <li className='chat-box-item'>
                 {' '}
                 <img
@@ -140,10 +163,13 @@ const DisplayMessages = () => {
           ))
           .reverse()}
       </div>
-      <div>
+      <div className='chat-input-wrapper'>
+        <div ref={messagesEndRef}></div>
+        <button className='chat-scroll' onClick={scrollToBottom}>
+          <MdOutlineArrowDropDown size={25} />
+        </button>
         <form className='chat-input-box' onSubmit={handleSendMessage}>
           <input
-            ref={messagesEndRef}
             type='text'
             maxLength={150}
             value={inputMessage}

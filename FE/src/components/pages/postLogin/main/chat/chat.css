@@ -1,12 +1,14 @@
 .chat-wrapper{
+
   max-height: 400px;
 transition: bottom .3s;
+
 }
 .chat {
   width: 100%;
   height: 100%;
   border-radius: 4px;
-  overflow: hidden;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 
@@ -17,6 +19,7 @@ transition: bottom .3s;
   padding: 0;
   margin: 0;
   font-size: 0.8rem;
+  
 }
 
 .chat-box-item {
@@ -52,32 +55,50 @@ transition: bottom .3s;
   width: 100%;
   height: 30px;
   border: 1px solid #c2c1c1;
-  border-radius: 4px;
+  border-radius: 0px;
 }
+
 
 .chat-input:focus {
   border: 1px solid #2c2d5b7c;
   outline: none;
 }
 
+/* // widoczny zawsze input i guzik */
+
+.chat-input-wrapper {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  z-index: 1;
+}
+
 .chat-button {
   padding: 0px 15px;
   border: 1px solid transparent;
-  border-radius: 4px;
+
+border-radius: 0;
   background: #2c2d5b;
   font-weight: bold;
   color: var(--white-color);
   cursor: pointer;
 }
-.chat-message {
 
-
+/* .chat-message {
   padding: 0 2px;
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-all;
-}
+} */
 
+
+
+.chat-message {
+
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
   @media (max-width: 576px) {
    
 /*  
@@ -93,4 +114,22 @@ transition: bottom .3s;
     
     
     
+  }
+  .chatter{
+    position: relative;
+  }
+
+  .chat-scroll{
+   
+    position: absolute;
+    bottom: 35px;
+    right: -4px;
+    background-color: white;
+    z-index: 1;
+    background-color: transparent;
+    border: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    color:silver;
+ 
   }

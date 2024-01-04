@@ -32,8 +32,9 @@ const READ_SYSTEM_INFO = gql`
   }
 `
 
-const GraphQLDataFetcher = () => {
+const useGraphQLDataFetcher = () => {
   const { loading, error, data, refetch } = useQuery(MY_QUERY)
+
   const { data: subscriptionData, error: subscriptionError } = useSubscription(
     NEW_SYSTEM_INFO_SUBSCRIPTION
   )
@@ -51,4 +52,4 @@ const GraphQLDataFetcher = () => {
   }
 }
 
-export default GraphQLDataFetcher
+export default useGraphQLDataFetcher

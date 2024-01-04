@@ -45,18 +45,15 @@ function UserMenu () {
       {filteredMessagesLength > 0 ? (
         <span className='span-true'>{filteredMessagesLength}!</span>
       ) : null}
-      <button
-        disabled={filteredMessagesLength === 0}
-        className='message-true'
-        onClick={() => setShowMsg(!showMsg)}
-      >
+      <button className='message-true' onClick={() => setShowMsg(!showMsg)}>
         <BiSolidMessageDetail
           className={`message-none ${
             filteredMessagesLength <= 0 ? 'message-none' : 'message-true'
           }`}
         />
       </button>
-      {showMsg && <NewMessages />}
+
+      {showMsg && filteredMessagesLength > 0 && <NewMessages />}
 
       <img
         src={userProfile.avatar}
@@ -104,18 +101,16 @@ function UserMenu () {
           </Link>
         </li>
 
-        <li className='panel-item darkmode-input'>
-          <label className='darkmode-input' htmlFor='darkmode'>
-            Darkmode
-            {darkMode ? <span> On</span> : <span> Off</span>}
-          </label>
+        <li className='panel-item darkmode-input darkmode'>
           <input
             type='checkbox'
-            id='darkmode'
+            id='toggle'
             checked={darkMode}
             onChange={handleDarkMode}
           />
+          <label htmlFor='toggle' className='daylight'></label>
         </li>
+
         <li className='panel-item'>
           <button className='panel-logout-btn' onClick={handleLogout}>
             Wyloguj

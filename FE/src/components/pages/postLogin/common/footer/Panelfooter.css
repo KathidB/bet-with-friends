@@ -52,6 +52,7 @@
   .show-chat{
     height: 90vh;
     transition: all .5s;
+    overflow-x: hidden;
   }
 
   .hidden{  
