@@ -51,7 +51,7 @@ const DisplayMessages = () => {
   const [observedElement, setObservedElement] = useState(null)
   const topRef = useRef(null)
 
-  const [msgLimit, setMsgLimit] = useState(30)
+  const [msgLimit, setMsgLimit] = useState(40)
 
   const { loading, error, data, refetch } = useQuery(GET_MESSAGES, {
     variables: { limit: msgLimit, page: 1 }
@@ -135,6 +135,14 @@ const DisplayMessages = () => {
       behavior: 'smooth'
     })
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      scrollToBottom()
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error: {error}</p>

@@ -1,8 +1,6 @@
 .chat-wrapper{
-
-  max-height: 400px;
-transition: bottom .3s;
-
+  max-height: 200px;
+  transition: bottom .3s;
 }
 .chat {
   width: 100%;
@@ -18,8 +16,7 @@ transition: bottom .3s;
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 0.8rem;
-  
+  font-size: 0.8rem;  
 }
 
 .chat-box-item {
