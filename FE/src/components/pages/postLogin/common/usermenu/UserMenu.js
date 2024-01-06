@@ -45,7 +45,11 @@ function UserMenu () {
       {filteredMessagesLength > 0 ? (
         <span className='span-true'>{filteredMessagesLength}!</span>
       ) : null}
-      <button className='message-true' onClick={() => setShowMsg(!showMsg)}>
+      <button
+        className='message-true'
+        aria-label='New notifications button'
+        onClick={() => setShowMsg(!showMsg)}
+      >
         <BiSolidMessageDetail
           className={`message-none ${
             filteredMessagesLength <= 0 ? 'message-none' : 'message-true'

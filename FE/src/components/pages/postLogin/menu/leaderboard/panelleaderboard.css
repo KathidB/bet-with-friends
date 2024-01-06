@@ -75,7 +75,8 @@
   .panel-leader-mobile {
     display: block;
     border-collapse: separate;
-    border-spacing: 0 10px;
+    border-spacing: 0 10px; 
+    margin-bottom: 60px;
     }
 
   .dektop-leader-check{

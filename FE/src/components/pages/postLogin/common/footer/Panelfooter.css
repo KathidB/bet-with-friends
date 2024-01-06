@@ -20,7 +20,7 @@
   }
 
   .footer-panel{
-    position: sticky;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
@@ -34,6 +34,7 @@
     background-color: white ;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.493);
     z-index: 1000;
+
   }
 
   .footer-panel-item{
@@ -41,6 +42,7 @@
     padding: 5px;
     font-size: 1rem;
     color: black;
+    cursor: pointer;
   }
 
 
@@ -49,18 +51,31 @@
     align-items: center;
     justify-content: center;   
   }
+  
   .show-chat{
-    height: 85vh;
+    height: 84vh;  
     transition: all .5s;
-    overflow-x: hidden;
+    overflow-x: hidden;    
   }
+
+  .visible {
+    position: absolute;
+  
+
+    bottom: 60px;    
+    left: 0;
+    right: 0;
+
+    overflow-y:auto ;      
+    background-color: white;  
+    z-index: 500;     
+    }
 
   .hidden{  
     position: absolute;
     bottom: 1262px;
     left: 0;
-    right: 0;
-    max-height: 90vh;
+    right: 0;  
     overflow-y:auto ;      
     background-color: white;     
  }
@@ -70,15 +85,7 @@
   }
   
 
-  .visible {
-    position: absolute;
-    bottom: 62px;
-    left: 0;
-    right: 0;
-    max-height: 90vh;
-    overflow-y:auto ;      
-    background-color: white;       
-    }
+ 
 
   .btn-chat-active{
     color: var(--brand-color);

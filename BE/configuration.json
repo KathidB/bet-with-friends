@@ -1,7 +1,7 @@
 {
   "smtp":{
-    "password":"ovff xcok daua qhml",
-    "email":"testerapi715@gmail.com"
+    "password":"rtgb wsez xjjj enah",
+    "email":"betwithfriends.noreply@gmail.com"
   },
   "external":{
     "url":"http://130.162.44.103:5000",
@@ -31,12 +31,10 @@
     "removeTokensRest": 86400
   },
   "football_data":{
-    "token":"2e5640899c95458992402923bfb45b69",
-    "token2":"cc3268d25c7b4a90b02ff15d526802ed",
-    "token3":"ea9e7f47f31c466ab288f92865136cab",
+    "token":["2e5640899c95458992402923bfb45b69","cc3268d25c7b4a90b02ff15d526802ed","ea9e7f47f31c466ab288f92865136cab"],
     "uri":"https://api.football-data.org/v4",
-    "competitions":[2018,2001,2021,2002,2019,2014,2013,2015]
+    "competitions":[2018,2001,2021,2002,2019,2014,2013,2015,2003,2017]
   },
-  "achivments_update_mode":false,
+  "achivments_update_mode":true,
   "APP-TOKEN": "9d68e6b5-64b5-4b13-b1c9-b2677f78f33f"
 }

@@ -22,6 +22,7 @@
   margin-bottom: 10px;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.473);
   overflow-x: auto;
+  
 }
 
 
@@ -125,6 +126,8 @@
     border-collapse: separate;
     border-spacing: 0px 10px;
     box-shadow: 0px 0px 3px transparent;
+    border-radius: 0;
+    margin-bottom: 50px;
   }
 
 
@@ -141,12 +144,20 @@ box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.205);
   
   }
 
+  .schedule-table {
+  font-size: 0.8rem;  
+  }
+
 
 
   .home-team-crest,
   .away-team-crest,
   .footbal-team-crest {
     display: inline-block;
+  }
+
+  .footbal-team-crest{
+    margin-top: 10px;
   }
 
   .how-to-bet-p,
@@ -217,10 +228,8 @@ box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.205);
     display: none;
   }
 
-  .schedule-table {
-    border-radius: 0;
-  }
 
+ 
 
 
   .schedule-result {
@@ -290,6 +299,8 @@ box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.205);
   .footbal-team-crest {
     display: inline-block;
   }
+
+
 
   .how-to-bet-p,
   .how-to-bet,
@@ -361,6 +372,8 @@ box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.205);
 
   .schedule-table {
     border-radius: 0;
+    margin-bottom: 70px;
+
   }
 
 

@@ -97,6 +97,11 @@
         width: 80%;   
         overflow-x: scroll;
     }
+
+    
+.config-avatar-box{
+margin-bottom: 50px;
+}
   }
   
   @media (min-width: 576px) and (max-width: 767.98px) {
@@ -105,6 +110,11 @@
         width: 85%;   
         overflow-x: scroll;
     }
+
+    
+.config-avatar-box{
+ margin-bottom: 50px;
+}
   
   
   }

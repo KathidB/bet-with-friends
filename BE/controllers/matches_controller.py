@@ -33,7 +33,10 @@ def get_matches(response:Response):
 @match_blueprint.route('/competetition',methods=['GET'])
 @update_token
 def get_competetition(response:Response):
-    comp:Competition = get_competetition_list()
+    no_empty:bool = False
+    if request.args.get('empty'):
+        no_empty:bool = request.args.get('empty')
+    comp:Competition = get_competetition_list(no_empty)
     response.set_data(json.dumps([obj.to_json() for obj in comp],indent=4))
     return response
 

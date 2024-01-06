@@ -86,9 +86,17 @@ def get_matches_list(competetition,page:int,limit:int):
                .count())
         return (matches, count)
     
-def get_competetition_list():
+def get_competetition_list(no_empty:bool):
     with session_factory() as session:
-        return session.query(Competition).all()
+        competetitions =  session.query(Competition).all()
+    if no_empty:
+        comp_list = []
+        for competetition in competetitions:
+           if session.query(Match).filter(Match.competetition_id == competetition.id,Match.status == 'TIMED').first():
+               comp_list.append(competetition)
+        return comp_list
+    return competetitions
+
 
 def get_posible_bets(competetition,page:int,limit:int,user:Users) -> [Match]:
     with session_factory() as session:
@@ -166,24 +174,26 @@ def proces_bets():
                     message = "Brawo prawidłowo obstawiłeś mecz "+ bet.match.home_team.name+"-"+bet.match.away_team.name+". Sprawdź szczegóły w profilu."
                     send_message(message=message,profile_id=profile.id)
                 ranking_competetition:CompetetitionRanking = session.query(CompetetitionRanking).filter(CompetetitionRanking.profile_id == profile.id, CompetetitionRanking.competetition_id == match.competetition_id).first()
-                if ranking_competetition:
-                    win = 0
-                    if price > 0:
-                        win = 1
+                if not ranking_competetition:
+                    uuid_value = uuid.uuid4()
+                    session.add(CompetetitionRanking(public_id = uuid_value,competetition_id = match.competetition_id,points = 0,profile_id = profile.id))
+                    session.commit()
+                    ranking_competetition = session.query(CompetetitionRanking).filter(CompetetitionRanking.public_id == uuid_value).first()
+                win = 0
+                if price > 0:
+                    win = 1
+                rate = 0
+                try:
+                    rate =  100 * (ranking_competetition.wins+win) / (ranking_competetition.bets+1)
+                except ZeroDivisionError:
                     rate = 0
-                    try:
-                        rate =  100 * (ranking_competetition.wins+win) / (ranking_competetition.bets+1)
-                    except ZeroDivisionError:
-                        rate = 0
-                    rate = round(rate,2)
-                    stmt = (update(CompetetitionRanking)
-                            .where(CompetetitionRanking.profile_id == profile.id, CompetetitionRanking.competetition_id == match.competetition_id)
-                            .values(points=(CompetetitionRanking.points + price),bets =(CompetetitionRanking.bets+1),wins=CompetetitionRanking.wins+win,rating=rate))
-                    session.execute(stmt)
-                    session.commit()
-                else:
-                    session.add(CompetetitionRanking(public_id = uuid.uuid4(),competetition_id = match.competetition_id,points = price,profile_id = profile.id))
-                    session.commit()
+                rate = round(rate,2)
+                stmt = (update(CompetetitionRanking)
+                        .where(CompetetitionRanking.profile_id == profile.id, CompetetitionRanking.competetition_id == match.competetition_id)
+                        .values(points=(CompetetitionRanking.points + price),bets =(CompetetitionRanking.bets+1),wins=CompetetitionRanking.wins+win,rating=rate))
+                session.execute(stmt)
+                session.commit()
+                    
             stmt = update(Match).where(Match.id == match.id).values(proces = True)
             session.execute(stmt)
             session.commit()
@@ -247,7 +257,7 @@ def get_historical_bets(page:int,limit:int, competetition:int,user:Users):
             return ((session.query(Bets)
              .join(Match)
              .filter(Match.competetition_id == comp.id, Bets.profile_id == profile.id)
-             .order_by(Match.utc_date)
+             .order_by(Match.utc_date.desc())
              .offset((page-1)*limit)
              .limit(limit)
              .all()),     
@@ -257,7 +267,7 @@ def get_historical_bets(page:int,limit:int, competetition:int,user:Users):
         return ((session.query(Bets)
              .join(Match)
              .filter(Bets.profile_id == profile.id)
-             .order_by(Match.utc_date)
+             .order_by(Match.utc_date.desc())
              .offset((page-1)*limit)
              .limit(limit)
              .all()),

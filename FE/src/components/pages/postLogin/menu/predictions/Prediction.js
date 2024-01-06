@@ -54,7 +54,6 @@ function Prediction () {
             height={180}
             src={TypingRacoon}
             alt=''
-          
           />
           <div className='pred-info-text'>
             <h2 className='section-title panel-header'>
@@ -96,10 +95,13 @@ function Prediction () {
                     </li>
                     <li>
                       <p>
-                        Za w pełni trafiony wynik otrzymasz 100 ptk.
+                        Za trafiony poprawnie wynik otrzymasz 100 ptk.
                         <br />
-                        Za wskazanie wynikiem zwycięzcy 20pk.
+                        Za wskazanie wynikiem zwycięzcy lub remisu 20pk.
                       </p>
+                    </li>
+                    <li>
+                      <p>Ligi wyświetlają się tylko w trakcie rozgrywek.</p>
                     </li>
                   </ol>
                 </div>
@@ -110,14 +112,19 @@ function Prediction () {
               Typuj wyniki meczów wybranych rozgrywek piłkarskich. Każdy mecz
               obstawiasz osobno. <br /> Pamiętaj, masz tylko jedną możliwość
               wysłania swojej predykcji, później nie ma możliwośći jej
-              edytowania. <br /> Można typować mecze do 1 tygodnia do przodu.
+              edytowania. <br />
+              Mecze można typować do 1 tygodnia do przodu. <br />
+              <b>
+                Poniższa lista lig przedstawia wyłącznie obecnie trwające
+                rozgrywki.{` `}
+              </b>
               Powodzenia!
             </p>
           </div>
         </div>
         <hr className='hr-panel'></hr>
 
-        {/* BETOWANIE: */}
+        {/* LISTA COMPETITION DO BETOWANIA - NA GUZIKI: */}
 
         <div className='schedule'>
           <div className='competition-buttons'>
@@ -142,7 +149,7 @@ function Prediction () {
                   src={competition.emblem}
                   alt=''
                   className='comp-button-img'
-                  style={{backgroundColor:"white", borderRadius:"2px"}}
+                  style={{ backgroundColor: 'white', borderRadius: '2px' }}
                 />
                 {handleCompetitionNames(competition.name)}
               </button>

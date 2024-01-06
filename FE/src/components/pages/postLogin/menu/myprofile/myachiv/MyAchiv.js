@@ -1,9 +1,9 @@
 import { FcGraduationCap } from 'react-icons/fc'
 
 import './myachiv.css'
+
 function MyAchiv (userProfile) {
   const userAchiv = userProfile.props
-
 
   return (
     <>

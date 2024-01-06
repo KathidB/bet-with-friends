@@ -173,7 +173,11 @@ const DisplayMessages = () => {
       </div>
       <div className='chat-input-wrapper'>
         <div ref={messagesEndRef}></div>
-        <button className='chat-scroll' onClick={scrollToBottom}>
+        <button
+          className='chat-scroll'
+          aria-label='Scoll to the chat window bottom button'
+          onClick={scrollToBottom}
+        >
           <MdOutlineArrowDropDown size={25} />
         </button>
         <form className='chat-input-box' onSubmit={handleSendMessage}>

@@ -18,6 +18,7 @@ def token_required(f):
         refresh_token= None
         response = make_response()
         response.headers['Content-Type'] = 'application/json'
+        response.headers['Accept-Encoding'] = 'gzip, compress, br'
         if 'Authorization' in request.cookies:
             token = request.cookies['Authorization']
         if 'Refresh' in request.cookies:
@@ -60,6 +61,7 @@ def update_token(f):
         refresh_token = None
         response = make_response()
         response.headers['Content-Type'] = 'application/json'
+        response.headers['Accept-Encoding'] = 'gzip, compress, br'
         if 'Authorization' in request.cookies:
             token = request.cookies['Authorization']
         if 'Refresh' in request.cookies:

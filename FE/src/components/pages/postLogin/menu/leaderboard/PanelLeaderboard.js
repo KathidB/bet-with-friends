@@ -3,7 +3,7 @@ import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
 import './panelleaderboard.css'
 import RaccoonLeader from './images/raccoon-leader.webp'
-import { PredictionLogic } from '../predictions/data/PredictionLogic'
+
 import { useAuth } from '../../../../auth/authcontext/AuthContext'
 
 import { FaArrowDown } from 'react-icons/fa'
@@ -21,7 +21,7 @@ function PanelLeaderboard () {
   const [limit] = useState(10)
   const [selectedCompetition, setSelectedCompetition] = useState(2002)
   const { ipMan, darkMode } = useAuth()
-  const { competitions } = PredictionLogic()
+  const [buttonCompetitions, setButtonCompetitions] = useState([])
 
   // MAIN API FOR ALL  LEADERBOARD!
   useEffect(() => {
@@ -61,6 +61,35 @@ function PanelLeaderboard () {
     // Resetowanie strony przy zmianie turnieju
   }
 
+  useEffect(() => {
+    const getCompetitions = async () => {
+      try {
+        const competitionsResponse = await fetch(
+          `http://130.162.44.103:5000/api/v1/competetition`,
+          {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Total-Count': 'true'
+            }
+          }
+        )
+
+        if (competitionsResponse.ok) {
+          const competitionsData = await competitionsResponse.json()
+          setButtonCompetitions(competitionsData)
+        } else {
+          console.error('Błąd podczas pobierania danych')
+        }
+      } catch (error) {
+        console.error('Błąd podczas wysyłania żądania:', error)
+      }
+    }
+
+    getCompetitions()
+  }, [ipMan])
+
   return (
     <section className='app-wrap'>
       <h2 className='section-title panel-header'>
@@ -86,7 +115,7 @@ function PanelLeaderboard () {
           <p>Ranking Globalny</p>
         </button>
 
-        {competitions.map(competition => (
+        {buttonCompetitions.map(competition => (
           <button
             key={competition.public_id}
             style={

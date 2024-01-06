@@ -14,7 +14,7 @@ export const PredictionLogic = () => {
     const getCompetitions = async () => {
       try {
         const competitionsResponse = await fetch(
-          `http://${ipMan}:5000/api/v1/competetition`,
+          `http://130.162.44.103:5000/api/v1/competetition?empty=True`,
           {
             method: 'GET',
             credentials: 'include',

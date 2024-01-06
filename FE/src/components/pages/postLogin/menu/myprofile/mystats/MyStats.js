@@ -37,6 +37,8 @@ function MyStats (props) {
           </p>
         </div>
 
+    
+
         <p>Statystyki ligowe:</p>
         <div className='tab-stats'>
           <ul className='tab-stats-ul'>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../../../../../auth/authcontext/AuthContext'
-import { PredictionLogic } from '../../predictions/data/PredictionLogic'
+
 import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
 
@@ -12,11 +12,41 @@ function MyHistory () {
   const [historyPage, setHistoryPage] = useState(1)
   const [totalHistory, setTotalHistory] = useState(0)
   const [selectedCompetition, setSelectedCompetition] = useState(2001)
+  const [buttonCompetitions, setButtonCompetitions] = useState([])
 
   const limitHistory = 10
   const whatPageIsIT = Math.ceil(totalHistory / limitHistory)
 
-  const { competitions } = PredictionLogic()
+  // API DO BUTTONÓW W HISTORII BETOWANIA:
+
+  useEffect(() => {
+    const getCompetitions = async () => {
+      try {
+        const competitionsResponse = await fetch(
+          `http://130.162.44.103:5000/api/v1/competetition`,
+          {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Total-Count': 'true'
+            }
+          }
+        )
+
+        if (competitionsResponse.ok) {
+          const competitionsData = await competitionsResponse.json()
+          setButtonCompetitions(competitionsData)
+        } else {
+          console.error('Błąd podczas pobierania danych')
+        }
+      } catch (error) {
+        console.error('Błąd podczas wysyłania żądania:', error)
+      }
+    }
+
+    getCompetitions()
+  }, [ipMan])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,7 +110,7 @@ function MyHistory () {
     <>
       <div className='history'>
         <div className='competition-buttons history-buttons'>
-          {competitions.map(competition => (
+          {buttonCompetitions.map(competition => (
             <button
               style={
                 darkMode
@@ -139,8 +169,8 @@ function MyHistory () {
 
         <div className='history-list'>
           <ul className='history-ul'>
-            {historyBets
-              .map(bets => (
+            {
+              historyBets.map(bets => (
                 <div key={bets.match.public_id}>
                   <div
                     className={`history-data-item ${
@@ -238,7 +268,8 @@ function MyHistory () {
                   </li>
                 </div>
               ))
-              .reverse()}
+              // .reverse()
+            }
           </ul>
         </div>
       </div>

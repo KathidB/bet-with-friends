@@ -46,13 +46,11 @@
 .tab-stats-ul{
   display: flex;
   justify-content: center;
-  align-items: self-start;
+  align-items: flex-start;
   flex-wrap: wrap;
   list-style: none;
   padding: 0;
-  /* height: 400px; */
   overflow-y: auto;
-
 }
 
 .tab-stats-item{
@@ -63,7 +61,7 @@
   padding: 5px  0px;
   border-radius: 4px;
   margin: 10px 5px;
-  width: 150px;
+  width: 130px;
   height: 150px;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.205);
 }
@@ -86,6 +84,13 @@
 /* background-color: tomato; */
 }
 
+
+
+@media (max-width: 768px) {
+  .tab-stats-ul{ 
+    margin-bottom: 50px;  
+  }
+}
 
 
 
