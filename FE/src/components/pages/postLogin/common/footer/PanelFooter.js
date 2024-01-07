@@ -21,6 +21,11 @@ function PanelFooter () {
     setIsChatVisible(!isChatVisible)
   }
 
+  const handleMenuClick = () => {
+    // Zamknij okno chatu po kliknięciu na element dolnego menu
+    setIsChatVisible(false)
+  }
+
   return (
     <>
       <p className={`brand panel-footer ${darkMode && 'darkmode-on'}`}>
@@ -46,6 +51,7 @@ function PanelFooter () {
             style={darkMode ? { color: 'white' } : { color: 'black' }}
             to='/panel/'
             className='footer-panel-item'
+            onClick={handleMenuClick}
           >
             <FcHome /> <br /> Panel
           </Link>
@@ -55,6 +61,7 @@ function PanelFooter () {
             style={darkMode ? { color: 'white' } : { color: 'black' }}
             to='/panel/toptypers'
             className='footer-panel-item'
+            onClick={handleMenuClick}
           >
             <FcBullish /> <br /> Tabela
           </Link>
@@ -64,6 +71,7 @@ function PanelFooter () {
             style={darkMode ? { color: 'white' } : { color: 'black' }}
             to='/panel/schedule'
             className='footer-panel-item'
+            onClick={handleMenuClick}
           >
             <FcCalendar /> <br /> Terminarz
           </Link>
@@ -73,6 +81,7 @@ function PanelFooter () {
             style={darkMode ? { color: 'white' } : { color: 'black' }}
             to='/panel/profile'
             className='footer-panel-item'
+            onClick={handleMenuClick}
           >
             <FcBusinessman /> <br /> Profil
           </Link>

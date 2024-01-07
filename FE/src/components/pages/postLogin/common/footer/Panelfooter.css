@@ -83,12 +83,12 @@
   .hidden-bg{
    background-color: black;      
   }
-  
+   
 
  
 
-  .btn-chat-active{
-    color: var(--brand-color);
+   .btn-chat-active{
+    color: var(--brand-color) !important;
   }
  }
   

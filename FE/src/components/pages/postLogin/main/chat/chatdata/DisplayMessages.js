@@ -107,8 +107,7 @@ const DisplayMessages = () => {
             setMsgLimit(prevLimit => prevLimit + 30)
 
             chatContainerRef.current?.scrollIntoView({
-              block: 'nearest',
-              behavior: 'smooth'
+              block: 'nearest'
             })
           }
         },
@@ -124,6 +123,7 @@ const DisplayMessages = () => {
   }, [observedElement])
 
   // scollowanie do samego dołu przy  załadowaniu chatu
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView()
   }, [data])

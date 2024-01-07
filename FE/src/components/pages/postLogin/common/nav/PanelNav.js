@@ -33,7 +33,7 @@ function PanelNav () {
                 to='/panel/'
                 style={darkMode ? { color: 'white' } : { color: 'black' }}
               >
-                Panel
+                Typowanie
               </Link>
             </li>
             <li className='panel-item'>

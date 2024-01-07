@@ -28,7 +28,7 @@ def get_new_matches():
                 matchdb = session.query(Match).filter_by(public_id=match['id']).first()
                 home_team = insert_team(match=match['homeTeam'])
                 away_team = insert_team(match=match['awayTeam'])
-                
+                winner = None
                 if match['status'] == 'FINISHED':
                         if match['score']['winner'] == "AWAY_TEAM":
                             winner = away_team
@@ -39,7 +39,6 @@ def get_new_matches():
                 else:
                     full_time= ''
                     half_time= ''
-                    winner = None
 
                 if not matchdb:
                     score_id = insert_score(full_time=full_time,half_time=half_time,winner=winner)
@@ -107,19 +106,18 @@ def get_posible_bets(competetition,page:int,limit:int,user:Users) -> [Match]:
             .filter(
                 Competition.public_id == competetition,
                 Match.utc_date >= datetime.utcnow(),
-                Match.utc_date <= datetime.now() + timedelta(days=5),
+                Match.utc_date <= datetime.now() + timedelta(days=21),
             )
             .order_by(Match.utc_date,Match.home_team_id)
             .all()
         )
-        print(obj.to_json() for obj in possible_best)
         count = (session
             .query(Match)
             .join(Competition, Match.competetition_id == Competition.id)
             .filter(
                 Competition.public_id == competetition,
                 Match.utc_date >= datetime.utcnow(),
-                Match.utc_date <= datetime.now() + timedelta(days=5),
+                Match.utc_date <= datetime.now() + timedelta(days=21),
             ).all()
         )
         possible_best = filter_match(matchs=possible_best,session=session,profile=profile)

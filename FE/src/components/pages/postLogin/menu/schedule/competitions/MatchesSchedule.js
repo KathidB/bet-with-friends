@@ -61,6 +61,7 @@ function MatchesSchedule ({
                   height={25}
                   src={match.home_team.crest}
                   alt=''
+                  style={{ backgroundColor: 'white' }}
                 />
               </td>
               <td className='schedule-team-crest-home mobile-schedule'>
@@ -97,6 +98,7 @@ function MatchesSchedule ({
                   height={25}
                   src={match.away_team.crest}
                   alt=''
+                  style={{ backgroundColor: 'white' }}
                 />
               </td>
               <td className='crest mobile-schedule'>

@@ -9,8 +9,8 @@ carusel =  Carusel.get_instance()
 
 def get_matches(competetition):
     today = datetime.now().date()
-    dateFrom = today - timedelta(days=14)
-    dateTo = today + timedelta(days=14)
+    dateFrom = today - timedelta(days=30)
+    dateTo = today + timedelta(days=21)
     while True:
         uri = f'{config.get_config_by_key("football_data.uri")}/competitions/{competetition}/matches'
         headers = {'X-Auth-Token': carusel.get_token()}

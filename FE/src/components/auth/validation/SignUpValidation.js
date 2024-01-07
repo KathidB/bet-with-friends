@@ -5,8 +5,8 @@ const validate = values => {
     errors.name = 'Pole wymagane'
   } else if (values.name.length < 3 || values.name.length > 20) {
     errors.name = 'Nick musi mieć od 3 do 20 znaków'
-  } else if (!/^[a-zA-Z0-9]+$/.test(values.name)) {
-    errors.name = 'Nick może zawierać tylko litery i cyfry'
+  } else if (!/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9]+$/.test(values.name)) {
+    errors.name = 'Nick może zawierać litery, cyfry i polskie znaki'
   }
 
   if (values.password.length < 8) {
