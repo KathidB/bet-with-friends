@@ -46,6 +46,7 @@
 
 .chat-input-box {
   display: flex;
+
 }
 
 .chat-input {
@@ -65,15 +66,15 @@
 
 .chat-input-wrapper {
   position: sticky;
-  bottom: 0;
-  background-color: white;
+  bottom: -2px;
+  background-color: white;  
   z-index: 1;
 }
 
 .chat-button {
   padding: 0px 15px;
   border: 1px solid transparent;
-border-radius: 0;
+  border-radius: 0;
   background: #2c2d5b;
   font-weight: bold;
   color: var(--white-color);

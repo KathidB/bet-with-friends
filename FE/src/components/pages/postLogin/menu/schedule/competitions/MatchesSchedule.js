@@ -16,7 +16,7 @@ function MatchesSchedule ({
         height={65}
         src={matchList[0].competition.emblem}
         alt='Footbal team emblem'
-        style={{ backgroundColor: 'white', borderRadius: '2px' }}
+        style={{ backgroundColor: 'white' }}
       />
       <p className='competition-name'>{matchList[0]?.competition.name}</p>
       <p className='schedule-btns'>
@@ -71,8 +71,9 @@ function MatchesSchedule ({
                   height={25}
                   src={match.home_team.crest}
                   alt=''
+                  style={{ backgroundColor: 'white', borderRadius: '5px' }}
                 />
-                {match.home_team.short_name}
+                <span> {match.home_team.short_name}</span>
               </td>
               <td className='mobile-schedule'>
                 {match.score.full_time.replace('-', ' - ') ?? 'TBD'} <br />
@@ -83,13 +84,14 @@ function MatchesSchedule ({
               </td>
 
               <td className='schedule-team-crest-away mobile-schedule'>
-                {match.away_team.short_name}{' '}
+                <span> {match.away_team.short_name} </span>
                 <img
                   className='away-team-crest'
                   width={25}
                   height={25}
                   src={match.away_team.crest}
                   alt=''
+                  style={{ backgroundColor: 'white', borderRadius: '5px' }}
                 />
               </td>
               <td className='crest mobile-schedule'>
@@ -98,7 +100,7 @@ function MatchesSchedule ({
                   height={25}
                   src={match.away_team.crest}
                   alt=''
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: 'white', borderRadius: '5px' }}
                 />
               </td>
               <td className='crest mobile-schedule'>

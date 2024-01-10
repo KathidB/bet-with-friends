@@ -6,7 +6,7 @@ export const PredictionLogic = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalMatches, setTotalMatches] = useState(null)
   const [competitions, setCompetitions] = useState([])
-  const [selectedCompetition, setSelectedCompetition] = useState(2001)
+  const [selectedCompetition, setSelectedCompetition] = useState(2021)
   const { ipMan } = useAuth()
   const limit = 9
 

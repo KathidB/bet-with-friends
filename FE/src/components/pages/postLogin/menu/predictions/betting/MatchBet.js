@@ -70,6 +70,7 @@ function MatchBet ({
         height={65}
         src={matchList[0].competition.emblem}
         alt='Footbal team emblem'
+        style={{ backgroundColor: 'white' }}
       />
 
       <p className='schedule-btns'>
@@ -116,6 +117,7 @@ function MatchBet ({
                     height={25}
                     src={match.home_team.crest}
                     alt={`Crest of ${match.home_team.short_name}`}
+                    style={{ backgroundColor: 'white', borderRadius: '5px' }}
                   />
                 </td>
                 <td className='td-short-name'>{match.home_team.short_name}</td>
@@ -126,6 +128,7 @@ function MatchBet ({
                     height={25}
                     src={match.away_team.crest}
                     alt={`Crest of ${match.away_team.short_name}`}
+                    style={{ backgroundColor: 'white', borderRadius: '5px' }}
                   />
                 </td>
 

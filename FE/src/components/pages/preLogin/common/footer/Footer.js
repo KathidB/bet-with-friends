@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import footerLogo from './images/footer-logo.webp'
 import { ScrollToTop } from '../../../../utilities/ScrollToTop'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
-
 import './footer.css'
 
 function Footer () {
@@ -22,14 +21,14 @@ function Footer () {
             </Link>
             <p>
               Dołącz do społeczności typujących! Przewiduj wyniki meczów,
-              rywalizuj z innymi i zdobywaj punkty. [Best With Friends
+              rywalizuj z innymi i zdobywaj punkty. [Bet With Friends
               <MdOutlineAlternateEmail /> {currentYear}] Wszelkie prawa
               zastrzeżone.
             </p>
           </div>
 
           <div className='footer-front-item '>
-            <p style={{ fontSize: '24px' }}>Navigation</p>
+            <p style={{ fontSize: '24px' }}>Nawigacja</p>
             <ul className='footer-front-nav'>
               <li>
                 <Link className='footer-menu-item' to='/' onClick={ScrollToTop}>
@@ -69,7 +68,7 @@ function Footer () {
                   to='/login'
                   onClick={ScrollToTop}
                 >
-                  Log In
+                  Zaloguj
                 </Link>
               </li>
               <li>
@@ -78,7 +77,7 @@ function Footer () {
                   to='/signup'
                   onClick={ScrollToTop}
                 >
-                  Sign Up
+                  Dołącz
                 </Link>
               </li>
             </ul>

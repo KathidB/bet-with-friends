@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
 import './panelleaderboard.css'
@@ -19,9 +19,10 @@ function PanelLeaderboard () {
   const [page, setPage] = useState(1)
   const [totalLeaders, setTotalLeaders] = useState(null)
   const [limit] = useState(10)
-  const [selectedCompetition, setSelectedCompetition] = useState(2002)
+  const [selectedCompetition, setSelectedCompetition] = useState(2019)
   const { ipMan, darkMode } = useAuth()
   const [buttonCompetitions, setButtonCompetitions] = useState([])
+  const globalRankBtn = useRef()
 
   // MAIN API FOR ALL  LEADERBOARD!
   useEffect(() => {
@@ -90,6 +91,12 @@ function PanelLeaderboard () {
     getCompetitions()
   }, [ipMan])
 
+  useEffect(() => {
+    if (globalRankBtn.current) {
+      globalRankBtn.current.click()
+    }
+  }, [])
+
   return (
     <section className='app-wrap'>
       <h2 className='section-title panel-header'>
@@ -105,8 +112,7 @@ function PanelLeaderboard () {
               : { color: 'black' }
           }
           onClick={() => setHandleTableShow(true)}
-          // className='competition-btn'
-
+          ref={globalRankBtn}
           className={`competition-btn ${
             handleTableShow ? 'active-schedule' : ''
           }`}

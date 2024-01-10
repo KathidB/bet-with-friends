@@ -13,7 +13,7 @@ function Header () {
               {' '}
               najpopularniejszych lig piłkarskich{' '}
             </span>
-            i porównuj się ze znajomymi!
+            i rywalizuj ze znajomymi!
           </h1>
           <p>
             Przewiduj wyniki meczów oraz inne wydarzenia związane z grą,

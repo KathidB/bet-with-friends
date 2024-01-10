@@ -11,8 +11,6 @@
   height: 50px;
 }
 
-
-
 .schedule-table {
   margin-top: 20px;
   width: 100%;
@@ -22,9 +20,7 @@
   margin-bottom: 10px;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.473);
   overflow-x: auto;
-  
 }
-
 
 .mobile-date{
   display: none;
@@ -39,7 +35,6 @@
 .schedule-table th {
   border: 1px solid rgba(192, 192, 192, 0.452);
   padding: 8px;
-
 }
 
 .schedule-date {
@@ -249,7 +244,8 @@ box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.205);
 
   .home-team-crest,
   .away-team-crest {
-    padding: 0 10px;
+    padding: 0px;
+ 
   }
 
 
@@ -383,22 +379,26 @@ box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.205);
   }
 
   .schedule-team-crest-home {
+    align-items: center;
     text-align: left;
     width: 40%;
   }
 
-  .schedule-team-crest-away {
+  .schedule-team-crest-away {  
     text-align: right;
     width: 40%;
   }
 
   .home-team-crest,
   .away-team-crest {
-    padding: 0 10px;
+   
+    padding: 0px;
+    margin: 0 5px;
   }
 
 
   .mobile-schedule{
+    
     margin: 10px 5px;
     padding: 10px 0px;
   }

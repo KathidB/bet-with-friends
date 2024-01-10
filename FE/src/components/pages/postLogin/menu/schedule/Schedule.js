@@ -8,9 +8,9 @@ function Schedule () {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalMatches, setTotalMatches] = useState(null)
   const [competitions, setCompetitions] = useState([]) // Nowy stan na potrzeby przechowywania kompetencji
-  const [selectedCompetition, setSelectedCompetition] = useState(2001)
+  const [selectedCompetition, setSelectedCompetition] = useState(2021)
   // 2018 euro
-  const limit = 10
+  const limit = 9
   const { ipMan, darkMode } = useAuth()
 
   useEffect(() => {
@@ -121,7 +121,7 @@ function Schedule () {
                 src={competition.emblem}
                 alt=''
                 className='comp-button-img'
-                style={{ backgroundColor: 'white', borderRadius: '2px' }}
+                style={{ backgroundColor: 'white' }}
               />
               {handleCompetitionNames(competition.name)}
             </button>

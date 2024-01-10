@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { useUser } from '../../context/UserContext'
 import { useAuth } from '../../../../auth/authcontext/AuthContext'
 
@@ -25,10 +24,8 @@ function YourProfile () {
         />
         <p className='your-name'>{userProfile.name}</p>
         <p>Punkty: {userProfile.points}</p>
-        <p>Pozycja: {userProfile.ranking.place}</p>
-        <Link to='/panel/profile' className='your-profile-btn'>
-          Profil
-        </Link>
+        <p>Trafienia: {userProfile.rating.wins}</p>
+        <p>Rating: {userProfile.rating.rating}%</p>
       </div>
     </div>
   ) : (
