@@ -15,7 +15,7 @@
     list-style: none;
     background-color: white;
     color: black; 
-    z-index: 500;
+    z-index: 1;
 }
 
 .msg-item{

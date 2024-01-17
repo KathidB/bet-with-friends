@@ -19,7 +19,7 @@ function MatchBet ({
     away_team_bet: '',
     home_team_bet: ''
   })
-  const { ipMan } = useAuth()
+  const { ipMan, darkMode } = useAuth()
 
   const handleBetSubmit = async (e, matchId) => {
     e.preventDefault()
@@ -70,7 +70,11 @@ function MatchBet ({
         height={65}
         src={matchList[0].competition.emblem}
         alt='Footbal team emblem'
-        style={{ backgroundColor: 'white' }}
+        style={{
+          backgroundColor: 'white',
+          padding: '2px',
+          borderRadius: '2px'
+        }}
       />
 
       <p className='schedule-btns'>
@@ -132,13 +136,13 @@ function MatchBet ({
                   />
                 </td>
 
-                <td className='match-time'>
+                <td className='match-time crest'>
                   {new Date(match.utc_date).toLocaleDateString('en-GB')} (
                   {match.utc_date.replace('T', ' ').slice(11, -3)})
                 </td>
 
                 <td className='td-bet'>
-                  <p className='match-time-mobile'>
+                  {/* <p className='match-time-mobile'>
                     {new Date(match.utc_date).toLocaleDateString('en-GB')} (
                     {match.utc_date.replace('T', ' ').slice(11, -3)})
                     <br />
@@ -155,7 +159,33 @@ function MatchBet ({
                       src={match.away_team.crest}
                       alt={`Crest of ${match.home_team.short_name}`}
                     />
-                  </p>
+                  </p> */}
+
+                  <div className='match-mobile'>
+                    <img
+                      // className=''
+                      className={`${darkMode ? 'mobile-team-crest' : null} `}
+                      width={30}
+                      height={30}
+                      src={match.home_team.crest}
+                      alt={`Crest of ${match.home_team.short_name}`}
+                    />
+
+                    <p className='match-info-mobile'>
+                      {new Date(match.utc_date).toLocaleDateString('en-GB')} (
+                      {match.utc_date.replace('T', ' ').slice(11, -3)})
+                      <br /> {match.home_team.short_name} -{' '}
+                      {match.away_team.short_name}{' '}
+                    </p>
+
+                    <img
+                      width={30}
+                      height={30}
+                      src={match.away_team.crest}
+                      alt={`Crest of ${match.home_team.short_name}`}
+                      className={`${darkMode ? 'mobile-team-crest' : null} `}
+                    />
+                  </div>
 
                   <form
                     onSubmit={e => handleBetSubmit(e, match.public_id)}

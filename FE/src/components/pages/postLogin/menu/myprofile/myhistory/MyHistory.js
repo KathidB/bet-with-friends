@@ -238,7 +238,7 @@ function MyHistory () {
                       <img
                         className='history-home-team-img'
                         src={bets.match.home_team.crest}
-                        width={25}
+                        width={30}
                         alt='home team crest'
                       />
                       <p>{bets.match.home_team.short_name}</p>
@@ -261,7 +261,7 @@ function MyHistory () {
                       <img
                         className='history-away-team-img'
                         src={bets.match.away_team.crest}
-                        width={25}
+                        width={30}
                         alt='home team crest'
                       />
                     </div>

@@ -28,7 +28,8 @@ function Panel () {
           console.error(
             'Session expired or unauthorized. Redirecting to login.'
           )
-          navigate('/login')
+          navigate('/login') 
+          
         } else {
           console.error('Błąd pobierania danych z API:', data)
           // Handle other error conditions if needed

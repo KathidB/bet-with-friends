@@ -83,10 +83,11 @@ function Prediction () {
                   <ol>
                     <li>
                       <p>
-                        Obstawiać można na 5 dni wcześniej, aż do momentu
-                        rozpoczęcia meczu.
+                        Mecze można typować do 3 tygodni do przodu, aż do
+                        momentu rozpoczęcia gry.
                       </p>
                     </li>
+
                     <li>
                       <p>
                         Mecze typujesz tylko raz. Później nie ma możliwości
@@ -100,9 +101,6 @@ function Prediction () {
                         Za wskazanie wynikiem zwycięzcy lub remisu 20pk.
                       </p>
                     </li>
-                    <li>
-                      <p>Ligi wyświetlają się tylko w trakcie rozgrywek.</p>
-                    </li>
                   </ol>
                 </div>
               </div>
@@ -113,7 +111,7 @@ function Prediction () {
               obstawiasz osobno. <br /> Pamiętaj, masz tylko jedną możliwość
               wysłania swojej predykcji, później nie ma możliwośći jej
               edytowania. <br />
-              Mecze można typować do 1 tygodnia do przodu. <br />
+              Mecze można typować do 3 tygodni do przodu. <br />
               <b>
                 Poniższa lista lig przedstawia wyłącznie obecnie trwające
                 rozgrywki.{` `}

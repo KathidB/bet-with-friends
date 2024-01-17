@@ -67,29 +67,51 @@
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.815);
 }
 
+.match-mobile{
+  display: none;
+}
+
 
 
 
 @media (max-width: 575.98px) {
 
+  .match-mobile{
 
-
-  .match-time-mobile{
-    display: block;
-    margin: 0;
-    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ 
     background-color: rgba(192, 192, 192, 0.219);
     border-radius: 4px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.301);
+ 
   }
+
+
+  .match-info-mobile{
+    padding: 0;
+    margin: 5px 0;
+
+  }
+
+  .mobile-team-crest{
+    margin: 0 5px;
+    background-color: white;
+    border-radius: 5px;    
+    padding: 1px;
+  }
+
+
+
   .bet-form {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-
   }
+
   .bet-input { 
     border: transparent;
     padding: 8px 15px;
@@ -163,14 +185,36 @@
 
      
 
-  .match-time-mobile{
-    display: block;
-    margin: 0;
-    padding: 0;
+  .match-mobile{
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ 
     background-color: rgba(192, 192, 192, 0.219);
     border-radius: 4px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.301);
+ 
   }
+
+
+  .match-info-mobile{
+    padding: 0;
+    margin: 5px 0;
+
+  }
+
+
+  .mobile-team-crest{
+    margin: 0 5px;
+    background-color: white;
+    border-radius: 5px;    
+    padding: 1px;
+  }
+
+
+
+
   .bet-form {
     display: flex;
     flex-direction: row;
@@ -272,6 +316,11 @@
   .bet-button{
     margin-right: 0;
   }
+
+  .crest{
+    display: none;
+  }
+ 
  
   .bet-form {
     width: 100%;
@@ -282,10 +331,10 @@
   }
   .bet-input {      
     border: 1px solid transparent;
-    padding: 5px 10px;
+    padding: 5px 5px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.473);
     border-radius: 4px;
     margin: 5px 5px;
-    margin-right: 5px;
+    margin-right:5px;
   }
 }

@@ -6,7 +6,8 @@ Welcome to Bet With Friends, a fun and interactive platform where you can predic
 
 ## Project Status
 
-🚧 **Currently Under Development** 🚧
+🚧 **Under Development** 🚧
+LIVE VERSION: [Bet With Friends](http://130.162.44.103/)
 
 ## Team Coding Raccons
 

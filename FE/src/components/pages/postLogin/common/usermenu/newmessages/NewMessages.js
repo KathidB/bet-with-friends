@@ -24,7 +24,7 @@ const NewMessages = () => {
     ) {
       refetch()
     }
-  }, [subscriptionData, refetch])
+  }, [subscriptionData, subscriptionData?.newSystemInfoSubscription, refetch])
 
   const systemInfo = data.getSystemInfo
 

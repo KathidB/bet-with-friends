@@ -12,7 +12,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
 }
 
 .panel-menu {
@@ -27,19 +26,23 @@
     width: 1px;
     height: 80px;
     margin: 0 20px;
-  
 }
 
 .panel-item {
     padding: 0 10px;
 }
 
-.panel-item a:hover{
+.panel-item a:hover {
     color: var(--brand-color)
 }
 
-.panel-item a{
-  color: black;
+.panel-item a {
+    color: black;
+}
+
+
+.showOnMobile {
+    display: none;
 }
 
 
@@ -52,33 +55,49 @@
         top: 0;
         left: 0;
         right: 0;
-      
+
     }
 
     .user-menu.closed {
         top: -1520%;
     }
-   
+
     .panel-menu {
-       display: none;
+        display: none;
     }
-       
+
+
+    .showOnMobile {
+        display: block;
     }
-    
-    @media (min-width: 576px) and (max-width: 767.98px) {
-        .panel-menu {
-            display: none;
-         }
-     
+
+    .showOnDesktop {
+        display: none;
     }
-    
-    @media (min-width: 768px) and (max-width: 991.98px) {
-     .front-brand-logo{
+
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .panel-menu {
+        display: none;
+    }
+
+    .showOnMobile {
+        display: block;
+    }
+
+    .showOnDesktop {
+        display: none;
+    }
+
+
+
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .front-brand-logo {
         font-size: 1rem;
-     }
     }
-    
-    @media (min-width: 992px) and (max-width: 1199.98px) {
-      
-    }
-    
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {}

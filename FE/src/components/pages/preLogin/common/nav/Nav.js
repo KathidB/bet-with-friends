@@ -1,16 +1,31 @@
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import hamOpen from '../../../../../assets/images/hamburger/hamOpen.svg'
 import hamClose from '../../../../../assets/images/hamburger/hamClose.svg'
 import './nav.css'
+import { useAuth } from '../../../../auth/authcontext/AuthContext'
 
 // activeClassName='active'
 
 function Nav () {
   const [open, setOpen] = useState(false)
+  const { loggedIn } = useAuth()
+  const navigate = useNavigate()
 
   const hamburgerMenu = () => {
     setOpen(!open)
+  }
+
+  // Czy jesteś zalogowany? Jak tak to zapraszamy do panelu ponownie, jak nie to loguj sie.
+  const handleLoginClick = () => {
+    if (loggedIn) {
+      // Jeśli użytkownik jest zalogowany, przekieruj do panelu
+      navigate('/panel')
+    } else {
+      // Jeśli użytkownik nie jest zalogowany, przekieruj do strony logowania
+    }
+    // Zamknij menu hamburgera po kliknięciu na element nawigacji
+    setOpen(false)
   }
 
   // <div className='app-wrap'>
@@ -28,9 +43,6 @@ function Nav () {
         onClick={hamburgerMenu}
       >
         <li>
-          {/* link jest aktywny tylko wtedy, gdy ścieżka URL jest identyczna z określoną ścieżką. 
-            NavLink posiada klasę domyślną active  która nadaje style do otwartego elementu menu.
-          */}
           <NavLink className='nav-menu-item' to='/'>
             Home
           </NavLink>
@@ -50,8 +62,8 @@ function Nav () {
             O nas
           </NavLink>
         </li>
-        <li>
-          <NavLink to='/login' className='nav-front-login-btn '>
+        <li onClick={handleLoginClick}>
+          <NavLink className='nav-menu-item nav-front-login-btn' to='/login'>
             Zaloguj
           </NavLink>
         </li>
