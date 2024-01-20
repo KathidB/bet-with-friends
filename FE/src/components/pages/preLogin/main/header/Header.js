@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import headerLogo from './images/raccoon-header2.webp'
+import headerLogoMobile from './images/raccoon-header2-mobile.webp'
 import './header.css'
 
 function Header () {
@@ -37,8 +38,16 @@ function Header () {
             className='header-front-logo'
             src={headerLogo}
             alt='Bet With Friends main logo'
-            width={500}
-            height={500}
+            width={450}
+            height={450}
+          />
+
+          <img
+            className='header-front-logo-mobile'
+            src={headerLogoMobile}
+            alt='Bet With Friends main logo'
+            width={250}
+            height={250}
           />
         </div>
       </div>

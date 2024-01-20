@@ -34,6 +34,10 @@
   color: var(--brand-alt-color);
 }
 
+.header-front-logo-mobile{
+  display: none;
+}
+
 
 /* //RESPONSIVE  */
 
@@ -59,9 +63,7 @@
   }
 
   .header-front-logo {
-    width: 60%;
-    height: auto;
-    padding-top: 20px ;
+ display: none;
   }
 
   .header-front-btn {
@@ -76,6 +78,11 @@
     transition: color 0.3s, background-color 0.3s, border-color 0.3s;
   }
 
+
+  .header-front-logo-mobile{
+    display: block;   
+    padding-top: 20px ;
+  }
  
 
 }
@@ -118,6 +125,16 @@
     color: var(--white-color);
     transition: color 0.3s, background-color 0.3s, border-color 0.3s;
   }
+
+  .header-front-logo{
+    display: none;
+  }
+
+  .header-front-logo-mobile{
+    display: block;   
+    padding-top: 20px ;
+  }
+ 
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
@@ -161,6 +178,17 @@
     background-color: var(--white-color);
     color: var(--brand-alt-color);
   }
+
+  .header-front-logo{
+    display: none;
+  }
+
+  .header-front-logo-mobile{
+    display: block;   
+    padding-top: 20px ;
+  }
+ 
+
   
 }
 
