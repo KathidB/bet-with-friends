@@ -9,10 +9,10 @@ const validate = values => {
     errors.name = 'Nick może zawierać litery, cyfry i polskie znaki'
   }
 
-  if (values.password.length < 8) {
+  if (values.password.length < 8 || values.password.length > 50) {
     errors.password = 'Hasło musi mieć co najmniej 8 znaków'
   } else if (!/(?=.*[!@#$%^&*])/.test(values.password)) {
-    errors.password = `Hasło musi zawierać co najmniej jeden znak specjalny (!@#$%^&*)`
+    errors.password = `Hasło musi zawierać co najmniej jeden znak specjalny !@#$%^&*()`
   }
 
   if (values.password !== values.confirmPassword) {

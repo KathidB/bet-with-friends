@@ -35,6 +35,7 @@ function Header () {
           }}
         >
           <img
+            rel='preload'
             className='header-front-logo'
             src={headerLogo}
             alt='Bet With Friends main logo'
@@ -43,6 +44,7 @@ function Header () {
           />
 
           <img
+            rel='preload'
             className='header-front-logo-mobile'
             src={headerLogoMobile}
             alt='Bet With Friends main logo'
