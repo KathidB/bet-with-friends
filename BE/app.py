@@ -12,7 +12,7 @@ from service.achivment_service import update_achivments_for_old_users
 import service.sheduler_service
 
 app = Flask(__name__)
-cors = CORS(app=app,resources={r'/api/v1/*':{'origins':'*', 'supports_credentials': True}},expose_headers='X-Total-Count')
+cors = CORS(app=app,resources={r'/api/v1/*':{'origins':['*','https://bet-with-friends.tech'], 'supports_credentials': True}},expose_headers='X-Total-Count')
 config = ConfigurationManager.get_instance()
 init_db()
 
