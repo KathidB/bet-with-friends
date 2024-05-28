@@ -3,10 +3,11 @@ import MyPassword from './images/mypassword.webp'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import validate from '../validation/NewPasswordValidation'
 import { FaSpinner } from 'react-icons/fa'
-
+import { useTranslation } from 'react-i18next'
 import './newpassword.css'
 
 function NewPassword () {
+  const { t } = useTranslation()
   const [successMessage, setSuccessMessage] = useState(null)
   const [serverError, setServerError] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -17,7 +18,7 @@ function NewPassword () {
     try {
       setLoading(true)
       setSuccessMessage('')
-      const response = await fetch('http://130.162.44.103:5000/api/v1/reset', {
+      const response = await fetch('http://4.184.219.209:5000/api/v1/reset', {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -36,9 +37,7 @@ function NewPassword () {
             email: ''
           }
         })
-        setSuccessMessage(
-          'Instrukcja resetowania hasła została wysłana na podany email.'
-        )
+        setSuccessMessage(`${t('newpass.success')}`)
       } else {
         const errorData = await response.json()
         console.log(errorData)
@@ -53,7 +52,8 @@ function NewPassword () {
     <section className='app-wrap'>
       <div className='login'>
         <h2 className='section-title'>
-          Przypomnij <span className='span-brand'>hasło</span>
+          {t('newpass.passA')}{' '}
+          <span className='span-brand'> {t('newpass.passB')}</span>
         </h2>
 
         <img
@@ -102,17 +102,17 @@ function NewPassword () {
                   {loading ? (
                     <>
                       <FaSpinner className='spinner-icon' />
-                      Przesyłanie...
+                      {t('passreset.status')}
                     </>
                   ) : (
-                    'Reset hasła'
+                    'Reset password'
                   )}
                 </button>
                 {successMessage && (
                   <div className='signup-success-msg'>{successMessage}</div>
                 )}
                 {serverError && (
-                  <p className='login-error-msg'>Brak emaila w systemie</p>
+                  <p className='login-error-msg'>{t('newpass.noemail')}</p>
                 )}
               </Form>
             )}

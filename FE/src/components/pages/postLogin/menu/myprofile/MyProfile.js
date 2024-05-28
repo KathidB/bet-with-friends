@@ -6,8 +6,10 @@ import MyHistory from './myhistory/MyHistory'
 import MyConfig from './myconfig/MyConfig'
 import './myprofile.css'
 import { useAuth } from '../../../../auth/authcontext/AuthContext'
+import { useTranslation } from 'react-i18next'
 
 function MyProfile () {
+  const { t } = useTranslation()
   const { userProfile } = useUser()
   const [activeTab, setActiveTab] = useState('Statystyki')
   const { darkMode } = useAuth()
@@ -31,7 +33,7 @@ function MyProfile () {
           <img src={userProfile.avatar} alt='' className='avatar ' width={80} />
 
           <p className='your-name'>
-            Witaj, {userProfile.name} (lvl {level})
+            {t('panelProfile.hi')}, {userProfile.name} (lvl {level})
           </p>
 
           <p
@@ -48,7 +50,7 @@ function MyProfile () {
             }`}
             onClick={() => handleTabClick('Statystyki')}
           >
-            Statystyki
+            {t('panelProfile.stats')}
           </button>
           <button
             className={`tabs-btn ${
@@ -56,7 +58,7 @@ function MyProfile () {
             }`}
             onClick={() => handleTabClick('Osiągnięcia')}
           >
-            Osiągnięcia
+            {t('panelProfile.achiv')}
           </button>
           <button
             className={`tabs-btn ${
@@ -64,7 +66,7 @@ function MyProfile () {
             }`}
             onClick={() => handleTabClick('Historia')}
           >
-            Historia
+            {t('panelProfile.history')}
           </button>
           <button
             className={`tabs-btn ${
@@ -72,7 +74,7 @@ function MyProfile () {
             }`}
             onClick={() => handleTabClick('Ustawienia')}
           >
-            Ustawienia
+            {t('panelProfile.settings')}
           </button>
         </div>
 

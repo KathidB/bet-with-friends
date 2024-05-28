@@ -1,5 +1,6 @@
 import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
+import { useTranslation } from 'react-i18next'
 
 function MatchesSchedule ({
   matchList,
@@ -8,6 +9,7 @@ function MatchesSchedule ({
   limit,
   setCurrentPage
 }) {
+  const { t } = useTranslation()
   return matchList.length > 0 ? (
     <>
       <img
@@ -29,7 +31,8 @@ function MatchesSchedule ({
           <BsArrowLeft />
         </button>
         <span className='schedule-btn-span'>
-          Przeglądaj listę {currentPage} / {Math.ceil(totalMatches / limit)}
+          {t('panelLeaders.browse')} {currentPage} /{' '}
+          {Math.ceil(totalMatches / limit)}
         </span>
         <button
           aria-label='Next page'
@@ -45,11 +48,11 @@ function MatchesSchedule ({
         <thead>
           <tr className='schedule-table-tr'>
             <th className='crest'></th>
-            <th>Gospodarze</th>
-            <th className='schedue-result'>Wynik</th>
-            <th>Goście</th>
+            <th>{t('matches.host')}</th>
+            <th className='schedue-result'>{t('matches.result')}</th>
+            <th>{t('matches.guest')}</th>
             <th className='crest'></th>
-            <th className='crest'>Termin</th>
+            <th className='crest'>{t('matches.date')}</th>
           </tr>
         </thead>
         <tbody>
@@ -114,7 +117,7 @@ function MatchesSchedule ({
       </table>
     </>
   ) : (
-    'Oczekiwanie na rozgrywki...'
+    `${t('matches.await')}`
   )
 }
 

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
 import { useAuth } from '../../../../../auth/authcontext/AuthContext'
+import { useTranslation } from 'react-i18next'
 
 import './matchbet.css'
 
@@ -20,6 +21,7 @@ function MatchBet ({
     home_team_bet: ''
   })
   const { ipMan, darkMode } = useAuth()
+  const { t } = useTranslation()
 
   const handleBetSubmit = async (e, matchId) => {
     e.preventDefault()
@@ -44,10 +46,10 @@ function MatchBet ({
         }
         setTotalMatches(prevTotalMatches => prevTotalMatches + 1)
       } else {
-        console.error('Błąd podczas wysyłania zakładu')
+        console.error('Error')
       }
     } catch (error) {
-      console.error('Błąd podczas wysyłania zakładu:', error)
+      console.error('Error:', error)
     }
   }
 
@@ -87,7 +89,7 @@ function MatchBet ({
           <BsArrowLeft />
         </button>
         <span className='schedule-btn-span'>
-          Przeglądaj listę {`${currentPage} / ${whatPageIsIT}`}
+          {t('panelLeaders.browse')} {`${currentPage} / ${whatPageIsIT}`}
         </span>
         <button
           className='schedule-list-btn span-brand'
@@ -103,11 +105,11 @@ function MatchBet ({
         <thead className='bet-thead'>
           <tr>
             <th className='crest'></th>
-            <th>Gospodarze</th>
-            <th>Goście</th>
+            <th>{t('matches.host')}</th>
+            <th>{t('matches.guest')}</th>
             <th className='crest'></th>
-            <th className='crest'>Termin</th>
-            <th>Typuj</th>
+            <th className='crest'>{t('matches.date')}</th>
+            <th>{t('matches.bet')}</th>
           </tr>
         </thead>
         <tbody>
@@ -142,25 +144,6 @@ function MatchBet ({
                 </td>
 
                 <td className='td-bet'>
-                  {/* <p className='match-time-mobile'>
-                    {new Date(match.utc_date).toLocaleDateString('en-GB')} (
-                    {match.utc_date.replace('T', ' ').slice(11, -3)})
-                    <br />
-                    <img
-                      width={15}
-                      height={15}
-                      src={match.home_team.crest}
-                      alt={`Crest of ${match.home_team.short_name}`}
-                    />{' '}
-                    {match.home_team.short_name} - {match.away_team.short_name}{' '}
-                    <img
-                      width={15}
-                      height={15}
-                      src={match.away_team.crest}
-                      alt={`Crest of ${match.home_team.short_name}`}
-                    />
-                  </p> */}
-
                   <div className='match-mobile'>
                     <img
                       // className=''
@@ -237,7 +220,7 @@ function MatchBet ({
                       className='bet-button'
                       disabled={isBetSubmitted}
                     >
-                      Wyślij
+                      {t('matches.send')}
                     </button>
                   </form>
                 </td>
@@ -248,7 +231,7 @@ function MatchBet ({
       </table>
     </>
   ) : (
-    <p>Oczekiwanie na nadchodzące rozgrywki...</p>
+    <p> {t('matches.await')}</p>
   )
 }
 

@@ -14,7 +14,7 @@ export const PredictionLogic = () => {
     const getCompetitions = async () => {
       try {
         const competitionsResponse = await fetch(
-          `http://130.162.44.103:5000/api/v1/competetition`,
+          `http://4.184.219.209:5000/api/v1/competetition`,
           {
             method: 'GET',
             credentials: 'include',
@@ -29,10 +29,10 @@ export const PredictionLogic = () => {
           const competitionsData = await competitionsResponse.json()
           setCompetitions(competitionsData)
         } else {
-          console.error('Błąd podczas pobierania danych')
+          console.error('Error')
         }
       } catch (error) {
-        console.error('Błąd podczas wysyłania żądania:', error)
+        console.error('Error', error)
       }
     }
 
@@ -59,10 +59,10 @@ export const PredictionLogic = () => {
           setMatchList(matchesData)
           setTotalMatches(matchesResponse.headers.get('X-Total-Count'))
         } else {
-          console.error('Błąd podczas pobierania danych')
+          console.error('Error')
         }
       } catch (error) {
-        console.error('Błąd podczas wysyłania żądania:', error)
+        console.error('Error:', error)
       }
     }
 

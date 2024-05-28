@@ -3,12 +3,13 @@ import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
 import '../panelleaderboard.css'
 import { useAuth } from '../../../../../auth/authcontext/AuthContext'
-
+import { useTranslation } from 'react-i18next'
 import { FaArrowDown } from 'react-icons/fa'
 import { FaArrowUp } from 'react-icons/fa'
 import { FaArrowDownUpAcrossLine } from 'react-icons/fa6'
 
 function TotalLeaders () {
+  const { t } = useTranslation()
   const [leadersData, setLeadersData] = useState([])
   const [page, setPage] = useState(1)
   const [totalLeaders, setTotalLeaders] = useState(null)
@@ -60,7 +61,8 @@ function TotalLeaders () {
             <BsArrowLeft />
           </button>
           <span className='schedule-btn-span'>
-            Przeglądaj listę {page} / {Math.ceil(totalLeaders / limit)}
+            {t('panelLeaders.browse')} {page} /{' '}
+            {Math.ceil(totalLeaders / limit)}
           </span>
           <button
             className='schedule-list-btn span-brand'
@@ -75,13 +77,13 @@ function TotalLeaders () {
         <table className='panel-leader-table'>
           <thead>
             <tr>
-              <th className='th-place'>Miejsce</th>
-              <th>Nick</th>
-              <th className='th-hide'>Avatar</th>
-              <th>Punkty</th>
-              <th>Bety</th>
-              <th>Winy</th>
-              <th className='th-hide'>Rating</th>
+              <th className='th-place'>{t('leaderboard.place')}</th>
+              <th>{t('leaderboard.nick')}</th>
+              <th className='th-hide'>{t('leaderboard.avatar')}</th>
+              <th>{t('leaderboard.points')}</th>
+              <th>{t('leaderboard.bets')}</th>
+              <th>{t('leaderboard.wins')}</th>
+              <th className='th-hide'>{t('leaderboard.rating')}</th>
             </tr>
           </thead>
           <tbody>
@@ -114,7 +116,7 @@ function TotalLeaders () {
                     className={`${
                       leader.ranking.place <= 3 ? 'top-avatar' : ''
                     }`}
-                    src={`http://130.162.44.103:5000/api/v1/avatar/${leader.avatar}`}
+                    src={`http://4.184.219.209:5000/api/v1/avatar/${leader.avatar}`}
                     alt=''
                   />
                 </td>
@@ -170,26 +172,26 @@ function TotalLeaders () {
                       className={` top-leader-box-item leader-box-img ${
                         leader.ranking.place <= 3 ? 'top-avatar' : ''
                       }`}
-                      src={`http://130.162.44.103:5000/api/v1/avatar/${leader.avatar}`}
+                      src={`http://4.184.219.209:5000/api/v1/avatar/${leader.avatar}`}
                       alt=''
                       width={40}
                     />
                   </div>
                   <div className='leader-stats'>
                     <p>
-                      Punkty
+                      {t('leaderboard.points')}
                       <br /> {leader.points}
                     </p>
                     <p>
-                      Bety <br />
+                      {t('leaderboard.bets')} <br />
                       {leader.rating.bets}
                     </p>
                     <p>
-                      Winy <br />
+                      {t('leaderboard.wins')} <br />
                       {leader.rating.wins}
                     </p>
                     <p>
-                      Rating <br />
+                      {t('leaderboard.rating')} <br />
                       {leader.rating.rating} %
                     </p>
                   </div>

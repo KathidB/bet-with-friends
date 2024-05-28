@@ -5,24 +5,24 @@ import validate from '../validation/ResetPassValidation'
 import { FaSpinner } from 'react-icons/fa'
 // odpowiedzialny za pobieranie tokenu z adresu URL!
 import { useParams, Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import './resetpass.css'
 
 function ResetPass () {
+  const { t } = useTranslation()
   const [formError, setFormError] = useState(null)
   const [successMessage, setSuccessMessage] = useState(null)
   const [loading, setLoading] = useState(false)
   const { token } = useParams()
 
   const handleSubmit = async (userData, { resetForm }) => {
-    console.log(userData.password)
-    console.log(token)
     try {
       setFormError(null)
       setSuccessMessage(null)
       setLoading(true)
 
-      const response = await fetch('http://130.162.44.103:5000/api/v1/reset', {
+      const response = await fetch('http://4.184.219.209:5000/api/v1/reset', {
         method: 'PATCH',
         credentials: 'include',
         headers: {
@@ -36,7 +36,6 @@ function ResetPass () {
       setLoading(false)
       if (response.ok) {
         setFormError(null)
-        console.log('POSZŁO!')
         resetForm({
           values: {
             password: '',
@@ -44,17 +43,17 @@ function ResetPass () {
           }
         })
         setFormError(null)
-        setSuccessMessage('Twoje hasło zostało zmienione')
+        setSuccessMessage(`${t('passreset.success')}`)
       } else {
         const errorData = await response.json()
         console.log(errorData)
 
         if (errorData.code === 'PR3') {
-          setFormError('Kod został zużyty lub się przedawnił')
+          setFormError(`${t('passreset.error')}`)
         }
       }
     } catch (error) {
-      setFormError('Coś się:', error)
+      setFormError('Server:', error)
     }
   }
 
@@ -62,7 +61,8 @@ function ResetPass () {
     <section className='app-wrap'>
       <div className='login'>
         <h2 className='section-title'>
-          Ustaw nowe <span className='span-brand'>hasło</span>
+          {t('resetpass.passA')}{' '}
+          <span className='span-brand'> {t('resetpass.passB')}</span>
         </h2>
 
         <img
@@ -84,7 +84,7 @@ function ResetPass () {
           >
             {({ touched, errors, dirty, isValid }) => (
               <Form className='form-signup newemail'>
-                <label htmlFor='password'>Nowe hasło</label>
+                <label htmlFor='password'>{t('passreset.newpass')}</label>
                 <Field
                   type='password'
                   id='password'
@@ -102,7 +102,9 @@ function ResetPass () {
                   className='signup-error-msg'
                 />
 
-                <label htmlFor='confirmedPassword'>Potwierdź nowe hasło</label>
+                <label htmlFor='confirmedPassword'>
+                  {t('passreset.confirmNP')}
+                </label>
                 <Field
                   type='password'
                   id='confirmedPassword'
@@ -128,7 +130,7 @@ function ResetPass () {
                   {loading ? (
                     <>
                       <FaSpinner className='spinner-icon' />
-                      Wysyłanie...
+                      {t('passreset.status')}
                     </>
                   ) : (
                     'Zmień hasło'
@@ -142,7 +144,7 @@ function ResetPass () {
                   <div className='signup-success-msg'>
                     {successMessage}{' '}
                     <Link to='/login' className='signup-login'>
-                      Zaloguj się
+                      {t('signup.acc2')}
                     </Link>
                   </div>
                 )}

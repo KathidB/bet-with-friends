@@ -17,14 +17,14 @@ import { createClient } from 'graphql-ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 
 const httpLink = new HttpLink({
-  uri: 'http://130.162.44.103:8081/graphql',
+  uri: 'http://4.184.219.209:8081/graphql',
   // uri: 'http://localhost:8081/graphql',
   credentials: 'include'
 })
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: 'ws://130.162.44.103:8081/graphql'
+    url: 'ws://4.184.219.209:8081/graphql'
     // url: 'ws://localhost:8081/graphql'
   })
 )

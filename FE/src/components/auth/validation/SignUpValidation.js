@@ -2,27 +2,27 @@ const validate = values => {
   const errors = {}
 
   if (!values.name) {
-    errors.name = 'Pole wymagane'
+    errors.name = 'Field required'
   } else if (values.name.length < 3 || values.name.length > 20) {
-    errors.name = 'Nick musi mieć od 3 do 20 znaków'
+    errors.name = 'Nick must have between 3 and 20 characters'
   } else if (!/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9]+$/.test(values.name)) {
-    errors.name = 'Nick może zawierać litery, cyfry i polskie znaki'
+    errors.name = 'Nick can contain letters, numbers, and Polish characters'
   }
 
   if (values.password.length < 8 || values.password.length > 50) {
-    errors.password = 'Hasło musi mieć co najmniej 8 znaków'
+    errors.password = 'The password must be at least 8 characters long'
   } else if (!/(?=.*[!@#$%^&*])/.test(values.password)) {
-    errors.password = `Hasło musi zawierać co najmniej jeden znak specjalny !@#$%^&*()`
+    errors.password = `The password must contain at least one special character !@#$%^&*().`
   }
 
   if (values.password !== values.confirmPassword) {
-    errors.confirmPassword = 'Hasła muszą być identyczne'
+    errors.confirmPassword = 'The passwords must be identical.'
   }
 
   if (!values.email) {
-    errors.email = 'Pole wymagane'
+    errors.email = 'Field required'
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Błędny adres e-mail'
+    errors.email = 'Wrong email adress'
   }
 
   return errors

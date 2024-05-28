@@ -4,10 +4,11 @@ import hamOpen from '../../../../../assets/images/hamburger/hamOpen.svg'
 import hamClose from '../../../../../assets/images/hamburger/hamClose.svg'
 import './nav.css'
 import { useAuth } from '../../../../auth/authcontext/AuthContext'
-
-// activeClassName='active'
+import { useTranslation } from 'react-i18next'
 
 function Nav () {
+  const { t, i18n } = useTranslation()
+
   const [open, setOpen] = useState(false)
   const { loggedIn } = useAuth()
   const navigate = useNavigate()
@@ -16,25 +17,32 @@ function Nav () {
     setOpen(!open)
   }
 
-  // Czy jesteś zalogowany? Jak tak to zapraszamy do panelu ponownie, jak nie to loguj sie.
   const handleLoginClick = () => {
     if (loggedIn) {
-      // Jeśli użytkownik jest zalogowany, przekieruj do panelu
       navigate('/panel')
-    } else {
-      // Jeśli użytkownik nie jest zalogowany, przekieruj do strony logowania
     }
-    // Zamknij menu hamburgera po kliknięciu na element nawigacji
     setOpen(false)
   }
 
-  // <div className='app-wrap'>
+  const changeLanguage = language => {
+    i18n.changeLanguage(language)
+  }
 
   return (
     <nav className='app-wrap nav-box'>
       <Link to='/' className='brand front-brand-logo'>
         Bet With <span className='span-brand'>Friends</span>
       </Link>
+
+      <select
+        aria-label='Language change'
+        className='lang-btn'
+        value={i18n.language}
+        onChange={e => changeLanguage(e.target.value)}
+      >
+        <option value='en'>EN</option>
+        <option value='pl'>PL</option>
+      </select>
 
       <ul
         className={`nav-front ${
@@ -44,32 +52,32 @@ function Nav () {
       >
         <li>
           <NavLink className='nav-menu-item' to='/'>
-            Home
+            {t('nav.home')}
           </NavLink>
         </li>
         <li>
           <NavLink className='nav-menu-item' to='/matches'>
-            Mecze
+            {t('nav.matches')}
           </NavLink>
         </li>
         <li>
           <NavLink className='nav-menu-item' to='/leaderboard'>
-            Leaderboard
+            {t('nav.leaderboard')}
           </NavLink>
         </li>
         <li>
           <NavLink className='nav-menu-item' to='/about'>
-            O nas
+            {t('nav.about')}
           </NavLink>
         </li>
         <li onClick={handleLoginClick}>
           <NavLink className='nav-menu-item nav-front-login-btn' to='/login'>
-            Zaloguj
+            {t('nav.login')}
           </NavLink>
         </li>
         <li>
           <NavLink to='/signup' className='nav-front-signup-btn '>
-            Dołącz
+            {t('nav.signup')}
           </NavLink>
         </li>
       </ul>

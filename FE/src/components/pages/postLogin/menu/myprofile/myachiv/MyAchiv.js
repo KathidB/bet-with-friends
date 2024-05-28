@@ -1,14 +1,16 @@
 import { FcGraduationCap } from 'react-icons/fc'
+import { useTranslation } from 'react-i18next'
 
 import './myachiv.css'
 
 function MyAchiv (userProfile) {
+  const { t } = useTranslation()
   const userAchiv = userProfile.props
 
   return (
     <>
       <div className='achiv-box'>
-        <p style={{ fontWeight: 'bold' }}>Twoje osiągnięcia</p>
+        <p style={{ fontWeight: 'bold' }}>{t('achiv.achiv')}</p>
 
         <div>
           <ul className='achiv-list'>

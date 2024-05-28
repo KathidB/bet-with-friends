@@ -7,14 +7,17 @@ import beLeaderSmall from './images/raccoon-leader-small.webp'
 import arrowOne from './images/arrow1.webp'
 import arrowTwo from './images/arrow2.webp'
 import './hit.css'
+import { useTranslation } from 'react-i18next'
 
 function Hit () {
+  const { t } = useTranslation()
+
   return (
     <section className='app-wrap'>
       <hr />
-
       <h2 className='section-title'>
-        <span className='span-brand'> Jak</span> To Działa?
+        <span className='span-brand'> {t('hit.title-top')}</span>{' '}
+        {t('hit.title-bot')}
       </h2>
 
       <div className='hit-box'>
@@ -22,15 +25,10 @@ function Hit () {
           <div className='hit-text'>
             <div>
               <h3 className='span-brand'>
-                <span className='hit-span-number'> 1 </span> Stwórz Konto
+                <span className='hit-span-number'> 1 </span> {t('hit.1')}
               </h3>
             </div>
-            <p>
-              Załóż konto, wybierz pseudonim oraz awatar i zgaduj wyniki meczów
-              najpopularniejszych lig piłkarskich. Zdobyte punkty będą widoczne
-              w tabeli wyników . Sprawdź, jak się radzisz w porównaniu z innymi
-              uczestnikami.
-            </p>
+            <p>{t('hit.1-info')}</p>
           </div>
 
           <img
@@ -47,15 +45,6 @@ function Hit () {
             src={createAccount}
             alt='Description'
           />
-
-          {/* <img
-            className='hit-image'
-            src={createAccount}
-            loading='lazy'
-            width={500}
-            height={500}
-            alt='Cartoon Raccon Creating an Account'
-          /> */}
         </div>
 
         <img className='arrow-one' src={arrowOne} alt='' />
@@ -79,14 +68,10 @@ function Hit () {
           <div className='hit-text'>
             <div>
               <h3 className='span-brand'>
-                <span className='hit-span-number'> 2 </span> Zbieraj Punkty
+                <span className='hit-span-number'> 2 </span> {t('hit.2')}
               </h3>
             </div>
-            <p>
-              Po zakończeniu rozgrywek nasz system automatycznie przydzieli
-              odpowiednią ilość punktów do Twojego profilu w zależności od
-              trafności Twoich przewidywań.
-            </p>
+            <p>{t('hit.2-info')}</p>
           </div>
 
           <img
@@ -112,15 +97,10 @@ function Hit () {
           <div className='hit-text'>
             <div>
               <h3 className='span-brand'>
-                <span className='hit-span-number'>3</span> Tabela wyników
+                <span className='hit-span-number'>3</span> {t('hit.3')}
               </h3>
             </div>
-            <p>
-              Tabela wyników będzie regularnie aktualizowana, prezentując
-              punktację innych użytkowników serwisu. Sprawdź, jak dobrze radzisz
-              sobie w porównaniu z innymi i zobacz, na której pozycji aktualnie
-              się znajdujesz.
-            </p>
+            <p>{t('hit.3-info')}</p>
           </div>
 
           <img

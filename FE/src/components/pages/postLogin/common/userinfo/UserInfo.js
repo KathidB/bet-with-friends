@@ -29,7 +29,7 @@ function UserInfo () {
         const data = await response.json()
         setUserProfile(data)
       } catch (error) {
-        console.error('Błąd podczas pobierania danych:', error)
+        console.error('Server error::', error)
       }
     }
 

@@ -3,6 +3,7 @@ import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
 import './panelleaderboard.css'
 import RaccoonLeader from './images/raccoon-leader.webp'
+import { useTranslation } from 'react-i18next'
 
 import { useAuth } from '../../../../auth/authcontext/AuthContext'
 
@@ -14,6 +15,7 @@ import { FcGlobe } from 'react-icons/fc'
 import TotalLeaders from './totalLeaders/TotalLeaders'
 
 function PanelLeaderboard () {
+  const { t } = useTranslation()
   const [leadersData, setLeadersData] = useState([])
   const [handleTableShow, setHandleTableShow] = useState(false)
   const [page, setPage] = useState(1)
@@ -66,7 +68,7 @@ function PanelLeaderboard () {
     const getCompetitions = async () => {
       try {
         const competitionsResponse = await fetch(
-          `http://130.162.44.103:5000/api/v1/competetition`,
+          `http://4.184.219.209:5000/api/v1/competetition`,
           {
             method: 'GET',
             credentials: 'include',
@@ -81,10 +83,10 @@ function PanelLeaderboard () {
           const competitionsData = await competitionsResponse.json()
           setButtonCompetitions(competitionsData)
         } else {
-          console.error('Błąd podczas pobierania danych')
+          console.error('Error durning data fetch')
         }
       } catch (error) {
-        console.error('Błąd podczas wysyłania żądania:', error)
+        console.error('Error:', error)
       }
     }
 
@@ -118,7 +120,7 @@ function PanelLeaderboard () {
           }`}
         >
           <FcGlobe className='fc-globe' />
-          <p>Ranking Globalny</p>
+          <p>{t('panelLB.global')}</p>
         </button>
 
         {buttonCompetitions.map(competition => (
@@ -154,7 +156,7 @@ function PanelLeaderboard () {
       </div>
 
       <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
-        Najlepsi typerzy Bet With <span className='span-brand'>Friends</span>
+        Bet With <span className='span-brand'>Friends</span> {t('panelLB.topP')}
       </p>
 
       <img
@@ -180,12 +182,11 @@ function PanelLeaderboard () {
           </button>
 
           {totalLeaders === '0' ? (
-            <span className='schedule-btn-span'>
-              Oczekiwanie na rozgrywki...
-            </span>
+            <span className='schedule-btn-span'>{t('panelLB.waiting')}</span>
           ) : (
             <span className='schedule-btn-span'>
-              Przeglądaj listę {page} / {Math.ceil(totalLeaders / limit)}
+              {t('panelLeaders.browse')} {page} /{' '}
+              {Math.ceil(totalLeaders / limit)}
             </span>
           )}
 
@@ -209,13 +210,13 @@ function PanelLeaderboard () {
         <table className='panel-leader-table'>
           <thead>
             <tr>
-              <th className='th-place'>Miejsce</th>
-              <th>Nick</th>
+              <th className='th-place'>{t('panelTopTyper.place')}</th>
+              <th>{t('panelTopTyper.nick')}</th>
               <th className='th-hide'>Avatar</th>
-              <th>Punkty</th>
-              <th>Bety</th>
-              <th>Winy</th>
-              <th className='th-hide'>Rating</th>
+              <th>{t('panelTopTyper.points')}</th>
+              <th>{t('panelTopTyper.bets')}</th>
+              <th>{t('panelTopTyper.wins')}</th>
+              <th className='th-hide'>{t('panelTopTyper.rating')}</th>
             </tr>
           </thead>
           <tbody>
@@ -242,7 +243,7 @@ function PanelLeaderboard () {
                 <td className='th-hide'>
                   <img
                     className={`${leader.place <= 3 ? 'top-avatar' : ''}`}
-                    src={`http://130.162.44.103:5000/api/v1/avatar/${leader.profile.avatar}`}
+                    src={`http://4.184.219.209:5000/api/v1/avatar/${leader.profile.avatar}`}
                     alt='user avatar'
                     loading='lazy'
                   />
@@ -304,7 +305,7 @@ function PanelLeaderboard () {
                       className={` top-leader-box-item leader-box-img ${
                         leader.place <= 3 ? 'top-avatar' : ''
                       }`}
-                      src={`http://130.162.44.103:5000/api/v1/avatar/${leader.profile.avatar}`}
+                      src={`http://4.184.219.209:5000/api/v1/avatar/${leader.profile.avatar}`}
                       alt=''
                       width={40}
                       loading='lazy'
@@ -312,19 +313,19 @@ function PanelLeaderboard () {
                   </div>
                   <div className='leader-stats'>
                     <p>
-                      Punkty
+                      {t('panelTopTyper.points')}
                       <br /> {leader.points}
                     </p>
                     <p>
-                      Bety <br />
+                      {t('panelTopTyper.bets')} <br />
                       {leader.bets}
                     </p>
                     <p>
-                      Winy <br />
+                      {t('panelTopTyper.wins')} <br />
                       {leader.wins}
                     </p>
                     <p>
-                      Rating <br />
+                      {t('panelTopTyper.rating')} <br />
                       {leader.rating} %
                     </p>
                   </div>

@@ -10,9 +10,12 @@ import { FcBusinessman } from 'react-icons/fc'
 import { FcBullish } from 'react-icons/fc'
 import { useAuth } from '../../../../auth/authcontext/AuthContext'
 
+import { useTranslation } from 'react-i18next'
+
 import DisplayMessages from '../../main/chat/chatdata/DisplayMessages'
 
 function PanelFooter () {
+  const { t } = useTranslation()
   const currentYear = new Date().getFullYear()
   const [isChatVisible, setIsChatVisible] = useState(false)
   const { darkMode } = useAuth()
@@ -63,7 +66,7 @@ function PanelFooter () {
             className='footer-panel-item'
             onClick={handleMenuClick}
           >
-            <FcBullish /> <br /> Tabela
+            <FcBullish /> <br /> {t('panelFooter.table')}
           </Link>
         </li>
         <li className='footer-panel-li'>
@@ -73,7 +76,7 @@ function PanelFooter () {
             className='footer-panel-item'
             onClick={handleMenuClick}
           >
-            <FcCalendar /> <br /> Terminarz
+            <FcCalendar /> <br /> {t('panelFooter.schedule')}
           </Link>
         </li>
         <li className='footer-panel-li'>
@@ -83,7 +86,7 @@ function PanelFooter () {
             className='footer-panel-item'
             onClick={handleMenuClick}
           >
-            <FcBusinessman /> <br /> Profil
+            <FcBusinessman /> <br /> {t('panelFooter.profile')}
           </Link>
         </li>
         <li className='footer-panel-li'>

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../../../auth/authcontext/AuthContext'
 import MatchesSchedule from './competitions/MatchesSchedule'
 import './schedule.css'
+import { useTranslation } from 'react-i18next'
 
 function Schedule () {
+  const { t } = useTranslation()
   const [matchList, setMatchList] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalMatches, setTotalMatches] = useState(null)
@@ -33,10 +35,10 @@ function Schedule () {
           // zamiana bo w euro nie ma jeszcze meczy a jest na 1 miejscu w tabeli wiec jest pusta domyślnie.
           // competitionsData.reverse()
         } else {
-          console.error('Błąd podczas pobierania danych')
+          console.error('Error')
         }
       } catch (error) {
-        console.error('Błąd podczas wysyłania żądania:', error)
+        console.error('Error:', error)
       }
     }
 
@@ -64,10 +66,10 @@ function Schedule () {
           setMatchList(matchesData)
           setTotalMatches(matchesResponse.headers.get('X-Total-Count'))
         } else {
-          console.error('Błąd podczas pobierania danych')
+          console.error('Error')
         }
       } catch (error) {
-        console.error('Błąd podczas wysyłania żądania:', error)
+        console.error('Error:', error)
       }
     }
 
@@ -96,7 +98,8 @@ function Schedule () {
     <section className='app-wrap'>
       <div className='schedule'>
         <h2 className='panel-header'>
-          Terminarz <span className='span-brand'>rozgrywek</span>
+          {t('matches.scheduleA')}{' '}
+          <span className='span-brand'> {t('matches.scheduleB')}</span>
         </h2>
 
         <div className='competition-buttons'>

@@ -3,9 +3,11 @@ import MatchBet from './betting/MatchBet'
 import { PredictionLogic } from './data/PredictionLogic'
 import TypingRacoon from './images/raccoon-header3.webp'
 import { useAuth } from '../../../../auth/authcontext/AuthContext'
+import { useTranslation } from 'react-i18next'
 
 import './prediction.css'
 function Prediction () {
+  const { t } = useTranslation()
   const { darkMode } = useAuth()
   const [isHowToModalVisible, setHowToModalVisibility] = useState(false)
 
@@ -57,7 +59,8 @@ function Prediction () {
           />
           <div className='pred-info-text'>
             <h2 className='section-title panel-header'>
-              Typowanie wyników <span className='span-brand'> meczów</span>
+              {t('type.headerA')}{' '}
+              <span className='span-brand'> {t('type.headerB')} </span>
             </h2>
             <img
               className='typing-raccoon-bot'
@@ -67,7 +70,7 @@ function Prediction () {
             />
 
             <button className='how-to-bet' onClick={handleHowTo}>
-              Jak typować wyniki?
+              {t('type.how')}
             </button>
 
             {/* MODAL */}
@@ -78,27 +81,21 @@ function Prediction () {
                     darkMode && 'darkmode-on'
                   }`}
                 >
-                  <h4>Instrukcja jak typować:</h4>
+                  <h4> {t('type.how')}:</h4>
                   <span className='close-modal'>X</span>
                   <ol>
                     <li>
-                      <p>
-                        Mecze można typować do 3 tygodni do przodu, aż do
-                        momentu rozpoczęcia gry.
-                      </p>
+                      <p>{t('type.info1')}</p>
                     </li>
 
                     <li>
-                      <p>
-                        Mecze typujesz tylko raz. Później nie ma możliwości
-                        edycji predykcji.
-                      </p>
+                      <p>{t('type.info2')}</p>
                     </li>
                     <li>
                       <p>
-                        Za trafiony poprawnie wynik otrzymasz 100 ptk.
+                        {t('type.info3')}
                         <br />
-                        Za wskazanie wynikiem zwycięzcy lub remisu 20pk.
+                        {t('type.info4')}
                       </p>
                     </li>
                   </ol>
@@ -107,16 +104,10 @@ function Prediction () {
             )}
 
             <p className='how-to-bet-p'>
-              Typuj wyniki meczów wybranych rozgrywek piłkarskich. Każdy mecz
-              obstawiasz osobno. <br /> Pamiętaj, masz tylko jedną możliwość
-              wysłania swojej predykcji, później nie ma możliwośći jej
-              edytowania. <br />
-              Mecze można typować do 3 tygodni do przodu. <br />
-              <b>
-                Poniższa lista lig przedstawia wyłącznie obecnie trwające
-                rozgrywki.{` `}
-              </b>
-              Powodzenia!
+              {t('type.desc1')} <br /> {t('type.desc2')} <br />
+              {t('type.desc3')} <br />
+              <b>{t('type.desc4')}</b>
+              {t('type.gl')}
             </p>
           </div>
         </div>

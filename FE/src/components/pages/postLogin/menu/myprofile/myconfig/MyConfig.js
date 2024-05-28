@@ -3,10 +3,12 @@ import { FaSpinner } from 'react-icons/fa'
 import { useUser } from '../../../context/UserContext'
 import PanelPassReset from '../../../../../auth/panelpassreset/PanelPassReset'
 import { ImArrowDown } from 'react-icons/im'
+import { useTranslation } from 'react-i18next'
 
 import './myconfig.css'
 
 function MyConfig () {
+  const { t } = useTranslation()
   const [changeAvatar, setChangeAvatar] = useState([])
   const [selectedAvatar, setSelectedAvatar] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -20,7 +22,7 @@ function MyConfig () {
       try {
         setLoading(true)
         const response = await fetch(
-          'http://130.162.44.103:5000/api/v1/avatar',
+          'http://4.184.219.209:5000/api/v1/avatar',
           {
             method: 'GET',
             credentials: 'include',
@@ -48,12 +50,12 @@ function MyConfig () {
 
   const handleAvatarChange = async () => {
     if (!selectedAvatar) {
-      console.error('Nie wybrano avatara')
+      console.error('Select new avatar')
       return
     }
 
     try {
-      const profileEndpoint = 'http://130.162.44.103:5000/api/v1/profile'
+      const profileEndpoint = 'http://4.184.219.209:5000/api/v1/profile'
       const requestBody = {
         avatar: selectedAvatar
       }
@@ -69,14 +71,14 @@ function MyConfig () {
 
       if (avatarResponse.ok) {
         setStatus(true)
-        console.log('Zmiana avatara udana')
+
         // Tutaj możesz dodać logikę, która aktualizuje UI w odpowiedzi na udaną zmianę avatara
         updateUserProfile()
       } else {
-        console.error('Błąd podczas zmiany avatara')
+        console.error('Error')
       }
     } catch (error) {
-      console.error('Błąd podczas wysyłania żądania:', error)
+      console.error('Error:', error)
     }
   }
 
@@ -90,7 +92,7 @@ function MyConfig () {
             className='config-btn avatar-btn'
             onClick={() => setNewAvatar(!newAvatar)}
           >
-            Wybierz nowy avatar <ImArrowDown />
+            {t('avatar.avatar')} <ImArrowDown />
           </button>
 
           {newAvatar && (
@@ -100,7 +102,7 @@ function MyConfig () {
                   <img
                     width={75}
                     key={avatar.avatar}
-                    src={`http://130.162.44.103:5000/api/v1/avatar/${avatar.avatar}`}
+                    src={`http://4.184.219.209:5000/api/v1/avatar/${avatar.avatar}`}
                     alt={`Avatar ${avatar.id}`}
                     className={`avatar-item ${
                       selectedAvatar === avatar.id ? 'selected' : ''
@@ -110,11 +112,11 @@ function MyConfig () {
                 ))}
               </div>
 
-              <p>Twój wybór:</p>
+              <p> {t('avatar.choice')}:</p>
               {selectedAvatar && (
                 <>
                   <img
-                    src={`http://130.162.44.103:5000/api/v1/avatar/${selectedAvatar}`}
+                    src={`http://4.184.219.209:5000/api/v1/avatar/${selectedAvatar}`}
                     alt='Selected Avatar'
                     className='selected-avatar'
                     width={130}
@@ -123,13 +125,13 @@ function MyConfig () {
                     {loading ? (
                       <>
                         <FaSpinner className='spinner-icon' />
-                        Przesyłanie...
+                        Sending...
                       </>
                     ) : (
-                      '  Zmień avatar'
+                      '  Change avatar'
                     )}
                   </button>
-                  {status ? <p>Avatar zmieniony</p> : null}
+                  {status ? <p>{t('avatar.changed')}</p> : null}
                 </>
               )}
             </>

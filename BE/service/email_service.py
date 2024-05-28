@@ -20,7 +20,7 @@ def send_activation_mail(reciver:str,code):
     em = EmailMessage()
     em['From'] = email
     em['To'] = reciver
-    em['Subject'] = 'Aktywuj swoje konto w portalu Bet With Friends'
+    em['Subject'] = 'Activate your Bet With Friends account'
     body = setUrl(body=body,code=code)
 
     em.add_alternative(body, subtype='html')
@@ -48,7 +48,7 @@ def send_reset_mail(reciver:str,code):
     em = EmailMessage()
     em['From'] = email
     em['To'] = reciver
-    em['Subject'] = 'Reset hasła'
+    em['Subject'] = 'Password reset'
     body = setUrlFront(body=body,code=code)
 
     em.add_alternative(body, subtype='html')

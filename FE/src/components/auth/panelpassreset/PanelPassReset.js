@@ -3,10 +3,12 @@ import validate from '../validation/ResetPassValidation'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import { FaSpinner } from 'react-icons/fa'
 import { useAuth } from '../authcontext/AuthContext'
+import { useTranslation } from 'react-i18next'
 
 import './panelpassreset.css'
 
 function PanelPassReset () {
+  const { t } = useTranslation()
   const { ipMan } = useAuth()
   const [loading, setLoading] = useState(false)
   const [formError, setFormError] = useState(null)
@@ -31,7 +33,6 @@ function PanelPassReset () {
       setLoading(false)
       if (response.ok) {
         setFormError(null)
-        console.log('POSZŁO!')
         resetForm({
           values: {
             password: '',
@@ -39,17 +40,17 @@ function PanelPassReset () {
           }
         })
         setFormError(null)
-        setSuccessMessage('Twoje hasło zostało zmienione')
+        setSuccessMessage(`${t('passreset.success')}`)
       } else {
         const errorData = await response.json()
         console.log(errorData)
 
         if (errorData.code === 'PR3') {
-          setFormError('Kod został zużyty lub się przedawnił')
+          setFormError(`${t('passreset.error')}`)
         }
       }
     } catch (error) {
-      setFormError('Błędna odpowiedź serwera:', error)
+      setFormError('Server:', error)
     }
   }
 
@@ -65,7 +66,7 @@ function PanelPassReset () {
       >
         {({ touched, errors, dirty, isValid }) => (
           <Form className='form-signup newemail'>
-            <label htmlFor='password'>Nowe hasło</label>
+            <label htmlFor='password'>{t('passreset.newpass')}</label>
             <Field
               type='password'
               id='password'
@@ -81,7 +82,9 @@ function PanelPassReset () {
               className='signup-error-msg'
             />
 
-            <label htmlFor='confirmedPassword'>Potwierdź nowe hasło</label>
+            <label htmlFor='confirmedPassword'>
+              {t('passreset.confirmNP')}
+            </label>
             <Field
               type='password'
               id='confirmedPassword'
@@ -107,10 +110,10 @@ function PanelPassReset () {
               {loading ? (
                 <>
                   <FaSpinner className='spinner-icon' />
-                  Wysyłanie...
+                  {t('passreset.status')}
                 </>
               ) : (
-                'Zmień hasło'
+                'Change password'
               )}
             </button>
 

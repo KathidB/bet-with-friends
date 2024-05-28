@@ -39,6 +39,20 @@
 
 
 
+.lang-btn{
+    position: absolute;
+    top: 80px;
+
+   
+ 
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.212);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
 /* //HAMBURGER MENU  */
 
 .hamburger-btn{

@@ -3,8 +3,10 @@ import footerLogo from './images/footer-logo.webp'
 import { ScrollToTop } from '../../../../utilities/ScrollToTop'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
 import './footer.css'
+import { useTranslation } from 'react-i18next'
 
 function Footer () {
+  const { t } = useTranslation()
   const currentYear = new Date().getFullYear()
 
   return (
@@ -19,20 +21,15 @@ function Footer () {
             >
               Bet With <span className='span-brand'>Friends</span>
             </Link>
-            <p>
-              Dołącz do społeczności typujących! Przewiduj wyniki meczów,
-              rywalizuj z innymi i zdobywaj punkty. [Bet With Friends
-              <MdOutlineAlternateEmail /> {currentYear}] Wszelkie prawa
-              zastrzeżone.
-            </p>
+            <p>{t('footer.desc')}</p>
           </div>
 
           <div className='footer-front-item '>
-            <p style={{ fontSize: '24px' }}>Nawigacja</p>
+            <p style={{ fontSize: '24px' }}> {t('footer.nav')}</p>
             <ul className='footer-front-nav'>
               <li>
                 <Link className='footer-menu-item' to='/' onClick={ScrollToTop}>
-                  Home
+                  {t('footer.home')}
                 </Link>
               </li>
               <li>
@@ -41,7 +38,7 @@ function Footer () {
                   to='/matches'
                   onClick={ScrollToTop}
                 >
-                  Mecze
+                  {t('footer.matches')}
                 </Link>
               </li>
               <li>
@@ -50,7 +47,7 @@ function Footer () {
                   to='/leaderboard'
                   onClick={ScrollToTop}
                 >
-                  Leaderboard
+                  {t('footer.leaderboard')}
                 </Link>
               </li>
               <li>
@@ -59,7 +56,7 @@ function Footer () {
                   to='/about'
                   onClick={ScrollToTop}
                 >
-                  O nas
+                  {t('footer.about')}
                 </Link>
               </li>
               <li>
@@ -68,7 +65,7 @@ function Footer () {
                   to='/login'
                   onClick={ScrollToTop}
                 >
-                  Zaloguj
+                  {t('footer.login')}
                 </Link>
               </li>
               <li>
@@ -77,7 +74,7 @@ function Footer () {
                   to='/signup'
                   onClick={ScrollToTop}
                 >
-                  Dołącz
+                  {t('footer.signup')}
                 </Link>
               </li>
             </ul>

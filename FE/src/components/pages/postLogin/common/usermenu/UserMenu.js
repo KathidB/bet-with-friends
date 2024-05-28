@@ -5,10 +5,13 @@ import { useState } from 'react'
 import { BiSolidMessageDetail } from 'react-icons/bi'
 import NewMessages from './newmessages/NewMessages'
 import './usermenu.css'
+import { useTranslation } from 'react-i18next'
 
 import GraphQLDataFetcher from './gglDataFetcher/GraphQLDataFetcher'
 
 function UserMenu () {
+  const { t, i18n } = useTranslation()
+
   const { data } = GraphQLDataFetcher()
   const { userProfile } = useUser()
   const [showUserMenu, setUserMenu] = useState(false)
@@ -29,6 +32,10 @@ function UserMenu () {
 
   const handleUserMenu = () => {
     setUserMenu(!showUserMenu)
+  }
+
+  const changeLanguage = language => {
+    i18n.changeLanguage(language)
   }
 
   return (
@@ -93,15 +100,37 @@ function UserMenu () {
             style={darkMode ? { color: 'white' } : { color: 'black' }}
             to='/panel/schedule'
           >
-            Terminarz
+            {t('panelFooter.schedule')}
           </Link>
         </li>
+
+        <li className='panel-item'>
+          <label>
+            <input
+              type='radio'
+              value='en'
+              checked={i18n.language === 'en'}
+              onChange={e => changeLanguage(e.target.value)}
+            />
+            ENG
+          </label>
+          <label>
+            <input
+              type='radio'
+              value='pl'
+              checked={i18n.language === 'pl'}
+              onChange={e => changeLanguage(e.target.value)}
+            />
+            PL
+          </label>
+        </li>
+
         <li className='panel-item'>
           <Link
             style={darkMode ? { color: 'white' } : { color: 'black' }}
             to='/panel/profile'
           >
-            Mój profil
+            {t('panelUM.MP')}
           </Link>
         </li>
 
@@ -117,7 +146,7 @@ function UserMenu () {
 
         <li className='panel-item'>
           <button className='panel-logout-btn' onClick={handleLogout}>
-            Wyloguj
+            {t('panelUM.logout')}
           </button>
         </li>
       </ul>

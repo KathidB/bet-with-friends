@@ -2,28 +2,23 @@ import { Link } from 'react-router-dom'
 import headerLogo from './images/raccoon-header2.webp'
 import headerLogoMobile from './images/raccoon-header2-mobile.webp'
 import './header.css'
+import { useTranslation } from 'react-i18next'
 
 function Header () {
+  const { t } = useTranslation()
+
   return (
     <header className='app-wrap'>
       <div className='header-front'>
         <div className='header-front-text'>
           <h1 className='header-h1'>
-            Obstawiaj wyniki rozgrywek
-            <span className='span-brand'>
-              {' '}
-              najpopularniejszych lig piłkarskich{' '}
-            </span>
-            i rywalizuj ze znajomymi!
+            {t('header.top')}
+            <span className='span-brand'> {t('header.mid')}</span>
+            {t('header.bot')}
           </h1>
-          <p>
-            Przewiduj wyniki meczów oraz inne wydarzenia związane z grą,
-            zdobywaj punkty za trafne typy. Po zakończonych rozgrywkach
-            sprawdzaj swoją punktację i zobacz, jakie miejsce zajmujesz w tabeli
-            zwycięzców.
-          </p>
+          <p>{t('header.info')}</p>
           <Link to='/signup' className='header-front-btn'>
-            Dołącz Teraz
+            {t('header.cta')}
           </Link>
         </div>
 

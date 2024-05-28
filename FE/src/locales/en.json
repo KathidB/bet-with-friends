@@ -1,0 +1,208 @@
+{
+  "nav": {
+    "home": "Home",
+    "matches": "Matches",
+    "leaderboard": "Leaderboard",
+    "about": "About",
+    "login": "Login",
+    "signup": "Sign up"
+  },
+  "footer": {
+    "nav": " Navigation",
+    "home": "Home",
+    "matches": "Matches",
+    "leaderboard": "Leaderboard",
+    "about": "About",
+    "login": "Login",
+    "signup": "Sign up",
+    "desc": "Join the prediction community! Predict match outcomes, compete with others, and earn points. [Bet With Friends 2024] All rights reserved."
+  },
+  "header": {
+    "top": "Bet on the results of the", 
+    "mid": "most popular football leagues ",
+    "bot": " and compete with friends!",
+    "info": "Predict match outcomes and other game-related events, earn points for accurate predictions. After the matches, check your score and see where you stand on the winners' leaderboard.",
+    "cta": "Join now"
+  },
+  "hit": {
+    "title-top": "How",
+    "title-bot": "is works?",
+    "1": "Create an account",
+    "1-info": "Create an account, choose a username and avatar, and guess the results of matches from the most popular football leagues. Your earned points will be visible in the leaderboard. Check how well you're doing compared to other participants.",
+    "2": "Gather points",
+    "2-info": "After the matches are concluded, our system will automatically allocate the appropriate number of points to your profile based on the accuracy of your predictions.",
+    "3": "Leaderboard",
+    "3-info": "The leaderboard will be regularly updated, displaying the scores of other users of the service. Check how well you're doing compared to others and see which position you currently hold."
+  },
+  "matches": {
+    "headerA": "Match",
+    "headerB": "Schedule",
+    "info": "The table presents upcoming matches of the most popular leagues. To participate in the thrilling world of betting with your friends, check when the key matches take place and immerse yourself in the atmosphere of competition.",
+    "host": "Host",
+    "guest": "Guest",
+    "result": "Result",
+    "date": "Date",
+    "bet" : "Bet",
+    "send" : "Send",
+    "await" : "Waiting for upcoming matches...",
+    "scheduleA" : "Schedule of",
+    "scheduleB" : "matches"
+  },
+  "leaderboard": {
+    "headerA": "Leader",
+    "headerB": "board",
+    "info": "In the Top 5 Football Tipsters section, we present the most effective players in our community. The table contains key statistics such as points scored, accuracy, number of wins, and overall rating. It's a perfect opportunity to test your skills in predicting outcomes and compete with other football fans. Join today and experience the thrill of competition!",
+    "place": "Place",
+    "nick": "Nickname",
+    "avatar": "Avatar",
+    "points": "Points",
+    "bets": "Bets",
+    "wins": "Wins",
+    "rating": "Rating"
+  },
+  "aboutus": {
+    "headerA": "About",
+    "headerB": "us",
+    "info1a": "Hello in the fascinating world of Bet With Friends",
+    "info1b": "a modern app for predicting match results from the most popular football leagues! Enjoy your passion for football in a completely new way by earning points for accurate predictions and competing with friends and other enthusiasts of this beautiful sport!",
+    "info2a": "Unrivaled Match Schedule",
+    "info2b": "Bet With Friends offers a comprehensive schedule featuring upcoming matches from various football leagues around the world. Whether it's the Champions League, Premier League, La Liga, or Serie A, our app will provide you with access to the latest information on upcoming football events.",
+    "info3a": "Intuitive Betting System",
+    "info3b": "Immerse yourself in the exciting world of result prediction using the easy and intuitive interface of Bet With Friends. Betting has never been easier! Choose your predictions for selected matches, test your football instincts, and earn points for each correct outcome.",
+    "info4a": "Earn Points and Climb to the Top",
+    "info4b": "Your betting talent will be recognized through the scoring system in Bet With Friends. The more accurate your predictions, the more points you earn. Compete with other players, climb to the top of the rankings, and earn titles as the best tipster.",
+    "info5a": "Join the Community of Enthusiasts",
+    "info5b": "Discover the Bet With Friends community and start an unforgettable journey through football emotions right now!"
+  },
+  "login": {
+    "headerA": "Log",
+    "headerB": "In",
+    "info": "Log in and join the fun!",
+    "email": "Email",
+    "password": "Password",
+    "cta": "Login",
+    "passrec": "Forgot your password?",
+    "noacc1": "Don't have an account?",
+    "noacc2": "Sign up here"
+  },
+  "loginvalidation": {
+    "pass1": "The password must be at least 8 characters long and contain one special character (!@#$%^&*)",
+    "pass2": "The password must contain at least one special character (!@#$%^&*)",
+    "email1": "Field required",
+    "email2": "Wrong email adress"
+  },
+  "signup": {
+    "headerA": "Sign",
+    "headerB": "up",
+    "info": "Create an account and join the community!",
+    "email": "Email",
+    "nick": "Username",
+    "password1": "Password",
+    "password2": "Confirm password",
+    "cta": "Create account",
+    "acc1": "Already have an account?",
+    "acc2": "Log in",
+    "success": "Registration successful, activate your account via email."
+  },
+  "signupvalidation" : {
+    "error1" : "Email adress already taken",
+    "error2" : "Username is already taken",
+    "error3" : "There was an error during registration."
+  },
+  "passreset" : {
+    "success": "Your password has been changed",
+    "error" : "The code has been used or has expired",
+    "newpass" : "New password",
+    "confirmNP" : "Confirm new password",
+    "status" : "Sending..."
+  },
+  "newpass" : {
+    "success" : "The password reset instruction has been sent to the provided email.",
+    "passA" : "Forgot",
+    "passB" : "password",
+    "noemail" : "No email found in the system"
+  },
+  "resetpass" : {
+    "success" : "Your password has been changed.",
+    "error" : "The code has been used or has expired.",
+    "passA" : "Change",
+    "passB" : "password"
+  },
+  "panelFooter" : {
+    "table" : "Table",
+    "schedule" : "Schedule",
+    "profile" : "Profile"
+  },
+  "panelNav" : {
+    "typing" : "Predict"  
+  },
+  "panelUM" : {
+    "MP" : "My profile",
+    "logout" : "Logout"
+  },
+  "panelAD" : {
+    "adA" : "Your",
+    "adB" : "Ad"
+  },
+  "chat" : {
+    "chatbtn" : "Send"
+  },
+  "panelTopTyper" : {
+    "headerA" : "Top",
+    "headerB" : "Typer",
+    "your" : "Your",
+    "place" : "Place",
+    "nick": "Nickname",
+    "profile" : "Profile",
+    "points" : "Points",
+    "bets" : "Bets",
+    "wins" : "Wins",
+    "rating" : "Rating",
+    "stats" : "Global statistics",
+    "statsL" : "Statistics by league"
+  },
+  "panelLeaders" : {
+    "browse" : "Browse"    
+  },
+  "panelLB" : {
+    "global" : "Global ranking",
+    "topP" : "Top Predictors",
+    "waiting" : "Waiting for the matches..."
+  },
+  "achiv": {
+    "achiv" : "Achievements"
+  },
+  "avatar" : {
+    "avatar" : "Select a new avatar",
+    "choice" : "Your choice",
+    "changed" : "Avatar changed"
+  },
+  "history" : {
+    "history" : "No betting history..",
+    "bet" : "Your bet",
+    "result" : "Result"
+  },
+  "panelProfile" : {
+    "hi" : "Hi",
+    "stats" : "Statistics",
+    "achiv" : "Achievements",
+    "history" : "History",
+    "settings" : "Settings"
+  },
+  "type" : {
+    "headerA" : "Predicting match",
+    "headerB" : "results",
+    "how" : "How to predict match results?",
+    "info1" : "You can predict matches up to 3 weeks in advance, until the start of the game.",
+    "info2" : "You predict matches only once. There is no possibility to edit predictions later." ,
+    "info3" : "For correctly predicting the exact result, you will receive 100 points. ",
+    "info4" : "For predicting the winner or a draw, you will receive 20 points.",
+    "desc1" : "Predict the results of selected football matches. You bet on each match separately.",
+    "desc2" : "Remember, you only have one opportunity to submit your prediction, and there is no possibility to edit it later.",
+    "desc3" :  "You can predict matches up to 3 weeks in advance.",
+    "desc4" : 
+    "The following list of leagues includes only currently ongoing competitions.",
+    "gl": "Good luck"
+  }
+} 
+

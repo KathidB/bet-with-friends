@@ -1,16 +1,19 @@
 import { useUser } from '../../context/UserContext'
 import { useAuth } from '../../../../auth/authcontext/AuthContext'
+import { useTranslation } from 'react-i18next'
 
 import './yourprofile.css'
 
 function YourProfile () {
   const { userProfile } = useUser()
   const { darkMode } = useAuth()
+  const { t } = useTranslation()
 
   return Object.keys(userProfile).length > 0 ? (
     <div className={`panel-side-box ${darkMode && 'darkmode-on'}`}>
       <h2 className='panel-header'>
-        Twój <span className='span-brand'>Profil</span>
+        {t('panelTopTyper.your')}{' '}
+        <span className='span-brand'>{t('panelTopTyper.profile')}</span>
       </h2>
       <div className='your-profile'>
         <img
@@ -23,9 +26,15 @@ function YourProfile () {
           width={110}
         />
         <p className='your-name'>{userProfile.name}</p>
-        <p>Punkty: {userProfile.points}</p>
-        <p>Trafienia: {userProfile.rating.wins}</p>
-        <p>Rating: {userProfile.rating.rating}%</p>
+        <p>
+          {t('panelTopTyper.points')}: {userProfile.points}
+        </p>
+        <p>
+          {t('panelTopTyper.wins')}: {userProfile.rating.wins}
+        </p>
+        <p>
+          {t('panelTopTyper.rating')}: {userProfile.rating.rating}%
+        </p>
       </div>
     </div>
   ) : (

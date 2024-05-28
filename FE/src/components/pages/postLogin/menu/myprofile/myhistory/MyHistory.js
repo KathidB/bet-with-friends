@@ -3,10 +3,12 @@ import { useAuth } from '../../../../../auth/authcontext/AuthContext'
 
 import { BsArrowRight } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
+import { useTranslation } from 'react-i18next'
 
 import './myhistory.css'
 
 function MyHistory () {
+  const { t } = useTranslation()
   const { ipMan, darkMode } = useAuth()
   const [historyBets, setHistoryBets] = useState([])
   const [historyPage, setHistoryPage] = useState(1)
@@ -23,7 +25,7 @@ function MyHistory () {
     const getCompetitions = async () => {
       try {
         const competitionsResponse = await fetch(
-          `http://130.162.44.103:5000/api/v1/competetition`,
+          `http://4.184.219.209:5000/api/v1/competetition`,
           {
             method: 'GET',
             credentials: 'include',
@@ -69,10 +71,10 @@ function MyHistory () {
           setTotalHistory(response.headers.get('X-Total-Count'))
         } else {
           const errorText = await response.text()
-          console.error('Błąd pobierania danych:', errorText)
+          console.error('Error:', errorText)
         }
       } catch (error) {
-        console.error('Błąd pobierania danych:', error)
+        console.error('Error:', error)
       }
     }
 
@@ -149,7 +151,7 @@ function MyHistory () {
               <BsArrowLeft />
             </button>
             <span className='schedule-btn-span'>
-              Przeglądaj listę {`${historyPage} / ${whatPageIsIT}`}
+              {t('panelLeaders.browse')} {`${historyPage} / ${whatPageIsIT}`}
             </span>
             <button
               className='schedule-list-btn span-brand'
@@ -164,7 +166,7 @@ function MyHistory () {
             </button>
           </div>
         ) : (
-          <p>Brak historii typowania...</p>
+          <p>{t('history.history')}</p>
         )}
 
         <div className='history-list'>
@@ -209,7 +211,7 @@ function MyHistory () {
                     />
 
                     <p>
-                      Typowałeś: {bets.home_team}-{bets.away_team}
+                      {t('history.bet')}: {bets.home_team}-{bets.away_team}
                     </p>
                   </div>
                   <li
@@ -247,11 +249,12 @@ function MyHistory () {
                     <p>
                       {bets.match.score?.full_time ? (
                         <span className='history-span-result'>
-                          Wynik: <br /> {bets.match.score?.full_time}
+                          {t('history.result')}: <br />{' '}
+                          {bets.match.score?.full_time}
                         </span>
                       ) : (
                         <span className='history-span-result'>
-                          Wynik <br /> TBD
+                          {t('history.result')} <br /> TBD
                         </span>
                       )}
                     </p>

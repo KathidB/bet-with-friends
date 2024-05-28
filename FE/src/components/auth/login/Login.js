@@ -5,12 +5,12 @@ import validate from '../validation/LogInValidations'
 import RaccoonLogin from './images/raccoon-login3.webp'
 import { ScrollToTop } from '../../utilities/ScrollToTop'
 import { FaSpinner } from 'react-icons/fa'
-
 import { useAuth } from '../authcontext/AuthContext'
-
 import './login.css'
+import { useTranslation } from 'react-i18next'
 
 function Login () {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { login, ipMan } = useAuth()
   const [loginError, setLoginError] = useState(null)
@@ -55,13 +55,13 @@ function Login () {
         const errorData = await response.json()
 
         if (errorData.code === 'L1') {
-          throw new Error(`Błędne hasło lub nazwa użytkownika.`)
+          throw new Error(`Wrong password or username.`)
         } else {
-          throw new Error(`Przed logowaniem aktywuj swoje konto.`)
+          throw new Error(`Activate your account first.`)
         }
       }
     } catch (error) {
-      setLoginError(error.message || 'Wystąpił błąd podczas logowania.')
+      setLoginError(error.message || 'Error.')
     }
   }
 
@@ -69,7 +69,8 @@ function Login () {
     <section className='app-wrap'>
       <div className='login'>
         <h2 className='section-title'>
-          Log <span className='span-brand'>in</span>
+          {t('login.headerA')}{' '}
+          <span className='span-brand'> {t('login.headerB')}</span>
         </h2>
 
         <link rel='preload' as='image' href={RaccoonLogin} />
@@ -91,8 +92,8 @@ function Login () {
         >
           {formik => (
             <Form className='form-login'>
-              <p className='form-parag'>Zaloguj się i dołącz do zabawy!</p>
-              <label htmlFor='email'>Email</label>
+              <p className='form-parag'> {t('login.info')} </p>
+              <label htmlFor='email'>{t('login.email')}</label>
               <Field
                 type='email'
                 id='email'
@@ -111,7 +112,7 @@ function Login () {
                 className='login-error-msg'
               />
 
-              <label htmlFor='password'>Hasło</label>
+              <label htmlFor='password'>{t('login.password')}</label>
               <Field
                 type='password'
                 id='password'
@@ -133,10 +134,10 @@ function Login () {
                 {loading ? (
                   <>
                     <FaSpinner className='spinner-icon' />
-                    Logowanie...
+                    {t('login.cta')}...
                   </>
                 ) : (
-                  'Zaloguj'
+                  `${t('login.cta')}`
                 )}
               </button>
 
@@ -149,7 +150,7 @@ function Login () {
                   className='signup-login'
                   onClick={ScrollToTop}
                 >
-                  Przypomnij hasło
+                  {t('login.passrec')}
                 </Link>
               </div>
             </Form>
@@ -158,9 +159,9 @@ function Login () {
 
         <div className='form-to-signup'>
           <div>
-            <span>Nie masz konta?</span>
+            <span> {t('login.noacc1')}</span>
             <Link to='/signup' className='signup-login' onClick={ScrollToTop}>
-              Zarejestruj się
+              {t('login.noacc2')}
             </Link>
           </div>
         </div>
