@@ -11,7 +11,7 @@ host = config.get_config_by_key('database.host')
 port = config.get_config_by_key('database.port')
 database_name = config.get_config_by_key('database.name')
 
-engine = create_engine(f'postgresql://{username}:{password}@{host}:{port}/{database_name}',echo=False)
+engine = create_engine(f'postgresql://{username}:{password}@{host}:{port}/{database_name}',echo=False,pool_pre_ping=True)
 Base = declarative_base()
 _SessionFactory = sessionmaker(bind=engine)
 
