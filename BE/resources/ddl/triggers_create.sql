@@ -26,7 +26,7 @@ BEGIN
               '. Sprawdź swoje konto aby sprawdzić jego znaczenie",' ||
               '"profileId": ' || profile_id_value || '}';
 
-            PERFORM send_post_request('http://4.184.219.209:8081/api/v1/system_info',json_value);
+            PERFORM send_post_request('http://74.234.50.115:8081/api/v1/system_info',json_value);
         END IF;
     END LOOP;
     RETURN NULL;
@@ -62,7 +62,7 @@ BEGIN
               '. Sprawdź swoje konto aby sprawdzić jego znaczenie",' ||
               '"profileId": ' || new.profile_id || '}';
 
-            PERFORM send_post_request('http://4.184.219.209:8081/api/v1/system_info',json_value);
+            PERFORM send_post_request('http://74.234.50.115:8081/api/v1/system_info',json_value);
         END IF;
     END LOOP;
     RETURN NULL;

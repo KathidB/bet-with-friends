@@ -1,72 +1,72 @@
-import { useState, useEffect } from 'react'
-import { BsArrowRight } from 'react-icons/bs'
-import { BsArrowLeft } from 'react-icons/bs'
-import '../panelleaderboard.css'
-import { useAuth } from '../../../../../auth/authcontext/AuthContext'
-import { useTranslation } from 'react-i18next'
-import { FaArrowDown } from 'react-icons/fa'
-import { FaArrowUp } from 'react-icons/fa'
-import { FaArrowDownUpAcrossLine } from 'react-icons/fa6'
+import { useState, useEffect } from "react";
+import { BsArrowRight } from "react-icons/bs";
+import { BsArrowLeft } from "react-icons/bs";
+import "../panelleaderboard.css";
+import { useAuth } from "../../../../../auth/authcontext/AuthContext";
+import { useTranslation } from "react-i18next";
+import { FaArrowDown } from "react-icons/fa";
+import { FaArrowUp } from "react-icons/fa";
+import { FaArrowDownUpAcrossLine } from "react-icons/fa6";
 
-function TotalLeaders () {
-  const { t } = useTranslation()
-  const [leadersData, setLeadersData] = useState([])
-  const [page, setPage] = useState(1)
-  const [totalLeaders, setTotalLeaders] = useState(null)
-  const [limit] = useState(6)
-  const { ipMan } = useAuth()
+function TotalLeaders() {
+  const { t } = useTranslation();
+  const [leadersData, setLeadersData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalLeaders, setTotalLeaders] = useState(null);
+  const [limit] = useState(6);
+  const { ipMan } = useAuth();
 
   // MAIN API FOR TOTAL LEADERBOARD!
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `http://${ipMan}:5000/api/v1/ranking?page=${page}&limit=${limit}`
+        const url = `http://${ipMan}:5000/api/v1/ranking?page=${page}&limit=${limit}`;
 
         const response = await fetch(url, {
-          method: 'GET',
-          credentials: 'include',
+          method: "GET",
+          credentials: "include",
           headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-            'X-Total-Count': 'true'
-          }
-        })
+            Accept: "application/json",
+            "Content-type": "application/json",
+            "X-Total-Count": "true",
+          },
+        });
 
         if (response.ok) {
-          const jsonData = await response.json()
-          setLeadersData(jsonData)
-          setTotalLeaders(response.headers.get('X-Total-Count'))
+          const jsonData = await response.json();
+          setLeadersData(jsonData);
+          setTotalLeaders(response.headers.get("X-Total-Count"));
         } else {
-          const errorText = await response.text()
-          console.error('Error fetching data:', errorText)
+          const errorText = await response.text();
+          console.error("Error fetching data:", errorText);
         }
       } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error("Error fetching data:", error);
       }
-    }
+    };
 
-    fetchData()
-  }, [page, limit, ipMan])
+    fetchData();
+  }, [page, limit, ipMan]);
 
   return (
     leadersData &&
     leadersData.length > 0 && (
-      <section className='app-wrap'>
-        <p className='schedule-btns'>
+      <section className="app-wrap">
+        <p className="schedule-btns">
           <button
-            className='schedule-list-btn span-brand'
+            className="schedule-list-btn span-brand"
             disabled={page === 1 ? true : false}
-            onClick={() => setPage(prevValue => prevValue - 1)}
+            onClick={() => setPage((prevValue) => prevValue - 1)}
           >
             <BsArrowLeft />
           </button>
-          <span className='schedule-btn-span'>
-            {t('panelLeaders.browse')} {page} /{' '}
+          <span className="schedule-btn-span">
+            {t("panelLeaders.browse")} {page} /{" "}
             {Math.ceil(totalLeaders / limit)}
           </span>
           <button
-            className='schedule-list-btn span-brand'
-            onClick={() => setPage(prevValue => prevValue + 1)}
+            className="schedule-list-btn span-brand"
+            onClick={() => setPage((prevValue) => prevValue + 1)}
             // total matches np. 16 przez 10 daje 1.6 i Ceil robi 2.
             disabled={page === Math.ceil(totalLeaders / limit)}
           >
@@ -74,56 +74,56 @@ function TotalLeaders () {
           </button>
         </p>
 
-        <table className='panel-leader-table'>
+        <table className="panel-leader-table">
           <thead>
             <tr>
-              <th className='th-place'>{t('leaderboard.place')}</th>
-              <th>{t('leaderboard.nick')}</th>
-              <th className='th-hide'>{t('leaderboard.avatar')}</th>
-              <th>{t('leaderboard.points')}</th>
-              <th>{t('leaderboard.bets')}</th>
-              <th>{t('leaderboard.wins')}</th>
-              <th className='th-hide'>{t('leaderboard.rating')}</th>
+              <th className="th-place">{t("leaderboard.place")}</th>
+              <th>{t("leaderboard.nick")}</th>
+              <th className="th-hide">{t("leaderboard.avatar")}</th>
+              <th>{t("leaderboard.points")}</th>
+              <th>{t("leaderboard.bets")}</th>
+              <th>{t("leaderboard.wins")}</th>
+              <th className="th-hide">{t("leaderboard.rating")}</th>
             </tr>
           </thead>
           <tbody>
-            {leadersData.map(leader => (
+            {leadersData.map((leader) => (
               <tr
                 key={leader.public_id}
                 className={`top-panel-player ${
-                  leader.ranking.place <= 3 ? 'top-players' : ''
+                  leader.ranking.place <= 3 ? "top-players" : ""
                 }`}
               >
                 <td className={`th-place`}>
                   {leader.ranking.place}
                   {` `}
 
-                  <span style={{ color: 'green' }}>
+                  <span style={{ color: "green" }}>
                     {leader.ranking.tendency === 2 && <FaArrowUp />}
                   </span>
-                  <span style={{ color: 'red' }}>
+                  <span style={{ color: "red" }}>
                     {leader.ranking.tendency === 1 && <FaArrowDown />}
                   </span>
-                  <span style={{ color: 'gray' }}>
+                  <span style={{ color: "gray" }}>
                     {leader.ranking.tendency === 0 && (
                       <FaArrowDownUpAcrossLine />
                     )}
                   </span>
                 </td>
-                <td className='leader-name'>{leader.name}</td>
-                <td className='th-hide'>
+                <td className="leader-name">{leader.name}</td>
+                <td className="th-hide">
                   <img
                     className={`${
-                      leader.ranking.place <= 3 ? 'top-avatar' : ''
+                      leader.ranking.place <= 3 ? "top-avatar" : ""
                     }`}
-                    src={`http://4.184.219.209:5000/api/v1/avatar/${leader.avatar}`}
-                    alt=''
+                    src={`http://74.234.50.115:5000/api/v1/avatar/${leader.avatar}`}
+                    alt=""
                   />
                 </td>
                 <td>{leader.points}</td>
                 <td>{leader.rating.bets}</td>
                 <td>{leader.rating.wins}</td>
-                <td className='th-hide'>{leader.rating.rating} %</td>
+                <td className="th-hide">{leader.rating.rating} %</td>
               </tr>
             ))}
           </tbody>
@@ -131,67 +131,67 @@ function TotalLeaders () {
 
         {/* /// MOBILE */}
 
-        <table className='panel-leader-mobile'>
+        <table className="panel-leader-mobile">
           <thead>
             <tr></tr>
           </thead>
           <tbody>
-            {leadersData.map(leader => (
+            {leadersData.map((leader) => (
               <tr
                 key={leader.public_id}
                 className={`top-panel-player ${
-                  leader.ranking.place <= 3 ? 'top-players' : ''
+                  leader.ranking.place <= 3 ? "top-players" : ""
                 }`}
               >
-                <td className='leader-stats-box'>
-                  <div className='top-leader-box'>
-                    <span className='leader-place top-leader-box-item'>
+                <td className="leader-stats-box">
+                  <div className="top-leader-box">
+                    <span className="leader-place top-leader-box-item">
                       {leader.ranking.place}
                     </span>
 
                     {leader.ranking.tendency === 2 && (
-                      <span style={{ color: 'green' }}>
+                      <span style={{ color: "green" }}>
                         <FaArrowUp />
                       </span>
                     )}
 
                     {leader.ranking.tendency === 1 && (
-                      <span style={{ color: 'red' }}>
+                      <span style={{ color: "red" }}>
                         <FaArrowDown />
                       </span>
                     )}
 
                     {leader.ranking.tendency === 0 && (
-                      <span style={{ color: 'gray' }}>
+                      <span style={{ color: "gray" }}>
                         <FaArrowDownUpAcrossLine />
                       </span>
                     )}
 
-                    <p className='top-leader-box-item'> {leader.name} </p>
+                    <p className="top-leader-box-item"> {leader.name} </p>
                     <img
                       className={` top-leader-box-item leader-box-img ${
-                        leader.ranking.place <= 3 ? 'top-avatar' : ''
+                        leader.ranking.place <= 3 ? "top-avatar" : ""
                       }`}
-                      src={`http://4.184.219.209:5000/api/v1/avatar/${leader.avatar}`}
-                      alt=''
+                      src={`http://74.234.50.115:5000/api/v1/avatar/${leader.avatar}`}
+                      alt=""
                       width={40}
                     />
                   </div>
-                  <div className='leader-stats'>
+                  <div className="leader-stats">
                     <p>
-                      {t('leaderboard.points')}
+                      {t("leaderboard.points")}
                       <br /> {leader.points}
                     </p>
                     <p>
-                      {t('leaderboard.bets')} <br />
+                      {t("leaderboard.bets")} <br />
                       {leader.rating.bets}
                     </p>
                     <p>
-                      {t('leaderboard.wins')} <br />
+                      {t("leaderboard.wins")} <br />
                       {leader.rating.wins}
                     </p>
                     <p>
-                      {t('leaderboard.rating')} <br />
+                      {t("leaderboard.rating")} <br />
                       {leader.rating.rating} %
                     </p>
                   </div>
@@ -202,6 +202,6 @@ function TotalLeaders () {
         </table>
       </section>
     )
-  )
+  );
 }
-export default TotalLeaders
+export default TotalLeaders;

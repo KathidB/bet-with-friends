@@ -1,13 +1,13 @@
 {
   "smtp": {
-    "password": "rtgb wsez xjjj enah",
-    "email": "betwithfriends.noreply@gmail.com"
+    "password": "kmsw fapm hzly uebu",
+    "email": "betwithfriends.2024@gmail.com"
   },
   "external": {
-    "url": "http://4.184.219.209:5000",
-    "url-systeminfo": "http://4.184.219.209:8081/api/v1/system_info",
-    "frontend_login": "http://4.184.219.209/login",
-    "frontend_reset": "http://4.184.219.209/resetpass"
+    "url": "http://74.234.50.115:5000",
+    "url-systeminfo": "http://74.234.50.115:8081/api/v1/system_info",
+    "frontend_login": "http://74.234.50.115/login",
+    "frontend_reset": "http://74.234.50.115/resetpass"
   },
   "SECRET_KEY": "8Zz5tw0Ionm3XPZZfN0NOml3z9FMfmpgXwovR9fp6ryDIoGRM8EPHAB6iHsc0fb",
   "jwt": {
@@ -21,7 +21,7 @@
     "password": "postgres",
     "name": "postgres",
     "port": "5432",
-    "host": "4.184.219.209"
+    "host": "74.234.50.115"
   },
   "jobs": {
     "updateProfile": 300,

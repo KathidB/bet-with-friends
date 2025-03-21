@@ -1,67 +1,67 @@
-import { useNavigate } from 'react-router-dom'
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
-const ipMan = '4.184.219.209'
+const ipMan = "74.234.50.115";
 // const ipMan = 'localhost'
 
 export const AuthProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(() => {
-    const savedDarkMode = localStorage.getItem('darkMode')
-    return savedDarkMode ? JSON.parse(savedDarkMode) : false
-  })
-  const navigate = useNavigate()
+    const savedDarkMode = localStorage.getItem("darkMode");
+    return savedDarkMode ? JSON.parse(savedDarkMode) : false;
+  });
+  const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(() => {
-    const storedLoggedIn = localStorage.getItem('loggedIn')
-    return storedLoggedIn ? JSON.parse(storedLoggedIn) : false
-  })
+    const storedLoggedIn = localStorage.getItem("loggedIn");
+    return storedLoggedIn ? JSON.parse(storedLoggedIn) : false;
+  });
 
   useEffect(() => {
-    const storedLoggedIn = localStorage.getItem('loggedIn')
+    const storedLoggedIn = localStorage.getItem("loggedIn");
     if (storedLoggedIn) {
-      setLoggedIn(JSON.parse(storedLoggedIn))
+      setLoggedIn(JSON.parse(storedLoggedIn));
     }
-  }, [])
+  }, []);
 
   const login = () => {
-    setLoggedIn(true)
-    localStorage.setItem('loggedIn', JSON.stringify(true))
-  }
+    setLoggedIn(true);
+    localStorage.setItem("loggedIn", JSON.stringify(true));
+  };
 
   const logout = async () => {
-    const url = `http://${ipMan}:5000/api/v1/logout`
+    const url = `http://${ipMan}:5000/api/v1/logout`;
 
     try {
       const response = await fetch(url, {
-        method: 'GET',
-        credentials: 'include',
+        method: "GET",
+        credentials: "include",
         headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.ok) {
-        setLoggedIn(false)
-        localStorage.removeItem('loggedIn')
-        navigate('/login')
+        setLoggedIn(false);
+        localStorage.removeItem("loggedIn");
+        navigate("/login");
       } else {
-        console.error('Logout failed')
+        console.error("Logout failed");
       }
     } catch (error) {
-      console.error('Error during logout:', error)
+      console.error("Error during logout:", error);
     }
-  }
+  };
 
   // OBSŁUGA DARKMODE
 
   const handleDarkMode = () => {
-    setDarkMode(!darkMode)
-  }
+    setDarkMode(!darkMode);
+  };
 
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode))
-  }, [darkMode])
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
 
   return (
     <AuthContext.Provider
@@ -69,9 +69,9 @@ export const AuthProvider = ({ children }) => {
     >
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 export const useAuth = () => {
-  return useContext(AuthContext)
-}
+  return useContext(AuthContext);
+};

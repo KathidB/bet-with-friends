@@ -1,39 +1,39 @@
-import { useState, useEffect } from 'react'
-import YourProfile from '../yourprofile/YourProfile'
-import TopTyper from '../toptyper/TopTyper'
+import { useState, useEffect } from "react";
+import YourProfile from "../yourprofile/YourProfile";
+import TopTyper from "../toptyper/TopTyper";
 
-function TopParent () {
-  const [leadersData, setLeadersData] = useState([])
+function TopParent() {
+  const [leadersData, setLeadersData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          'http://4.184.219.209:5000/api/v1/ranking',
+          "http://74.234.50.115:5000/api/v1/ranking",
           {
-            method: 'GET',
+            method: "GET",
             headers: {
-              'Content-Type': 'application/json'
-            }
+              "Content-Type": "application/json",
+            },
           }
-        )
+        );
 
-        const jsonData = await response.json()
-        setLeadersData(jsonData)
+        const jsonData = await response.json();
+        setLeadersData(jsonData);
       } catch (error) {
-        console.error('Błąd pobierania danych:', error)
+        console.error("Błąd pobierania danych:", error);
       }
-    }
+    };
 
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   return (
     <>
       <YourProfile />
       <TopTyper leadersData={leadersData} />
     </>
-  )
+  );
 }
 
-export default TopParent
+export default TopParent;
